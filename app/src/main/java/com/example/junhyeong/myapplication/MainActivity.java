@@ -128,6 +128,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         }
     }
 
+
+    // 종료 할건지 물어보는 다이얼로그 생성
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
