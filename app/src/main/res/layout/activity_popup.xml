@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id = "@+id/local1"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="강서구" />
+
+                <Button
+                    android:id = "@+id/local2"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="강남구" />
+
+                <Button
+                    android:id = "@+id/local3"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="강동구" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id = "@+id/local4"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="강북구" />
+
+                <Button
+                    android:id = "@+id/local5"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="관악구" />
+
+                <Button
+                    android:id = "@+id/local6"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="광진구" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id = "@+id/local7"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="구로구" />
+
+                <Button
+                    android:id = "@+id/local8"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="금천구" />
+
+                <Button
+                    android:id = "@+id/local9"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="노원구" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id = "@+id/local10"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="도봉구" />
+
+                <Button
+                    android:id = "@+id/local11"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="동대문구" />
+
+                <Button
+                    android:id = "@+id/local12"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="동작구" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id = "@+id/local13"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="마포구" />
+
+                <Button
+                    android:id = "@+id/local14"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="서대문구" />
+
+                <Button
+                    android:id = "@+id/local15"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="서초구" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id = "@+id/local16"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="성동구" />
+
+                <Button
+                    android:id = "@+id/local17"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="성북구" />
+
+                <Button
+                    android:id = "@+id/local18"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="송파구" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id = "@+id/local19"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="양천구" />
+
+                <Button
+                    android:id = "@+id/local20"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="영등포구" />
+
+                <Button
+                    android:id = "@+id/local21"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="용산구" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id = "@+id/local22"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="은평구" />
+
+                <Button
+                    android:id = "@+id/local23"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="종로구" />
+
+                <Button
+                    android:id = "@+id/local24"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="중구" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id = "@+id/local25"
+                    android:onClick = "onClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="중랑구" />
+            </LinearLayout>
+        </LinearLayout>
+</RelativeLayout>
