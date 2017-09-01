@@ -1,10 +1,14 @@
-package com.example.junhyeong.myapplication;
+package com.example.junhyeong.myapplication.Login;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.junhyeong.myapplication.Main.Select_LocationActivity;
+import com.example.junhyeong.myapplication.R;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -25,11 +29,15 @@ public class LoginActivity extends Activity {
 
     private SessionCallback callback;      //콜백 선언 for kakao
     CallbackManager callbackManager;       //콜백 선언 for facebook
-
+    Button unlogin;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        intent = new Intent(this,Select_LocationActivity.class);
+        unlogin = (Button)findViewById(R.id.unlogin);
+        unlogin.setOnClickListener(new AccessListener());
 
         callback = new SessionCallback();                // 이 두개의 함수 중요함 for kakao
         Session.getCurrentSession().addCallback(callback);
@@ -66,9 +74,16 @@ public class LoginActivity extends Activity {
             }
         });
 
+
     }
+    class AccessListener implements Button.OnClickListener{
+        @Override
+        public void onClick(View v) {
 
+            startActivity(intent);
 
+        }
+    }
 
 
     // kakao
@@ -121,7 +136,7 @@ public class LoginActivity extends Activity {
     }
 
     protected void redirectMainActivity() {
-        final Intent intent = new Intent(this, MainActivity.class);
+       final Intent intent = new Intent(this, Select_LocationActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
         finish();

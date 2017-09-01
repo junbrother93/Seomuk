@@ -1,4 +1,4 @@
-package com.example.junhyeong.myapplication;
+package com.example.junhyeong.myapplication.Login;
 
 /**
  * Created by wnsgu on 2017-08-04.
@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.example.junhyeong.myapplication.Main.MainActivity;
 import com.kakao.auth.ErrorCode;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;

@@ -1,4 +1,4 @@
-package com.example.junhyeong.myapplication;
+package com.example.junhyeong.myapplication.Adapter;
 
 /**
  * Created by wnsgu on 2017-08-04.
@@ -6,6 +6,7 @@ package com.example.junhyeong.myapplication;
 
 import android.content.Context;
 
+import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.kakao.auth.ApprovalType;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.IApplicationConfig;

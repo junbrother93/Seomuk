@@ -3,7 +3,7 @@
     package="com.example.junhyeong.myapplication">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:name=".GlobalApplication"
+        android:name=".GlobalApplication.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".Splash.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -20,10 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".KakaoSignupActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".PopupActivity_Local"
+        <activity android:name=".Login.LoginActivity" />
+        <activity android:name=".Login.KakaoSignupActivity" />
+        <activity android:name=".Main.Select_LocationActivity"/>
+        <activity android:name=".Main.MainActivity" />
+        <activity android:name=".Popup.PopupActivity_Local"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
 
         <meta-data

@@ -1,12 +1,14 @@
-package com.example.junhyeong.myapplication;
+package com.example.junhyeong.myapplication.Popup;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+
+import com.example.junhyeong.myapplication.Main.MainActivity;
+import com.example.junhyeong.myapplication.R;
 
 
 /**

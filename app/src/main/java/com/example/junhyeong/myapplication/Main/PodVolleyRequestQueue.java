@@ -1,4 +1,4 @@
-package com.example.junhyeong.myapplication;
+package com.example.junhyeong.myapplication.Main;
 
 import android.content.Context;
 
