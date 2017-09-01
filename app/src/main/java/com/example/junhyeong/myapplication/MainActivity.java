@@ -1,9 +1,11 @@
 package com.example.junhyeong.myapplication;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,45 +26,40 @@ import java.util.ArrayList;
 public class MainActivity extends Activity implements Response.Listener<JSONObject>,
         Response.ErrorListener {
     public static final String REQUEST_TAG = "MainActivity";
-    public static String url = "13.124.127.124:3000/food/loc/";
-    public static String local ="";
-    public static Activity AActivity;
-    private Button mButton;
     private final int DYNAMIC_VIEW_ID = 10000;
-    private LinearLayout dynamicLayout;
     private RequestQueue mQueue;
+    private Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.v("main : ", "main : " + url);
-        AActivity = MainActivity.this;
 
-        mButton = (Button)findViewById(R.id.mButton);
-        //dynamicLayout = (LinearLayout)findViewById(R.id.dynamicArea);
         mQueue = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
-
         final Intent ActLocal = new Intent(this, PopupActivity_Local.class);
 
-
-
-        Intent intent = getIntent();
-        url = intent.getStringExtra(url);
-        local = intent.getStringExtra("local");
-
-        Log.v("local : ", "local : " + local);
-
-
+        mButton = (Button)findViewById(R.id.mButton);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(ActLocal, 0);
-                Log.v("url : ", "url : " + url);
             }
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        // PopupActivity 에서 보낸 url, local 값을 받음
+        String url = data.getStringExtra("url");
+        String local = data.getStringExtra("local");
+
+        //
+        mButton.setText(local);
+        final PodJsonRequest jsonRequest = new PodJsonRequest(Request.Method.GET, url, new JSONObject(), MainActivity.this, MainActivity.this);
+        jsonRequest.setTag(REQUEST_TAG);
+        mQueue.add(jsonRequest);
+        onBackPressed();
+    }
 
     @Override
     public void onErrorResponse(VolleyError error) {
@@ -82,13 +79,15 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         ArrayList<Double> ArrCTF_Y = new ArrayList<Double>();
         ArrayList<String> ArrCTF_ADDR = new ArrayList<String>();
         ArrayList<String> ArrCTF_TEL = new ArrayList<String>();
+
+        // 리스트뷰랑 어댑터..
         ListView listview = (ListView)findViewById(R.id.listview1);
         ListViewAdapter adapter;
         adapter = new ListViewAdapter();
         listview.setAdapter(adapter);
 
+        // 스크롤 뷰 안에 있는 리스트 뷰 스크롤 되게설정
         final ScrollView scrollview = (ScrollView)findViewById(R.id.scrollview);
-
         listview.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -116,8 +115,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             ArrCTF_ADDR.add(ArrData.get(i).optString("CTF_ADDR", "No Value"));
             ArrCTF_TEL.add(ArrData.get(i).optString("CTF_TEL", "No Value"));
 
-
-
+            // 아이템 추가
             adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), "", ArrCTF_NAME.get(i));
 
             /* 동적으로 텍스트 뷰 추가
@@ -131,12 +129,21 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        String url = data.getStringExtra("url");
-        String local = data.getStringExtra("local");
-        mButton.setText(local);
-        final PodJsonRequest jsonRequest = new PodJsonRequest(Request.Method.GET, url, new JSONObject(), MainActivity.this, MainActivity.this);
-        jsonRequest.setTag(REQUEST_TAG);
-        mQueue.add(jsonRequest);
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("끌거야?")
+                .setMessage("좀 더 봐줭")
+                .setPositiveButton("시러", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+
+                })
+                .setNegativeButton("그랭", null)
+                .show();
     }
+
 }

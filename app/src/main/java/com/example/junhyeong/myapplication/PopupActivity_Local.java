@@ -8,14 +8,12 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
-import static com.example.junhyeong.myapplication.MainActivity.url;
 
 /**
  * Created by Junhyeong on 2017-08-22.
  */
 
 public class PopupActivity_Local extends Activity {
-    MainActivity aActivity = (MainActivity)MainActivity.AActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -26,7 +24,8 @@ public class PopupActivity_Local extends Activity {
 
     public void onClick(View view) {
         Button localId = (Button) findViewById(R.id.local1);
-        String local;
+        String local, url;
+        final Intent ActMain = new Intent(this, MainActivity.class);
         switch (view.getId())
         {
             case R.id.local1:
@@ -105,23 +104,14 @@ public class PopupActivity_Local extends Activity {
                 localId = (Button) findViewById(R.id.local25);
                 break;
         }
-        final Intent ActMain = new Intent(this, MainActivity.class);
         local = localId.getText().toString();
-
         url = "http://13.124.127.124:3000/food/loc/" + local;
 
+        // url , local 값 MainActivity로 전송
         ActMain.putExtra("url", url);
         ActMain.putExtra("local", local);
-
-        Log.v("local: ", "local : " + local);
-        Log.v("url : ", "url : " + url);
-
-        //aActivity.finish();
-        //overridePendingTransition(0, 0);
-
-        //startActivity(ActMain);
-        //overridePendingTransition(0, 0);
         setResult(RESULT_OK, ActMain);
+
         finish();
         overridePendingTransition(0, 0);
     }
