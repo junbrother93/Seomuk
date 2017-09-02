@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Login.KakaoSignupActivity" />
+        <activity android:name=".Main.Select_MenuActivity"/>
         <activity android:name=".Main.Select_LocationActivity"/>
         <activity android:name=".Main.MainActivity" />
         <activity android:name=".Popup.PopupActivity_Local"

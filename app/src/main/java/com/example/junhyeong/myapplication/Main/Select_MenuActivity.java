@@ -12,13 +12,13 @@ import com.example.junhyeong.myapplication.R;
  * Created by yeonjin on 2017-09-02.
  */
 
-public class Select_LocationActivity extends Activity {
+public class Select_MenuActivity extends Activity {
 ImageView iv;
     Intent intent;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location);
+        setContentView(R.layout.activity_menu);
         intent = new Intent(this,MainActivity.class);
         iv = (ImageView)findViewById(R.id.iv10);
         iv.setOnClickListener(new MyListener());

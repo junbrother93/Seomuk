@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.junhyeong.myapplication.Main.Select_LocationActivity;
+import com.example.junhyeong.myapplication.Main.Select_MenuActivity;
 import com.example.junhyeong.myapplication.R;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -35,7 +35,7 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        intent = new Intent(this,Select_LocationActivity.class);
+        intent = new Intent(this,Select_MenuActivity.class);
         unlogin = (Button)findViewById(R.id.unlogin);
         unlogin.setOnClickListener(new AccessListener());
 
@@ -136,7 +136,7 @@ public class LoginActivity extends Activity {
     }
 
     protected void redirectMainActivity() {
-       final Intent intent = new Intent(this, Select_LocationActivity.class);
+       final Intent intent = new Intent(this, Select_MenuActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
         finish();
