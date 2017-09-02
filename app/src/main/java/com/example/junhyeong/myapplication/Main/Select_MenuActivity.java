@@ -19,7 +19,7 @@ ImageView iv;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        intent = new Intent(this,MainActivity.class);
+        intent = new Intent(this,SafeFoodActivity.class);
         iv = (ImageView)findViewById(R.id.iv10);
         iv.setOnClickListener(new MyListener());
 
