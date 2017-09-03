@@ -1,11 +1,9 @@
 package com.example.junhyeong.myapplication.Main;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -17,12 +15,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.junhyeong.myapplication.Adapter.ListViewAdapter;
+import com.example.junhyeong.myapplication.Data.Store;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Local;
 import com.example.junhyeong.myapplication.R;
 
 import org.json.JSONObject;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class MainActivity extends Activity implements Response.Listener<JSONObject>,
         Response.ErrorListener {
@@ -59,7 +60,6 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         final PodJsonRequest jsonRequest = new PodJsonRequest(Request.Method.GET, url, new JSONObject(), MainActivity.this, MainActivity.this);
         jsonRequest.setTag(REQUEST_TAG);
         mQueue.add(jsonRequest);
-        onBackPressed();
     }
 
     @Override
@@ -70,6 +70,9 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     @Override
     public void onResponse(JSONObject response) {
         int total = response.optInt("total", 0);    // 총 갯수
+
+        Store[] testArr = new Store[total];
+
         // 리스트 생성
         ArrayList<JSONObject> ArrData = new ArrayList<JSONObject>();
         ArrayList<Integer> ArrCTF_CODE = new ArrayList<Integer>();
@@ -106,6 +109,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
              JSONArray랑 jSONObject 차이
              http://ddo-o.tistory.com/95
              */
+
+
             ArrData.add(response.optJSONArray("data").optJSONObject(i));
             ArrCTF_CODE.add(ArrData.get(i).optInt("CTF_CODE", 0));
             ArrCTF_TYPE.add(ArrData.get(i).optInt("CTF_TYPE", 0));
@@ -116,8 +121,24 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             ArrCTF_ADDR.add(ArrData.get(i).optString("CTF_ADDR", "No Value"));
             ArrCTF_TEL.add(ArrData.get(i).optString("CTF_TEL", "No Value"));
 
+
             // 아이템 추가
-            adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), "", ArrCTF_NAME.get(i));
+            //adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), "", ArrCTF_NAME.get(i));
+
+            Store s = new Store();
+            s.setArrData(response.optJSONArray("data").optJSONObject(i));
+            s.setCTF_CODE(ArrData.get(i).optInt("CTF_CODE", 0));
+            s.setCTF_TYPE(ArrData.get(i).optInt("CTF_TYPE", 0));
+            s.setCTF_TYPE_NAME(ArrData.get(i).optString("CTF_TYPE_NAME", "No Value"));
+            s.setCTF_NAME(ArrData.get(i).optString("CTF_NAME", "No Value"));
+            s.setCTF_X(ArrData.get(i).optDouble("CTF_X", 0.0));
+            s.setCTF_Y(ArrData.get(i).optDouble("CTF_Y", 0.0));
+            s.setCTF_ADDR(ArrData.get(i).optString("CTF_ADDR", "No Value"));
+            s.setCTF_TEL(ArrData.get(i).optString("CTF_TEL", "No Value"));
+            testArr[i] = s;
+
+            adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), "", s.getCTF_NAME());
+            //Collections.sort(, myComparator);
 
             /* 동적으로 텍스트 뷰 추가
             TextView dynamicTextView = new TextView(this);
@@ -125,28 +146,14 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             dynamicTextView.setText(dynamicTextView.getId() + " " + ArrCTF_NAME.get(i));
             dynamicLayout.addView(dynamicTextView, new android.support.v7.app.ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT));
             */
-
         }
+
     }
-
-
-    // 종료 할건지 물어보는 다이얼로그 생성
-    @Override
-    public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("끌거야?")
-                .setMessage("좀 더 봐줭")
-                .setPositiveButton("시러", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-
-                })
-                .setNegativeButton("그랭", null)
-                .show();
-    }
-
+    private final static Comparator<Store> myComparator= new Comparator<Store>() {
+        private final Collator collator = Collator.getInstance();
+        @Override
+        public int compare(Store object1, Store object2) {
+            return collator.compare(object1.getCTF_NAME(), object2.getCTF_NAME());
+        }
+    };
 }

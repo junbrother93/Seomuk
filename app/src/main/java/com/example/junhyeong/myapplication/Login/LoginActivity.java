@@ -76,30 +76,26 @@ public class LoginActivity extends Activity {
 
 
     }
+
+    // 비회원 로그인
     class AccessListener implements Button.OnClickListener{
         @Override
         public void onClick(View v) {
 
             startActivity(intent);
-
+            finish();
         }
     }
 
 
     // kakao
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
             return;
         }   // kakao
-
-
         super.onActivityResult(requestCode, resultCode, data);  // kakao, facebook 같이 사용
-
-
         callbackManager.onActivityResult(requestCode, resultCode, data);    // facebook
     }
 
