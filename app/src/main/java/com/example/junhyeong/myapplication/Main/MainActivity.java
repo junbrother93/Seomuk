@@ -23,7 +23,9 @@ import org.json.JSONObject;
 
 import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class MainActivity extends Activity implements Response.Listener<JSONObject>,
         Response.ErrorListener {
@@ -31,7 +33,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     private final int DYNAMIC_VIEW_ID = 10000;
     private RequestQueue mQueue;
     private Button mButton;
-
+    private ArrayList<Store> arrayList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +73,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     public void onResponse(JSONObject response) {
         int total = response.optInt("total", 0);    // 총 갯수
 
-        Store[] testArr = new Store[total];
+        arrayList = new ArrayList<Store>();
 
         // 리스트 생성
         ArrayList<JSONObject> ArrData = new ArrayList<JSONObject>();
@@ -102,8 +104,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
 
         for(int i = 0; i <= total-1; i++) // index 값이라서 총 갯수에서 1을 빼줌
         {
-            /*
-            getInt 대신 optInt 쓴 이유
+             /*
+             getInt 대신 optInt 쓴 이유
              http://developeryou.blogspot.kr/2015/09/getjsonobject-null.html
 
              JSONArray랑 jSONObject 차이
@@ -111,7 +113,10 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
              */
 
 
+
+            // 아이템 불러와..
             ArrData.add(response.optJSONArray("data").optJSONObject(i));
+            /*
             ArrCTF_CODE.add(ArrData.get(i).optInt("CTF_CODE", 0));
             ArrCTF_TYPE.add(ArrData.get(i).optInt("CTF_TYPE", 0));
             ArrCTF_TYPE_NAME.add(ArrData.get(i).optString("CTF_TYPE_NAME", "No Value"));
@@ -120,11 +125,12 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             ArrCTF_Y.add(ArrData.get(i).optDouble("CTF_Y", 0.0));
             ArrCTF_ADDR.add(ArrData.get(i).optString("CTF_ADDR", "No Value"));
             ArrCTF_TEL.add(ArrData.get(i).optString("CTF_TEL", "No Value"));
-
+            */
 
             // 아이템 추가
             //adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), "", ArrCTF_NAME.get(i));
 
+            // 객체 추가
             Store s = new Store();
             s.setArrData(response.optJSONArray("data").optJSONObject(i));
             s.setCTF_CODE(ArrData.get(i).optInt("CTF_CODE", 0));
@@ -135,25 +141,15 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             s.setCTF_Y(ArrData.get(i).optDouble("CTF_Y", 0.0));
             s.setCTF_ADDR(ArrData.get(i).optString("CTF_ADDR", "No Value"));
             s.setCTF_TEL(ArrData.get(i).optString("CTF_TEL", "No Value"));
-            testArr[i] = s;
-
-            adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), "", s.getCTF_NAME());
-            //Collections.sort(, myComparator);
-
-            /* 동적으로 텍스트 뷰 추가
-            TextView dynamicTextView = new TextView(this);
-            dynamicTextView.setId(DYNAMIC_VIEW_ID + i);
-            dynamicTextView.setText(dynamicTextView.getId() + " " + ArrCTF_NAME.get(i));
-            dynamicLayout.addView(dynamicTextView, new android.support.v7.app.ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT));
-            */
+            arrayList.add(s);
         }
+        // 정렬
+        Collections.sort(arrayList);
 
+        // 정렬 한 것 어댑터에 추가
+        for(int i = 0; i <= total-1; i++) // index 값이라서 총 갯수에서 1을 빼줌
+        {
+            adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), "", arrayList.get(i).getCTF_NAME());
+        }
     }
-    private final static Comparator<Store> myComparator= new Comparator<Store>() {
-        private final Collator collator = Collator.getInstance();
-        @Override
-        public int compare(Store object1, Store object2) {
-            return collator.compare(object1.getCTF_NAME(), object2.getCTF_NAME());
-        }
-    };
 }

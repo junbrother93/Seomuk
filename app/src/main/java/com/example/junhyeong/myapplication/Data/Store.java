@@ -6,7 +6,7 @@ import org.json.JSONObject;
  * Created by Junhyeong on 2017-09-03.
  */
 
-public class Store {
+public class Store implements Comparable<Store> {
     JSONObject ArrData;
     int CTF_CODE, CTF_TYPE;
     String CTF_TYPE_NAME, CTF_NAME, CTF_ADDR, CTF_TEL;
@@ -27,59 +27,45 @@ public class Store {
     public void setArrData(JSONObject Data) {
         ArrData = Data;
     }
-
     public void setCTF_CODE(int CODE) {
         CTF_CODE = CODE;
     }
-
     public void setCTF_TYPE(int TYPE) {
         CTF_TYPE = TYPE;
     }
-
     public void setCTF_TYPE_NAME(String TYPE_NAME) {
         CTF_TYPE_NAME = TYPE_NAME;
     }
-
     public void setCTF_NAME(String NAME) {
         CTF_NAME = NAME;
     }
-
     public void setCTF_X(double X) {
         CTF_X = X;
     }
-
     public void setCTF_Y(double Y) {
         CTF_Y = Y;
     }
-
     public void setCTF_ADDR(String ADDR) {
         CTF_ADDR = ADDR;
     }
-
     public void setCTF_TEL(String TEL) {
         CTF_TEL = TEL;
     }
-
     public Store getData1() {
         return this;
     }
-
     public JSONObject getArrData() {
         return ArrData;
     }
-
     public int getCTF_CODE() {
         return CTF_CODE;
     }
-
     public int getCTF_TYPE() {
         return CTF_TYPE;
     }
-
     public String getCTF_TYPE_NAME() {
         return CTF_TYPE_NAME;
     }
-
     public String getCTF_NAME()
     {
         return CTF_NAME;
@@ -99,5 +85,25 @@ public class Store {
     public String getCTF_TEL()
     {
         return CTF_TEL;
+    }
+
+    public int compareTo(Store store)
+    {
+        // 이름으로 정렬
+        return this.CTF_NAME.compareTo(store.CTF_NAME);
+        /*
+        if(this.CTF_CODE < store.CTF_CODE)
+        {
+            return 1;
+        }
+        else if(this.CTF_CODE == store.CTF_CODE)
+        {
+            return 0;
+        }
+        else
+        {
+            return -1;
+        }
+        */
     }
 }
