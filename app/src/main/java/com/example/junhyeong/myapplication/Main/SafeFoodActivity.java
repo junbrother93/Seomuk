@@ -16,7 +16,7 @@ import com.example.junhyeong.myapplication.R;
 
 public class SafeFoodActivity extends Activity{
     int num;
-    Button btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn10,btn11,btn12;
+    Button btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn10,btn11,btn12,btn13;
     ListView list;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +35,12 @@ public class SafeFoodActivity extends Activity{
         btn10 = (Button)findViewById(R.id.ㅊ);
         btn11 = (Button)findViewById(R.id.ㅍ);
         btn12 = (Button)findViewById(R.id.ㅎ);
+        btn13 = (Button)findViewById(R.id.AtoZ);
         ListViewAdapter adapter;
         adapter = new ListViewAdapter();
         list.setAdapter(adapter);
         adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), "","아무개");
+
 
         btn1.setOnClickListener(new SafeFoodListener());
         btn2.setOnClickListener(new SafeFoodListener());
@@ -52,6 +54,7 @@ public class SafeFoodActivity extends Activity{
         btn10.setOnClickListener(new SafeFoodListener());
         btn11.setOnClickListener(new SafeFoodListener());
         btn12.setOnClickListener(new SafeFoodListener());
+        btn13.setOnClickListener(new SafeFoodListener());
 
 
     }
@@ -73,6 +76,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.GONE);
                         btn11.setVisibility(View.GONE);
                         btn12.setVisibility(View.GONE);
+                        btn13.setVisibility(View.GONE);
                         list.setVisibility(View.VISIBLE);
                         num++;
                     } else {
@@ -87,6 +91,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.VISIBLE);
                         btn11.setVisibility(View.VISIBLE);
                         btn12.setVisibility(View.VISIBLE);
+                        btn13.setVisibility(View.VISIBLE);
                         list.setVisibility(View.GONE);
                         num = 0;
                     }
@@ -104,6 +109,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.GONE);
                         btn11.setVisibility(View.GONE);
                         btn12.setVisibility(View.GONE);
+                        btn13.setVisibility(View.GONE);
                         list.setVisibility(View.VISIBLE);
                         num++;
                     } else {
@@ -118,6 +124,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.VISIBLE);
                         btn11.setVisibility(View.VISIBLE);
                         btn12.setVisibility(View.VISIBLE);
+                        btn13.setVisibility(View.VISIBLE);
                         list.setVisibility(View.GONE);
                         num = 0;
                     }
@@ -135,6 +142,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.GONE);
                         btn11.setVisibility(View.GONE);
                         btn12.setVisibility(View.GONE);
+                        btn13.setVisibility(View.GONE);
                         list.setVisibility(View.VISIBLE);
                         num++;
                     } else {
@@ -149,6 +157,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.VISIBLE);
                         btn11.setVisibility(View.VISIBLE);
                         btn12.setVisibility(View.VISIBLE);
+                        btn13.setVisibility(View.VISIBLE);
                         list.setVisibility(View.GONE);
                         num = 0;
                     }
@@ -166,6 +175,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.GONE);
                         btn11.setVisibility(View.GONE);
                         btn12.setVisibility(View.GONE);
+                        btn13.setVisibility(View.GONE);
                         list.setVisibility(View.VISIBLE);
                         num++;
                     } else {
@@ -180,6 +190,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.VISIBLE);
                         btn11.setVisibility(View.VISIBLE);
                         btn12.setVisibility(View.VISIBLE);
+                        btn13.setVisibility(View.VISIBLE);
                         list.setVisibility(View.GONE);
                         num = 0;
                     }
@@ -197,6 +208,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.GONE);
                         btn11.setVisibility(View.GONE);
                         btn12.setVisibility(View.GONE);
+                        btn13.setVisibility(View.GONE);
                         list.setVisibility(View.VISIBLE);
                         num++;
                     } else {
@@ -211,6 +223,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.VISIBLE);
                         btn11.setVisibility(View.VISIBLE);
                         btn12.setVisibility(View.VISIBLE);
+                        btn13.setVisibility(View.VISIBLE);
                         list.setVisibility(View.GONE);
                         num = 0;
                     }
@@ -228,6 +241,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.GONE);
                         btn11.setVisibility(View.GONE);
                         btn12.setVisibility(View.GONE);
+                        btn13.setVisibility(View.GONE);
                         list.setVisibility(View.VISIBLE);
                         num++;
                     } else {
@@ -242,6 +256,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.VISIBLE);
                         btn11.setVisibility(View.VISIBLE);
                         btn12.setVisibility(View.VISIBLE);
+                        btn13.setVisibility(View.VISIBLE);
                         list.setVisibility(View.GONE);
                         num = 0;
                     }
@@ -259,6 +274,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.GONE);
                         btn11.setVisibility(View.GONE);
                         btn12.setVisibility(View.GONE);
+                        btn13.setVisibility(View.GONE);
                         list.setVisibility(View.VISIBLE);
                         num++;
                     } else {
@@ -273,6 +289,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.VISIBLE);
                         btn11.setVisibility(View.VISIBLE);
                         btn12.setVisibility(View.VISIBLE);
+                        btn13.setVisibility(View.VISIBLE);
                         list.setVisibility(View.GONE);
                         num = 0;
                     }
@@ -290,6 +307,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.GONE);
                         btn11.setVisibility(View.GONE);
                         btn12.setVisibility(View.GONE);
+                        btn13.setVisibility(View.GONE);
                         list.setVisibility(View.VISIBLE);
                         num++;
                     } else {
@@ -304,6 +322,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.VISIBLE);
                         btn11.setVisibility(View.VISIBLE);
                         btn12.setVisibility(View.VISIBLE);
+                        btn13.setVisibility(View.VISIBLE);
                         list.setVisibility(View.GONE);
                         num = 0;
                     }
@@ -321,6 +340,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.GONE);
                         btn11.setVisibility(View.GONE);
                         btn12.setVisibility(View.GONE);
+                        btn13.setVisibility(View.GONE);
                         list.setVisibility(View.VISIBLE);
                         num++;
                     } else {
@@ -335,6 +355,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.VISIBLE);
                         btn11.setVisibility(View.VISIBLE);
                         btn12.setVisibility(View.VISIBLE);
+                        btn13.setVisibility(View.VISIBLE);
                         list.setVisibility(View.GONE);
                         num = 0;
                     }
@@ -352,6 +373,7 @@ public class SafeFoodActivity extends Activity{
                         btn1.setVisibility(View.GONE);
                         btn11.setVisibility(View.GONE);
                         btn12.setVisibility(View.GONE);
+                        btn13.setVisibility(View.GONE);
                         list.setVisibility(View.VISIBLE);
                         num++;
                     } else {
@@ -366,6 +388,7 @@ public class SafeFoodActivity extends Activity{
                         btn1.setVisibility(View.VISIBLE);
                         btn11.setVisibility(View.VISIBLE);
                         btn12.setVisibility(View.VISIBLE);
+                        btn13.setVisibility(View.VISIBLE);
                         list.setVisibility(View.GONE);
                         num = 0;
                     }
@@ -383,6 +406,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.GONE);
                         btn1.setVisibility(View.GONE);
                         btn12.setVisibility(View.GONE);
+                        btn13.setVisibility(View.GONE);
                         list.setVisibility(View.VISIBLE);
                         num++;
                     } else {
@@ -397,6 +421,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.VISIBLE);
                         btn1.setVisibility(View.VISIBLE);
                         btn12.setVisibility(View.VISIBLE);
+                        btn13.setVisibility(View.VISIBLE);
                         list.setVisibility(View.GONE);
                         num = 0;
                     }
@@ -414,6 +439,7 @@ public class SafeFoodActivity extends Activity{
                         btn10.setVisibility(View.GONE);
                         btn11.setVisibility(View.GONE);
                         btn1.setVisibility(View.GONE);
+                        btn13.setVisibility(View.GONE);
                         list.setVisibility(View.VISIBLE);
                         num++;
                     } else {
@@ -427,6 +453,40 @@ public class SafeFoodActivity extends Activity{
                         btn9.setVisibility(View.VISIBLE);
                         btn10.setVisibility(View.VISIBLE);
                         btn11.setVisibility(View.VISIBLE);
+                        btn1.setVisibility(View.VISIBLE);
+                        btn13.setVisibility(View.VISIBLE);
+                        list.setVisibility(View.GONE);
+                        num = 0;
+                    }
+                    break;
+                case R.id.AtoZ:
+                    if (num == 0) {
+                        btn2.setVisibility(View.GONE);
+                        btn3.setVisibility(View.GONE);
+                        btn4.setVisibility(View.GONE);
+                        btn5.setVisibility(View.GONE);
+                        btn6.setVisibility(View.GONE);
+                        btn7.setVisibility(View.GONE);
+                        btn8.setVisibility(View.GONE);
+                        btn9.setVisibility(View.GONE);
+                        btn10.setVisibility(View.GONE);
+                        btn11.setVisibility(View.GONE);
+                        btn12.setVisibility(View.GONE);
+                        btn1.setVisibility(View.GONE);
+                        list.setVisibility(View.VISIBLE);
+                        num++;
+                    } else {
+                        btn2.setVisibility(View.VISIBLE);
+                        btn3.setVisibility(View.VISIBLE);
+                        btn4.setVisibility(View.VISIBLE);
+                        btn5.setVisibility(View.VISIBLE);
+                        btn6.setVisibility(View.VISIBLE);
+                        btn7.setVisibility(View.VISIBLE);
+                        btn8.setVisibility(View.VISIBLE);
+                        btn9.setVisibility(View.VISIBLE);
+                        btn10.setVisibility(View.VISIBLE);
+                        btn11.setVisibility(View.VISIBLE);
+                        btn12.setVisibility(View.VISIBLE);
                         btn1.setVisibility(View.VISIBLE);
                         list.setVisibility(View.GONE);
                         num = 0;
