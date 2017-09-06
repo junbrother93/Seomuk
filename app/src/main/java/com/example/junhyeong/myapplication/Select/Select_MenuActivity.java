@@ -1,4 +1,4 @@
-package com.example.junhyeong.myapplication.Main;
+package com.example.junhyeong.myapplication.Select;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.junhyeong.myapplication.Main.SafeFoodActivity;
 import com.example.junhyeong.myapplication.R;
 
 /**
@@ -17,12 +18,13 @@ import com.example.junhyeong.myapplication.R;
 public class Select_MenuActivity extends Activity {
     ImageView iv, iv1;
     Intent intent, main;
-
+    Intent location;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         intent = new Intent(this,SafeFoodActivity.class);
-        main = new Intent(this, MainActivity.class);
+        //main = new Intent(this, MainActivity.class); //2017-09-06 지역선택창 수정 전
+        location = new Intent(this, Select_LocationActivity.class);
         iv = (ImageView)findViewById(R.id.iv10);
         iv.setOnClickListener(new MyListener());
         iv1 = (ImageView)findViewById(R.id.iv1);
@@ -38,7 +40,8 @@ public class Select_MenuActivity extends Activity {
             switch(v.getId())
             {
                 case R.id.iv1:
-                    startActivity(main);
+        //           startActivity(main); //2017-09-06 지역선택창 수정 전
+                    startActivity(location);
                     break;
                 case R.id.iv10:
                     startActivity(intent);

@@ -25,85 +25,85 @@ public class PopupActivity_Local extends Activity {
     }
 
     public void onClick(View view) {
-        Button localId = (Button) findViewById(R.id.local1);
+        Button localId = (Button) findViewById(R.id.pop1);
         String local, url;
         final Intent ActMain = new Intent(this, MainActivity.class);
         switch (view.getId())
         {
-            case R.id.local1:
-                localId = (Button) findViewById(R.id.local1);
+            case R.id.pop1:
+                localId = (Button) findViewById(R.id.pop1);
                 break;
-            case R.id.local2:
-                localId = (Button) findViewById(R.id.local2);
+            case R.id.pop2:
+                localId = (Button) findViewById(R.id.pop2);
                 break;
-            case R.id.local3:
-                localId = (Button) findViewById(R.id.local3);
+            case R.id.pop3:
+                localId = (Button) findViewById(R.id.pop3);
                 break;
-            case R.id.local4:
-                localId = (Button) findViewById(R.id.local4);
+            case R.id.pop4:
+                localId = (Button) findViewById(R.id.pop4);
                 break;
-            case R.id.local5:
-                localId = (Button) findViewById(R.id.local5);
+            case R.id.pop5:
+                localId = (Button) findViewById(R.id.pop5);
                 break;
-            case R.id.local6:
-                localId = (Button) findViewById(R.id.local6);
+            case R.id.pop6:
+                localId = (Button) findViewById(R.id.pop6);
                 break;
-            case R.id.local7:
-                localId = (Button) findViewById(R.id.local7);
+            case R.id.pop7:
+                localId = (Button) findViewById(R.id.pop7);
                 break;
-            case R.id.local8:
-                localId = (Button) findViewById(R.id.local8);
+            case R.id.pop8:
+                localId = (Button) findViewById(R.id.pop8);
                 break;
-            case R.id.local9:
-                localId = (Button) findViewById(R.id.local9);
+            case R.id.pop9:
+                localId = (Button) findViewById(R.id.pop9);
                 break;
-            case R.id.local10:
-                localId = (Button) findViewById(R.id.local10);
+            case R.id.pop10:
+                localId = (Button) findViewById(R.id.pop10);
                 break;
-            case R.id.local11:
-                localId = (Button) findViewById(R.id.local11);
+            case R.id.pop11:
+                localId = (Button) findViewById(R.id.pop11);
                 break;
-            case R.id.local12:
-                localId = (Button) findViewById(R.id.local12);
+            case R.id.pop12:
+                localId = (Button) findViewById(R.id.pop12);
                 break;
-            case R.id.local13:
-                localId = (Button) findViewById(R.id.local13);
+            case R.id.pop13:
+                localId = (Button) findViewById(R.id.pop13);
                 break;
-            case R.id.local14:
-                localId = (Button) findViewById(R.id.local14);
+            case R.id.pop14:
+                localId = (Button) findViewById(R.id.pop14);
                 break;
-            case R.id.local15:
-                localId = (Button) findViewById(R.id.local15);
+            case R.id.pop15:
+                localId = (Button) findViewById(R.id.pop15);
                 break;
-            case R.id.local16:
-                localId = (Button) findViewById(R.id.local16);
+            case R.id.pop16:
+                localId = (Button) findViewById(R.id.pop16);
                 break;
-            case R.id.local17:
-                localId = (Button) findViewById(R.id.local17);
+            case R.id.pop17:
+                localId = (Button) findViewById(R.id.pop17);
                 break;
-            case R.id.local18:
-                localId = (Button) findViewById(R.id.local18);
+            case R.id.pop18:
+                localId = (Button) findViewById(R.id.pop18);
                 break;
-            case R.id.local19:
-                localId = (Button) findViewById(R.id.local19);
+            case R.id.pop19:
+                localId = (Button) findViewById(R.id.pop19);
                 break;
-            case R.id.local20:
-                localId = (Button) findViewById(R.id.local20);
+            case R.id.pop20:
+                localId = (Button) findViewById(R.id.pop20);
                 break;
-            case R.id.local21:
-                localId = (Button) findViewById(R.id.local21);
+            case R.id.pop21:
+                localId = (Button) findViewById(R.id.pop21);
                 break;
-            case R.id.local22:
-                localId = (Button) findViewById(R.id.local22);
+            case R.id.pop22:
+                localId = (Button) findViewById(R.id.pop22);
                 break;
-            case R.id.local23:
-                localId = (Button) findViewById(R.id.local23);
+            case R.id.pop23:
+                localId = (Button) findViewById(R.id.pop23);
                 break;
-            case R.id.local24:
-                localId = (Button) findViewById(R.id.local24);
+            case R.id.pop24:
+                localId = (Button) findViewById(R.id.pop24);
                 break;
-            case R.id.local25:
-                localId = (Button) findViewById(R.id.local25);
+            case R.id.pop25:
+                localId = (Button) findViewById(R.id.pop25);
                 break;
         }
         local = localId.getText().toString();

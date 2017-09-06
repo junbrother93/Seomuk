@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.junhyeong.myapplication.Main.Select_MenuActivity;
+import com.example.junhyeong.myapplication.Select.Select_MenuActivity;
 import com.example.junhyeong.myapplication.R;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;

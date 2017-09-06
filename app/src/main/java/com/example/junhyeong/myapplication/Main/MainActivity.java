@@ -21,32 +21,34 @@ import com.example.junhyeong.myapplication.R;
 
 import org.json.JSONObject;
 
-import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 public class MainActivity extends Activity implements Response.Listener<JSONObject>,
         Response.ErrorListener {
     public static final String REQUEST_TAG = "MainActivity";
     private final int DYNAMIC_VIEW_ID = 10000;
     private RequestQueue mQueue;
-    private Button mButton;
+    private Button mButton,changeButton;
     private ArrayList<Store> arrayList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mQueue = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
-        final Intent ActLocal = new Intent(this, PopupActivity_Local.class);
-
-        mButton = (Button)findViewById(R.id.mButton);
-        mButton.setOnClickListener(new View.OnClickListener() {
+       final Intent ActPop = new Intent(this, PopupActivity_Local.class);
+       // final Intent ActLocal = new Intent(this, Select_LocationActivity.class);
+        //startActivityForResult(ActLocal, 0); 2017-09-06 로케이션 수정전
+        changeButton = (Button)findViewById(R.id.Location); // 네비게이션바에 있는 "지역" 버튼
+        mButton = (Button)findViewById(R.id.mButton); // 글씨바뀌는건 위의 mButton 버튼
+        changeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(ActLocal, 0);
+
+                startActivityForResult(ActPop, 0);
+
             }
         });
     }
