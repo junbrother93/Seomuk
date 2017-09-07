@@ -3,12 +3,14 @@ package com.example.junhyeong.myapplication.Login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.junhyeong.myapplication.Select.Select_MenuActivity;
 import com.example.junhyeong.myapplication.R;
+import com.example.junhyeong.myapplication.Select.Select_MenuActivity;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -57,6 +59,8 @@ public class LoginActivity extends Activity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Toast.makeText(getApplicationContext(), "페이스북 로그인 성공", Toast.LENGTH_LONG).show();
+                AccessToken token = loginResult.getAccessToken();
+                Log.e("fbToken", token.getToken());
                 redirectMainActivity();
                 // App code
             }
@@ -120,8 +124,8 @@ public class LoginActivity extends Activity {
                 Logger.e(exception);
             }
             Toast.makeText(getApplicationContext(), "세션 연결 실패", Toast.LENGTH_LONG).show();
-            setContentView(R.layout.activity_login); // 세션 연결이 실패했을때
-        }                                            // 로그인화면을 다시 불러옴
+            redirectMainActivity();     // 세션 연결이 실패했을때
+        }                               // 로그인화면을 다시 불러옴
     }
 
     protected void redirectSignupActivity() {       //세션 연결 성공 시 SignupActivity로 넘김

@@ -7,10 +7,14 @@ package com.example.junhyeong.myapplication.Login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.junhyeong.myapplication.Main.MainActivity;
+import com.kakao.auth.ApiResponseCallback;
+import com.kakao.auth.AuthService;
 import com.kakao.auth.ErrorCode;
+import com.kakao.auth.network.response.AccessTokenInfoResponse;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
@@ -67,6 +71,7 @@ public class KakaoSignupActivity extends AppCompatActivity {
             public void onSuccess(UserProfile userProfile) {  //성공 시 userProfile 형태로 반환
                 Logger.d("UserProfile : " + userProfile);
                 Toast.makeText(getApplicationContext(), "카카오톡 로그인 성공", Toast.LENGTH_LONG).show();
+                requestAccessTokenInfo();
                 redirectMainActivity();
             }
 
@@ -84,7 +89,34 @@ public class KakaoSignupActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    private void requestAccessTokenInfo() {
+        AuthService.requestAccessTokenInfo(new ApiResponseCallback<AccessTokenInfoResponse>() {
+            @Override
+            public void onSessionClosed(ErrorResult errorResult) {
+                redirectMainActivity();
+            }
 
+            @Override
+            public void onNotSignedUp() {
+                Log.e("NotSigned", "onNotSignedUp msg=" + "onNotSignedUp");
+                // not happened
+            }
+
+            @Override
+            public void onFailure(ErrorResult errorResult) {
+                Log.e("fail", "failed to get access token info. msg=" + errorResult);
+            }
+
+            @Override
+            public void onSuccess(AccessTokenInfoResponse accessTokenInfoResponse) {
+                long userId = accessTokenInfoResponse.getUserId();
+                Log.e("userId", "userId=" + userId);
+
+                long expiresInMilis = accessTokenInfoResponse.getExpiresInMillis();
+                Log.e("expires", "this access token expires after " + expiresInMilis + " milliseconds.");
+            }
+        });
+    }
     /*
     protected void redirectImageActivity() {
         final Intent intent = new Intent(this, ImageClick.class);
