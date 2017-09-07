@@ -20,7 +20,6 @@ public class Select_LocationActivity extends Activity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_location);
-
     }
     public void onClick(View v)
     {

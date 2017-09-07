@@ -12,7 +12,6 @@
         android:layout_width="344dp"
         android:layout_height="202dp"
         android:paddingTop="10dp"
-        android:paddingLeft="60dp"
         android:gravity="bottom"
         android:orientation="vertical"
 

@@ -89,7 +89,7 @@ public class Store implements Comparable<Store> {
 
     public int compareTo(Store store)
     {
-        // 이름으로 정렬
+        // 가게이름으로 정렬
         return this.CTF_NAME.compareTo(store.CTF_NAME);
         /*
         if(this.CTF_CODE < store.CTF_CODE)

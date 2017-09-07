@@ -29,26 +29,30 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     public static final String REQUEST_TAG = "MainActivity";
     private final int DYNAMIC_VIEW_ID = 10000;
     private RequestQueue mQueue;
-    private Button mButton,changeButton;
+    private Button mButton,BtnLocalChange;
     private ArrayList<Store> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mQueue = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
-       final Intent ActPop = new Intent(this, PopupActivity_Local.class);
-       // final Intent ActLocal = new Intent(this, Select_LocationActivity.class);
-        //startActivityForResult(ActLocal, 0); 2017-09-06 로케이션 수정전
-        changeButton = (Button)findViewById(R.id.Location); // 네비게이션바에 있는 "지역" 버튼
+        final Intent ActPop = new Intent(this, PopupActivity_Local.class);
+        // final Intent ActLocal = new Intent(this, Select_LocationActivity.class);
+        // startActivityForResult(ActLocal, 0); 2017-09-06 로케이션 수정전
+        BtnLocalChange = (Button)findViewById(R.id.Location); // 네비게이션바에 있는 "지역" 버튼
         mButton = (Button)findViewById(R.id.mButton); // 글씨바뀌는건 위의 mButton 버튼
-        changeButton.setOnClickListener(new View.OnClickListener() {
+
+        Intent intent = getIntent();
+        String url = intent.getStringExtra("url");
+        String local = intent.getStringExtra("local");
+
+        jsonRequest(local, url);
+        // 지역 선택 버튼 눌렀을 경우 지역 선택 팝업 띄움
+        BtnLocalChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivityForResult(ActPop, 0);
-
             }
         });
     }
@@ -60,10 +64,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         String local = data.getStringExtra("local");
 
         //
-        mButton.setText(local);
-        final PodJsonRequest jsonRequest = new PodJsonRequest(Request.Method.GET, url, new JSONObject(), MainActivity.this, MainActivity.this);
-        jsonRequest.setTag(REQUEST_TAG);
-        mQueue.add(jsonRequest);
+        jsonRequest(local, url);
     }
 
     @Override
@@ -153,5 +154,12 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         {
             adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), "", arrayList.get(i).getCTF_NAME());
         }
+    }
+
+    protected void jsonRequest(String local, String url) {
+        mButton.setText(local);
+        final PodJsonRequest jsonRequest = new PodJsonRequest(Request.Method.GET, url, new JSONObject(), MainActivity.this, MainActivity.this);
+        jsonRequest.setTag(REQUEST_TAG);
+        mQueue.add(jsonRequest);
     }
 }
