@@ -21,7 +21,7 @@
         <ListView
             android:id="@+id/listview1"
             android:layout_width="match_parent"
-            android:layout_height="550dp">
+            android:layout_height="507dp">
         </ListView>
 
         <com.example.junhyeong.myapplication.NavigationBar.NavigationBar
