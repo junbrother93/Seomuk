@@ -81,7 +81,7 @@ public class LoginActivity extends Activity {
         public void onClick(View v) {
 
             startActivity(intent);
-
+            finish();
         }
     }
 

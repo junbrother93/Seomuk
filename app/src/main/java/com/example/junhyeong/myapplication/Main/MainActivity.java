@@ -59,7 +59,6 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         final PodJsonRequest jsonRequest = new PodJsonRequest(Request.Method.GET, url, new JSONObject(), MainActivity.this, MainActivity.this);
         jsonRequest.setTag(REQUEST_TAG);
         mQueue.add(jsonRequest);
-        onBackPressed();
     }
 
     @Override
@@ -128,25 +127,4 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
 
         }
     }
-
-
-    // 종료 할건지 물어보는 다이얼로그 생성
-    @Override
-    public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("끌거야?")
-                .setMessage("좀 더 봐줭")
-                .setPositiveButton("시러", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-
-                })
-                .setNegativeButton("그랭", null)
-                .show();
-    }
-
 }
