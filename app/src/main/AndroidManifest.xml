@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.junhyeong.myapplication">
+    package="com.example.junhyeong.myapplication"
+    >
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name=".GlobalApplication.GlobalApplication"
@@ -11,6 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyDd0P9rnX5-gaqXYOjhyjowZereNZHJpCA"/>
+
+
         <activity
             android:name=".Splash.SplashActivity"
             android:screenOrientation="portrait"
@@ -20,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Login.KakaoSignupActivity" />
         <activity android:name=".Select.Select_MenuActivity"/>
@@ -28,7 +35,7 @@
         <activity android:name=".Main.MainActivity" />
         <activity android:name=".Popup.PopupActivity_Local"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
-
+        <activity android:name=".MapActivity"/>
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />

@@ -42,7 +42,6 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         // startActivityForResult(ActLocal, 0); 2017-09-06 로케이션 수정전
         BtnLocalChange = (Button)findViewById(R.id.Location); // 네비게이션바에 있는 "지역" 버튼
         mButton = (Button)findViewById(R.id.mButton); // 글씨바뀌는건 위의 mButton 버튼
-
         Intent intent = getIntent();
         String url = intent.getStringExtra("url");
         String local = intent.getStringExtra("local");
@@ -152,7 +151,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         // 정렬 한 것 어댑터에 추가
         for(int i = 0; i <= total-1; i++) // index 값이라서 총 갯수에서 1을 빼줌
         {
-            adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), "", arrayList.get(i).getCTF_NAME());
+            adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), arrayList.get(i).getCTF_NAME() ,arrayList.get(i).getCTF_TEL());
         }
     }
 

@@ -11,27 +11,38 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="1">
+
         <Button
             android:id="@+id/mButton"
-            android:text=""
-            android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:text="" />
 
-        <ListView
-            android:id="@+id/listview1"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="507dp">
-        </ListView>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1.05">
 
-        <com.example.junhyeong.myapplication.NavigationBar.NavigationBar
+            <ListView
+                android:id="@+id/listview1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></ListView>
+        </FrameLayout>
 
-            android:layout_height="50dp"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:id="@+id/PageNavigationView"
-            android:paddingTop="5dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom">
-        </com.example.junhyeong.myapplication.NavigationBar.NavigationBar>
+
+            <com.example.junhyeong.myapplication.NavigationBar.NavigationBar
+                android:id="@+id/PageNavigationView"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+
+                android:paddingTop="5dp"></com.example.junhyeong.myapplication.NavigationBar.NavigationBar>
+        </FrameLayout>
 
     </LinearLayout>
 </ScrollView>

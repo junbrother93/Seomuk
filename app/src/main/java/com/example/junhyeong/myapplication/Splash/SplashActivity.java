@@ -1,10 +1,9 @@
 package com.example.junhyeong.myapplication.Splash;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.junhyeong.myapplication.Login.LoginActivity;
+import com.example.junhyeong.myapplication.R;
 
 
 public class SplashActivity extends Activity {
@@ -12,8 +11,8 @@ public class SplashActivity extends Activity {
 
     protected  void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
-        try
+        setContentView(R.layout.activity_googlemap);
+     /*  try
         {
             Thread.sleep(1000);
         }
@@ -21,6 +20,6 @@ public class SplashActivity extends Activity {
             e.printStackTrace();
         }
         startActivity(new Intent(this, LoginActivity.class));
-        finish();
+        finish();*/
     }
 }
