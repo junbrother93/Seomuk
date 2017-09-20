@@ -13,8 +13,8 @@
         android:theme="@style/AppTheme">
 
         <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyDd0P9rnX5-gaqXYOjhyjowZereNZHJpCA"/>
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
 
         <activity
@@ -35,7 +35,7 @@
         <activity android:name=".Main.MainActivity" />
         <activity android:name=".Popup.PopupActivity_Local"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
-        <activity android:name=".MapActivity"/>
+        <activity android:name=".Google.MapsActivity" />
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
