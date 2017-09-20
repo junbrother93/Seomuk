@@ -1,14 +1,16 @@
 package com.example.junhyeong.myapplication.Main;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.SectionIndexer;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,6 +20,8 @@ import com.example.junhyeong.myapplication.Adapter.ListViewAdapter;
 import com.example.junhyeong.myapplication.Data.Store;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Local;
 import com.example.junhyeong.myapplication.R;
+import com.example.junhyeong.myapplication.util.StringMatcher;
+import com.example.junhyeong.myapplication.widget.IndexableListView;
 
 import org.json.JSONObject;
 
@@ -31,6 +35,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     private RequestQueue mQueue;
     private Button mButton,BtnLocalChange;
     private ArrayList<Store> arrayList;
+    private IndexableListView listview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +94,10 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         ArrayList<String> ArrCTF_TEL = new ArrayList<String>();
 
         // 리스트뷰랑 어댑터..
-        ListView listview = (ListView)findViewById(R.id.listview1);
-        ListViewAdapter adapter;
-        adapter = new ListViewAdapter();
+        listview = (IndexableListView)findViewById(R.id.listview);
+        ListViewAdapter adapter = new ListViewAdapter();
         listview.setAdapter(adapter);
+        listview.setFastScrollEnabled(true);
 
         // 스크롤 뷰 안에 있는 리스트 뷰 스크롤 되게설정
         final ScrollView scrollview = (ScrollView)findViewById(R.id.scrollview);
@@ -118,6 +123,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
 
             // 아이템 불러와..
             ArrData.add(response.optJSONArray("data").optJSONObject(i));
+            ArrCTF_NAME.add(ArrData.get(i).optString("CTF_NAME", "No Value"));
+            ArrCTF_TEL.add(ArrData.get(i).optString("CTF_TEL", "No Value"));
             /*
             ArrCTF_CODE.add(ArrData.get(i).optInt("CTF_CODE", 0));
             ArrCTF_TYPE.add(ArrData.get(i).optInt("CTF_TYPE", 0));
@@ -147,12 +154,17 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         }
         // 정렬
         Collections.sort(arrayList);
+        ContentAdapter adapter1 = new ContentAdapter(this,android.R.layout.simple_list_item_1,ArrCTF_NAME);
+        listview.setAdapter(adapter1);
+
+
 
         // 정렬 한 것 어댑터에 추가
         for(int i = 0; i <= total-1; i++) // index 값이라서 총 갯수에서 1을 빼줌
         {
             adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), arrayList.get(i).getCTF_NAME() ,arrayList.get(i).getCTF_TEL());
         }
+
     }
 
     protected void jsonRequest(String local, String url) {
@@ -161,4 +173,47 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         jsonRequest.setTag(REQUEST_TAG);
         mQueue.add(jsonRequest);
     }
+    public class ContentAdapter extends ArrayAdapter<String> implements SectionIndexer {
+
+        private String mSections = "#ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ";
+
+        public ContentAdapter(Context context, int textViewResourceId,ArrayList<String> objects) {
+            super(context, textViewResourceId, objects);
+        }
+
+        @Override
+        public int getPositionForSection(int section) {
+            // If there is no item for current section, previous section will be selected
+            for (int i = section; i >= 0; i--) {
+                for (int j = 0; j < getCount(); j++) {
+                    if (i == 0) {
+                        // For numeric section
+                        for (int k = 0; k <= 9; k++) {
+                            if (StringMatcher.match(String.valueOf(getItem(j).charAt(0)), String.valueOf(k)))
+                                return j;
+                        }
+                    } else {
+                        if (StringMatcher.match(String.valueOf(getItem(j).charAt(0)), String.valueOf(mSections.charAt(i))))
+                            return j;
+                    }
+                }
+            }
+            return 0;
+        }
+
+        @Override
+        public int getSectionForPosition(int position) {
+            return 0;
+        }
+
+        @Override
+        public Object[] getSections() {
+            String[] sections = new String[mSections.length()];
+            for (int i = 0; i < mSections.length(); i++)
+                sections[i] = String.valueOf(mSections.charAt(i));
+            return sections;
+        }
+    }
+
 }
+

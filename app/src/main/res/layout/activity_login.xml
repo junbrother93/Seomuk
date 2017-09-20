@@ -5,18 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="-25dp"
-    android:background="@drawable/seojeong"
     tools:context="com.example.junhyeong.myapplication.Main.MainActivity">
 
     <FrameLayout
-        android:layout_width="344dp"
-        android:layout_height="202dp"
+        android:layout_width="368dp"
+        android:layout_height="200dp"
         android:paddingTop="10dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
         android:gravity="bottom"
         android:orientation="vertical"
-
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="8dp">
+        tools:layout_editor_absoluteX="8dp"
+        android:layout_marginBottom="2dp">
 
 
         <LinearLayout

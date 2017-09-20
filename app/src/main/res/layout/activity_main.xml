@@ -12,6 +12,7 @@
         android:orientation="vertical"
         android:weightSum="1">
 
+
         <Button
             android:id="@+id/mButton"
             android:layout_width="match_parent"
@@ -25,10 +26,11 @@
             android:orientation="vertical"
             android:layout_weight="1.05">
 
-            <ListView
-                android:id="@+id/listview1"
+            <com.example.junhyeong.myapplication.widget.IndexableListView
+                android:id="@+id/listview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></ListView>
+                android:layout_height="match_parent" />
+
         </FrameLayout>
 
         <FrameLayout
@@ -40,9 +42,11 @@
                 android:id="@+id/PageNavigationView"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
+                android:paddingTop="5dp">
+            </com.example.junhyeong.myapplication.NavigationBar.NavigationBar>
 
-                android:paddingTop="5dp"></com.example.junhyeong.myapplication.NavigationBar.NavigationBar>
         </FrameLayout>
 
     </LinearLayout>
+
 </ScrollView>
