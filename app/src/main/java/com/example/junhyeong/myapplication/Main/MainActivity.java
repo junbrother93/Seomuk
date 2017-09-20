@@ -154,9 +154,9 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         }
         // 정렬
         Collections.sort(arrayList);
-        ContentAdapter adapter1 = new ContentAdapter(this,android.R.layout.simple_list_item_1,ArrCTF_NAME);
+      /*  ContentAdapter adapter1 = new ContentAdapter(this,android.R.layout.simple_list_item_1,ArrCTF_NAME);
         listview.setAdapter(adapter1);
-
+*/
 
 
         // 정렬 한 것 어댑터에 추가

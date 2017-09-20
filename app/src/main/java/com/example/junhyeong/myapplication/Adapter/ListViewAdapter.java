@@ -7,17 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
-
 import com.example.junhyeong.myapplication.Main.ListViewItem;
 import com.example.junhyeong.myapplication.R;
+import com.example.junhyeong.myapplication.util.StringMatcher;
 
 import java.util.ArrayList;
 
-public class ListViewAdapter extends BaseAdapter {
+public class ListViewAdapter extends BaseAdapter implements SectionIndexer {
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>() ;
-
+    private String mSections = "#ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ";
     // ListViewAdapter의 생성자
     public ListViewAdapter() {
 
@@ -80,5 +81,40 @@ public class ListViewAdapter extends BaseAdapter {
         listViewItemList.add(item);
     }
 
+    @Override
+    public Object[] getSections() {
+
+        String[] sections = new String[mSections.length()];
+        for (int i = 0; i < mSections.length(); i++)
+            sections[i] = String.valueOf(mSections.charAt(i));
+        return sections;
+
+    }
+
+    @Override
+    public int getPositionForSection(int section) {
+
+        for (int i = section; i >= 0; i--) {
+            for (int j = 0; j < getCount(); j++) {
+                if (i == 0) {
+                    // For numeric section
+                    for (int k = 0; k <= 9; k++) {
+                        if (StringMatcher.match(String.valueOf(getItem(j).toString().charAt(0)), String.valueOf(k)))
+                            return j;
+                    }
+                } else {
+                    if (StringMatcher.match(String.valueOf(getItem(j).toString().charAt(0)), String.valueOf(mSections.charAt(i))))
+                        return j;
+                }
+            }
+        }
+        return 0;
+
+    }
+
+    @Override
+    public int getSectionForPosition(int position) {
+        return 0;
+    }
 }
 
