@@ -38,7 +38,7 @@
         <activity android:name=".Main.MainActivity" />
         <activity android:name=".Popup.PopupActivity_Local"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
-        <activity android:name=".MapActivity"/>
+        <activity android:name=".Google.MapsActivity"/>
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />

@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.junhyeong.myapplication.Google.MapsActivity;
 import com.example.junhyeong.myapplication.Main.SafeFoodActivity;
 import com.example.junhyeong.myapplication.R;
 
@@ -16,9 +17,10 @@ import com.example.junhyeong.myapplication.R;
  */
 
 public class Select_MenuActivity extends Activity {
-    ImageView iv, iv1;
+    ImageView iv, iv1,iv9;
     Intent intent, main;
     Intent location;
+    Intent Map;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
@@ -29,6 +31,12 @@ public class Select_MenuActivity extends Activity {
         iv.setOnClickListener(new MyListener());
         iv1 = (ImageView)findViewById(R.id.iv1);
         iv1.setOnClickListener(new MyListener());
+
+        //구글 맵
+        iv9 = (ImageView)findViewById(R.id.iv9);
+        iv9.setOnClickListener(new MyListener());
+        Map = new Intent(this, MapsActivity.class);
+
     }
 
     // 안심 먹거리 메뉴로 이동
@@ -45,6 +53,9 @@ public class Select_MenuActivity extends Activity {
                     break;
                 case R.id.iv10:
                     startActivity(intent);
+                    break;
+                case R.id.iv9:
+                    startActivity(Map);
                     break;
             }
         }

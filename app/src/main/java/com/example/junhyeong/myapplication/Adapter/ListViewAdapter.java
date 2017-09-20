@@ -81,15 +81,6 @@ public class ListViewAdapter extends BaseAdapter implements SectionIndexer {
         listViewItemList.add(item);
     }
 
-    @Override
-    public Object[] getSections() {
-
-        String[] sections = new String[mSections.length()];
-        for (int i = 0; i < mSections.length(); i++)
-            sections[i] = String.valueOf(mSections.charAt(i));
-        return sections;
-
-    }
 
     @Override
     public int getPositionForSection(int section) {
@@ -115,6 +106,17 @@ public class ListViewAdapter extends BaseAdapter implements SectionIndexer {
     @Override
     public int getSectionForPosition(int position) {
         return 0;
+    }
+
+
+    @Override
+    public Object[] getSections() {
+
+        String[] sections = new String[mSections.length()];
+        for (int i = 0; i < mSections.length(); i++)
+            sections[i] = String.valueOf(mSections.charAt(i));
+        return sections;
+
     }
 }
 

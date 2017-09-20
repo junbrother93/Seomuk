@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.SectionIndexer;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.junhyeong.myapplication.Adapter.ListViewAdapter;
 import com.example.junhyeong.myapplication.Data.Store;
+import com.example.junhyeong.myapplication.Google.MapsActivity;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Local;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.util.StringMatcher;
@@ -98,6 +101,16 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         ListViewAdapter adapter = new ListViewAdapter();
         listview.setAdapter(adapter);
         listview.setFastScrollEnabled(true);
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+
+                Toast.makeText(MainActivity.this ,""+id, Toast.LENGTH_LONG).show();
+                startActivity(intent);
+            }
+        });
 
         // 스크롤 뷰 안에 있는 리스트 뷰 스크롤 되게설정
         final ScrollView scrollview = (ScrollView)findViewById(R.id.scrollview);
