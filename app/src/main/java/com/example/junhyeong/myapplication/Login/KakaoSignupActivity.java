@@ -10,6 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.Main.MainActivity;
 import com.kakao.auth.ApiResponseCallback;
 import com.kakao.auth.AuthService;
@@ -20,6 +26,9 @@ import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.helper.log.Logger;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class KakaoSignupActivity extends AppCompatActivity {
@@ -51,7 +60,7 @@ public class KakaoSignupActivity extends AppCompatActivity {
                     finish();
                     Toast.makeText(getApplicationContext(), "카카오톡 로그인 실패", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "카카오톡 로그인 실패", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "카카오톡 로그인 실패2", Toast.LENGTH_LONG).show();
                     redirectLoginActivity();
                 }
             }
@@ -109,11 +118,36 @@ public class KakaoSignupActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(AccessTokenInfoResponse accessTokenInfoResponse) {
-                long userId = accessTokenInfoResponse.getUserId();
+                final long userId = accessTokenInfoResponse.getUserId();
                 Log.e("userId", "userId=" + userId);
 
                 long expiresInMilis = accessTokenInfoResponse.getExpiresInMillis();
                 Log.e("expires", "this access token expires after " + expiresInMilis + " milliseconds.");
+
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/user/sign_up", new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("platform", "kakao");
+                        params.put("token", String.valueOf(userId));
+
+                        return params;
+                    }
+                };
+                requestQueue.add(postStringRequest);
+
             }
         });
     }
