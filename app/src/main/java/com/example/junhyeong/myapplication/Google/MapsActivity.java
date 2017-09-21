@@ -1,7 +1,10 @@
 package com.example.junhyeong.myapplication.Google;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.widget.TextView;
 
 import com.example.junhyeong.myapplication.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,7 +17,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-
+    private double x, y;
+    private String store_name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +27,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        Intent intent = getIntent();
+        store_name = intent.getStringExtra("store_name");
+        String store_address = intent.getStringExtra("store_address");
+        String store_call = intent.getStringExtra("store_call");
+        x = intent.getDoubleExtra("X", 0.0);
+        y = intent.getDoubleExtra("Y", 0.0);
+        TextView i,v,w;
+        i = (TextView) findViewById(R.id.textView6);
+        v = (TextView) findViewById(R.id.textView7);
+        w = (TextView) findViewById(R.id.textView8);
+        Log.e("x : ", "x " + x);Log.e("y : ", "y " + y);
+        i.setText(store_name);
+        v.setText(store_address);
+        w.setText(store_call);
     }
 
 
@@ -40,8 +58,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(37.536314, 127.114976);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("신전 떡볶이"));
+        LatLng sydney = new LatLng(x, y);
+        mMap.addMarker(new MarkerOptions().position(sydney).title(store_name));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
 

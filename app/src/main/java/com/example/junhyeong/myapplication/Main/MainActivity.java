@@ -102,15 +102,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         listview.setAdapter(adapter);
         listview.setFastScrollEnabled(true);
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
 
-                Toast.makeText(MainActivity.this ,""+id, Toast.LENGTH_LONG).show();
-                startActivity(intent);
-            }
-        });
 
         // 스크롤 뷰 안에 있는 리스트 뷰 스크롤 되게설정
         final ScrollView scrollview = (ScrollView)findViewById(R.id.scrollview);
@@ -138,6 +130,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             ArrData.add(response.optJSONArray("data").optJSONObject(i));
             ArrCTF_NAME.add(ArrData.get(i).optString("CTF_NAME", "No Value"));
             ArrCTF_TEL.add(ArrData.get(i).optString("CTF_TEL", "No Value"));
+            ArrCTF_X.add(ArrData.get(i).optDouble("CTF_X", 0.0));
+            ArrCTF_Y.add(ArrData.get(i).optDouble("CTF_Y", 0.0));
             /*
             ArrCTF_CODE.add(ArrData.get(i).optInt("CTF_CODE", 0));
             ArrCTF_TYPE.add(ArrData.get(i).optInt("CTF_TYPE", 0));
@@ -177,7 +171,20 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         {
             adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), arrayList.get(i).getCTF_NAME() ,arrayList.get(i).getCTF_TEL());
         }
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
 
+                Toast.makeText(MainActivity.this ,"" + id, Toast.LENGTH_LONG).show();
+                intent.putExtra("store_name", arrayList.get((int) id).getCTF_NAME());
+                intent.putExtra("store_address", arrayList.get((int) id).getCTF_ADDR());
+                intent.putExtra("store_call", arrayList.get((int) id).getCTF_TEL());
+                intent.putExtra("X", arrayList.get((int) id).getCTF_X());
+                intent.putExtra("Y", arrayList.get((int) id).getCTF_Y());
+                startActivity(intent);
+            }
+        });
     }
 
     protected void jsonRequest(String local, String url) {
