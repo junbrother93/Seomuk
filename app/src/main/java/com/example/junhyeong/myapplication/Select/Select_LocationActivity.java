@@ -21,7 +21,7 @@ public class Select_LocationActivity extends Activity implements View.OnClickLis
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_location);
         Intent intent = getIntent();
-        Menuurl = intent.getStringExtra("Menuurl");
+        Menuurl = intent.getStringExtra("Menuurl1");
     }
     public void onClick(View v)
     {
@@ -114,6 +114,7 @@ public class Select_LocationActivity extends Activity implements View.OnClickLis
 
         // url , local 값 MainActivity로 전송
         ActMain.putExtra("Locationurl", Locationurl);
+        ActMain.putExtra("Menuurl2", Menuurl);
         ActMain.putExtra("local", local);
         setResult(RESULT_OK, ActMain);
 

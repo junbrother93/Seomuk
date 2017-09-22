@@ -38,7 +38,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     private ArrayList<Store2> arrayList2;
     private IndexableListView listview;
     private int AnsimValue;
-    private String Menuurl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,16 +50,17 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         Intent intent = getIntent();
         String url = intent.getStringExtra("Locationurl");//menu->location->main
         String local = intent.getStringExtra("local");//location에서 위 버튼의 텍스트값을 주기위한것
-        Menuurl = intent.getStringExtra("Menuurl");//location팝업을 선택했을시 보내기위한 url
+        String Menuurl = intent.getStringExtra("Menuurl2");//location팝업을 선택했을시 보내기위한 url
         AnsimValue = intent.getIntExtra("AnsimValue", 0);
+        ActPop.putExtra("Menuurl3",Menuurl);
+        setResult(RESULT_OK,ActPop);
         jsonRequest(local, url);
 
         // 지역 선택 버튼 눌렀을 경우 지역 선택 팝업 띄움
         BtnLocalChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActPop.putExtra("popurl",Menuurl);
-                setResult(RESULT_OK,ActPop);
+
                 startActivityForResult(ActPop, 0);
 
             }

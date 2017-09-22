@@ -16,7 +16,7 @@ import com.example.junhyeong.myapplication.R;
  */
 
 public class PopupActivity_Local extends Activity {
-    public String Popurl, popurl;
+    public String Popurl;
     public Intent ActMain;
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -109,14 +109,15 @@ public class PopupActivity_Local extends Activity {
                 localId = (Button) findViewById(R.id.pop25);
                 break;
         }
-        Intent intent =getIntent();
-        popurl = intent.getStringExtra("popurl");
+        Intent intent = getIntent();
+        String popurl = intent.getStringExtra("Menuurl3");
         local = localId.getText().toString();
         Popurl = popurl.toString() + local;
 
         // url , local 값 MainActivity로 전송
         ActMain.putExtra("Popurl", Popurl);
         ActMain.putExtra("local", local);
+
         setResult(RESULT_OK, ActMain);
         finish();
 
