@@ -15,11 +15,13 @@ import com.example.junhyeong.myapplication.R;
  */
 
 public class Select_LocationActivity extends Activity implements View.OnClickListener{
-
+    public String Menuurl,Locationurl;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_location);
+        Intent intent = getIntent();
+        Menuurl = intent.getStringExtra("Menuurl");
     }
     public void onClick(View v)
     {
@@ -108,10 +110,10 @@ public class Select_LocationActivity extends Activity implements View.OnClickLis
 
         }
         local = localId.getText().toString();
-        url = "http://13.124.127.124:3000/food/loc/" + local;
+        Locationurl = Menuurl.toString() + local;
 
         // url , local 값 MainActivity로 전송
-        ActMain.putExtra("url", url);
+        ActMain.putExtra("Locationurl", Locationurl);
         ActMain.putExtra("local", local);
         setResult(RESULT_OK, ActMain);
 

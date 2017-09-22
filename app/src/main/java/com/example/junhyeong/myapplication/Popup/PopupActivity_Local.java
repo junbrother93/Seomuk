@@ -16,18 +16,21 @@ import com.example.junhyeong.myapplication.R;
  */
 
 public class PopupActivity_Local extends Activity {
-
+    public String Popurl, popurl;
+    public Intent ActMain;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup);
+        ActMain = new Intent(this, MainActivity.class);
+
+
     }
 
     public void onClick(View view) {
         Button localId = (Button) findViewById(R.id.pop1);
-        String local, url;
-        final Intent ActMain = new Intent(this, MainActivity.class);
+        String local;
         switch (view.getId())
         {
             case R.id.pop1:
@@ -106,15 +109,18 @@ public class PopupActivity_Local extends Activity {
                 localId = (Button) findViewById(R.id.pop25);
                 break;
         }
+        Intent intent =getIntent();
+        popurl = intent.getStringExtra("popurl");
         local = localId.getText().toString();
-        url = "http://13.124.127.124:3000/food/loc/" + local;
+        Popurl = popurl.toString() + local;
 
         // url , local 값 MainActivity로 전송
-        ActMain.putExtra("url", url);
+        ActMain.putExtra("Popurl", Popurl);
         ActMain.putExtra("local", local);
         setResult(RESULT_OK, ActMain);
-
         finish();
-        overridePendingTransition(0, 0);
+
+
+
     }
 }

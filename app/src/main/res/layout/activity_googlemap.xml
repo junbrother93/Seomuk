@@ -36,14 +36,16 @@
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_gravity="right"
-            android:src="@color/bg_login_button"/>
+            android:src="@color/bg_login_button" />
 
     </FrameLayout>
 
     <GridLayout
+        android:id="@+id/Gridlayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_weight="1"
         android:layout_marginTop="5dp"
         android:paddingTop="5dp">
 
@@ -112,4 +114,17 @@
 
     </GridLayout>
 
+    <FrameLayout
+        android:id="@+id/FrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <com.example.junhyeong.myapplication.NavigationBar.NavigationBar
+            android:id="@+id/PageNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:paddingTop="5dp"></com.example.junhyeong.myapplication.NavigationBar.NavigationBar>
+
+    </FrameLayout>
 </LinearLayout>
