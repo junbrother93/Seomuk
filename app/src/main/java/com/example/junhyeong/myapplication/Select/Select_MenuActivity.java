@@ -78,12 +78,11 @@ public class Select_MenuActivity extends Activity implements View.OnClickListene
                 break;
 
         }
-        Menuurl = "http://13.124.127.124:3000/auth/menu/"+menu+"/loc/";
-        location.putExtra("Menuurl1",Menuurl);//로케이션으로 보내기
-        Main.putExtra("AnsimValue",AnsimValue);//안심먹거리일때 value값 변환된거 보내기
+        Main.putExtra("AnsimValue",AnsimValue);
+        location.putExtra("menu",menu);
         setResult(RESULT_OK, Main);
         setResult(RESULT_OK, location);
-        finish();
+
         overridePendingTransition(0, 0);
         startActivity(location);
     }

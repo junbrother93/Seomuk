@@ -16,18 +16,20 @@ import com.example.junhyeong.myapplication.R;
 
 public class Select_LocationActivity extends Activity implements View.OnClickListener{
     public String Menuurl,Locationurl;
+    public String menu;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_location);
         Intent intent = getIntent();
-        Menuurl = intent.getStringExtra("Menuurl1");
+       menu = intent.getStringExtra("menu");
+
     }
     public void onClick(View v)
     {
         Button localId = (Button) findViewById(R.id.local1);
         String local, url;
-        final Intent ActMain = new Intent(this, MainActivity.class);
+        Intent Main = new Intent(this, MainActivity.class);
 
         switch (v.getId())
         {
@@ -110,16 +112,13 @@ public class Select_LocationActivity extends Activity implements View.OnClickLis
 
         }
         local = localId.getText().toString();
-        Locationurl = Menuurl.toString() + local;
 
-        // url , local 값 MainActivity로 전송
-        ActMain.putExtra("Locationurl", Locationurl);
-        ActMain.putExtra("Menuurl2", Menuurl);
-        ActMain.putExtra("local", local);
-        setResult(RESULT_OK, ActMain);
+        Main.putExtra("local", local);
+        Main.putExtra("menu",menu);
+        setResult(RESULT_OK, Main);
 
-        finish();
+
         overridePendingTransition(0, 0);
-        startActivity(ActMain);
+        startActivity(Main);
     }
 }

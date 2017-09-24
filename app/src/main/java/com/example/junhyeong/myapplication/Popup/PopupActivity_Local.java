@@ -3,6 +3,7 @@ package com.example.junhyeong.myapplication.Popup;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -16,13 +17,13 @@ import com.example.junhyeong.myapplication.R;
  */
 
 public class PopupActivity_Local extends Activity {
-    public String Popurl;
+    public String url;
     public Intent ActMain;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_popup);
+        setContentView(R.layout.activity_popup_location);
         ActMain = new Intent(this, MainActivity.class);
 
 
@@ -110,14 +111,15 @@ public class PopupActivity_Local extends Activity {
                 break;
         }
         Intent intent = getIntent();
-        String popurl = intent.getStringExtra("Menuurl3");
         local = localId.getText().toString();
-        Popurl = popurl.toString() + local;
+        String menu = intent.getStringExtra("menu");
+        url = "http://13.124.127.124:3000/auth/menu/"+ menu.toString() + "/loc/" + local;
 
         // url , local 값 MainActivity로 전송
-        ActMain.putExtra("Popurl", Popurl);
+        ActMain.putExtra("url", url);
         ActMain.putExtra("local", local);
-
+        ActMain.putExtra("menu",menu);
+        Log.e(url,"url");
         setResult(RESULT_OK, ActMain);
         finish();
 

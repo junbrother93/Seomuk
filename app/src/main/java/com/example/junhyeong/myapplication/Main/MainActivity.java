@@ -20,6 +20,7 @@ import com.example.junhyeong.myapplication.Data.Store;
 import com.example.junhyeong.myapplication.Data.Store2;
 import com.example.junhyeong.myapplication.Google.MapsActivity;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Local;
+import com.example.junhyeong.myapplication.Popup.PopupActivity_Menu;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.widget.IndexableListView;
 
@@ -33,45 +34,70 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     public static final String REQUEST_TAG = "MainActivity";
     private final int DYNAMIC_VIEW_ID = 10000;
     private RequestQueue mQueue;
-    private Button mButton, BtnLocalChange;
+    private Button mButton, BtnLocalChange, BtnMenuChange;
     private ArrayList<Store> arrayList;
     private ArrayList<Store2> arrayList2;
     private IndexableListView listview;
     private int AnsimValue;
-
+    private Intent ActPop_Location;
+    private Intent ActPop_Menu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mQueue = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
-        final Intent ActPop = new Intent(this, PopupActivity_Local.class);
+        ActPop_Location = new Intent(this, PopupActivity_Local.class);
+        ActPop_Menu = new Intent(this, PopupActivity_Menu.class);
+
         BtnLocalChange = (Button) findViewById(R.id.Location); // 네비게이션바에 있는 "지역" 버튼
+        BtnMenuChange = (Button)findViewById(R.id.Menu);
         mButton = (Button) findViewById(R.id.mButton); // 글씨바뀌는건 위의 mButton 버튼
+
         Intent intent = getIntent();
-        String url = intent.getStringExtra("Locationurl");//menu->location->main
-        String local = intent.getStringExtra("local");//location에서 위 버튼의 텍스트값을 주기위한것
-        String Menuurl = intent.getStringExtra("Menuurl2");//location팝업을 선택했을시 보내기위한 url
+
+        String local = intent.getStringExtra("local");
+        String menu = intent.getStringExtra("menu");
+        String url = "http://13.124.127.124:3000/auth/menu/"+menu.toString()+"/loc/"+local.toString();
+
         AnsimValue = intent.getIntExtra("AnsimValue", 0);
-        ActPop.putExtra("Menuurl3",Menuurl);
-        setResult(RESULT_OK,ActPop);
-        jsonRequest(local, url);
+        ActPop_Menu.putExtra("local",local);
+        setResult(RESULT_OK,ActPop_Menu);
+        ActPop_Location.putExtra("menu",menu);
+        setResult(RESULT_OK,ActPop_Location);
+       jsonRequest(local, url);
 
         // 지역 선택 버튼 눌렀을 경우 지역 선택 팝업 띄움
         BtnLocalChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                startActivityForResult(ActPop, 0);
+                startActivityForResult(ActPop_Location, 0);
+
+            }
+        });
+
+        //메뉴 선택 버튼 눌렀을 경우 메뉴 선택 팝업 띄움
+        BtnMenuChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivityForResult(ActPop_Menu, 0);
 
             }
         });
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // PopupActivity 에서 보낸 url, local 값을 받음
-        String url = data.getStringExtra("Popurl");
+        String url = data.getStringExtra("url");
         String local = data.getStringExtra("local");
+        String menu = data.getStringExtra("menu");
+        ActPop_Location.putExtra("menu",menu);
+        setResult(RESULT_OK,ActPop_Location);
+        ActPop_Menu.putExtra("local",local);
+        setResult(RESULT_OK,ActPop_Menu);
 
         //
         jsonRequest(local, url);

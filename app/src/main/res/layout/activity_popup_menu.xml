@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id = "@+id/pop1_1"
+                android:onClick = "onClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="한식" />
+
+            <Button
+                android:id = "@+id/pop2_2"
+                android:onClick = "onClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="중식" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id = "@+id/pop3_3"
+                android:onClick = "onClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="일식" />
+
+            <Button
+                android:id = "@+id/pop4_4"
+                android:onClick = "onClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="양식" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id = "@+id/pop5_5"
+                android:onClick = "onClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="제과" />
+
+            <Button
+                android:id = "@+id/pop6_6"
+                android:onClick = "onClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="카페" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id = "@+id/pop7_7"
+                android:onClick = "onClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="주점" />
+
+            <Button
+                android:id = "@+id/pop8_8"
+                android:onClick = "onClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="패스트푸드" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id = "@+id/pop9_9"
+                android:onClick = "onClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="기타" />
+
+            <Button
+                android:id = "@+id/pop10_10"
+                android:onClick = "onClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="food" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>
