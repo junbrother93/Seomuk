@@ -20,7 +20,6 @@ public class Select_MenuActivity extends Activity implements View.OnClickListene
     ImageView iv;
     Intent location,Main;
     String menu, Menuurl;
-    int AnsimValue =0;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -74,11 +73,9 @@ public class Select_MenuActivity extends Activity implements View.OnClickListene
             case R.id.iv10:
                 iv = (ImageView) findViewById(R.id.iv10);
                 menu ="food".toString();
-                AnsimValue=1;
                 break;
 
         }
-        Main.putExtra("AnsimValue",AnsimValue);
         location.putExtra("menu",menu);
         setResult(RESULT_OK, Main);
         setResult(RESULT_OK, location);
@@ -94,9 +91,9 @@ public class Select_MenuActivity extends Activity implements View.OnClickListene
     public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("끌거야?")
-                .setMessage("좀 더 봐줭")
-                .setPositiveButton("시러", new DialogInterface.OnClickListener()
+                .setTitle("종료")
+                .setMessage("종료하시겠습니까?")
+                .setPositiveButton("예", new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -104,7 +101,7 @@ public class Select_MenuActivity extends Activity implements View.OnClickListene
                     }
 
                 })
-                .setNegativeButton("그랭", null)
+                .setNegativeButton("아니오", null)
                 .show();
     }
 }

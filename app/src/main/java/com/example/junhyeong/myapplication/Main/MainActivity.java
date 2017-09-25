@@ -59,12 +59,18 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         String menu = intent.getStringExtra("menu");
         String url = "http://13.124.127.124:3000/auth/menu/"+menu.toString()+"/loc/"+local.toString();
 
-        AnsimValue = intent.getIntExtra("AnsimValue", 0);
+
+        // 안심 먹거리일경우 url 변경
+        if(menu.toString().equals("food")) {
+            AnsimValue = 1;
+            url = "http://13.124.127.124:3000/food/loc/" + local.toString();
+        }
         ActPop_Menu.putExtra("local",local);
         setResult(RESULT_OK,ActPop_Menu);
         ActPop_Location.putExtra("menu",menu);
         setResult(RESULT_OK,ActPop_Location);
-       jsonRequest(local, url);
+
+        jsonRequest(local, url);
 
         // 지역 선택 버튼 눌렀을 경우 지역 선택 팝업 띄움
         BtnLocalChange.setOnClickListener(new View.OnClickListener() {
@@ -318,4 +324,5 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         jsonRequest.setTag(REQUEST_TAG);
         mQueue.add(jsonRequest);
     }
+
 }
