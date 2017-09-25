@@ -8,6 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Select.Select_MenuActivity;
 import com.facebook.AccessToken;
@@ -22,6 +28,9 @@ import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by wnsgu on 2017-08-04.
@@ -59,8 +68,55 @@ public class LoginActivity extends Activity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Toast.makeText(getApplicationContext(), "페이스북 로그인 성공", Toast.LENGTH_LONG).show();
-                AccessToken token = loginResult.getAccessToken();
-                Log.e("fbToken", token.getToken());
+                final AccessToken token = loginResult.getAccessToken();
+                Log.e("fd_ID", token.getUserId());
+
+
+                /**********************************************************************************
+                 포스트
+                 **********************************************************************************/
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/user/sign_up", new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("platform", "fb");
+                        params.put("token", token.getUserId());
+
+                        return params;
+                    }
+                };
+                requestQueue.add(postStringRequest);
+                /*
+                StringRequest deleteStringRequest = new StringRequest(Request.Method.DELETE, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+
+                });
+                */
+
+
+                /**********************************************************************************/
+
+
                 redirectMainActivity();
                 // App code
             }
@@ -136,7 +192,7 @@ public class LoginActivity extends Activity {
     }
 
     protected void redirectMainActivity() {
-       final Intent intent = new Intent(this, Select_MenuActivity.class);
+        final Intent intent = new Intent(this, Select_MenuActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
         finish();

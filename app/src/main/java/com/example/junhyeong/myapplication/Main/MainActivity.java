@@ -15,6 +15,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.Adapter.ListViewAdapter;
 import com.example.junhyeong.myapplication.Data.Store;
 import com.example.junhyeong.myapplication.Data.Store2;
@@ -28,12 +30,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends Activity implements Response.Listener<JSONObject>,
         Response.ErrorListener {
     public static final String REQUEST_TAG = "MainActivity";
     private final int DYNAMIC_VIEW_ID = 10000;
-    private RequestQueue mQueue;
+    private RequestQueue mQueue, mQueue2;
     private Button mButton, BtnLocalChange, BtnMenuChange;
     private ArrayList<Store> arrayList;
     private ArrayList<Store2> arrayList2;
@@ -46,6 +50,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mQueue = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
+        mQueue2 = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
+
         ActPop_Location = new Intent(this, PopupActivity_Local.class);
         ActPop_Menu = new Intent(this, PopupActivity_Menu.class);
 
@@ -121,13 +127,13 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             arrayList = new ArrayList<Store>();
 
             // 리스트 생성
-            ArrayList<JSONObject> ArrData = new ArrayList<JSONObject>();
+            final ArrayList<JSONObject> ArrData = new ArrayList<JSONObject>();
             ArrayList<Integer> ArrCTF_CODE = new ArrayList<Integer>();
             ArrayList<Integer> ArrCTF_TYPE = new ArrayList<Integer>();
             ArrayList<String> ArrCTF_TYPE_NAME = new ArrayList<String>();
             ArrayList<String> ArrCTF_NAME = new ArrayList<String>();
-            ArrayList<Double> ArrCTF_X = new ArrayList<Double>();
-            ArrayList<Double> ArrCTF_Y = new ArrayList<Double>();
+            final ArrayList<Double> ArrCTF_X = new ArrayList<Double>();
+            final ArrayList<Double> ArrCTF_Y = new ArrayList<Double>();
             ArrayList<String> ArrCTF_ADDR = new ArrayList<String>();
             ArrayList<String> ArrCTF_TEL = new ArrayList<String>();
 
@@ -165,6 +171,12 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 ArrCTF_TEL.add(ArrData.get(i).optString("CTF_TEL", "No Value"));
                 ArrCTF_X.add(ArrData.get(i).optDouble("CTF_X", 0.0));
                 ArrCTF_Y.add(ArrData.get(i).optDouble("CTF_Y", 0.0));
+
+
+
+
+
+
             /*
             ArrCTF_CODE.add(ArrData.get(i).optInt("CTF_CODE", 0));
             ArrCTF_TYPE.add(ArrData.get(i).optInt("CTF_TYPE", 0));
@@ -253,7 +265,6 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             listview.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    scrollview.requestDisallowInterceptTouchEvent(true);
                     return false;
                 }
             });
@@ -323,6 +334,13 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         final PodJsonRequest jsonRequest = new PodJsonRequest(Request.Method.GET, url, new JSONObject(), MainActivity.this, MainActivity.this);
         jsonRequest.setTag(REQUEST_TAG);
         mQueue.add(jsonRequest);
+    }
+
+    protected void jsonRequest2(String url)
+    {
+        final PodJsonRequest jsonRequest2 = new PodJsonRequest(Request.Method.GET, url, new JSONObject(), MainActivity.this, MainActivity.this);
+        jsonRequest2.setTag(REQUEST_TAG);
+        mQueue2.add(jsonRequest2);
     }
 
 }
