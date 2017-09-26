@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.junhyeong.myapplication.Daum.Daum;
 import com.example.junhyeong.myapplication.Login.LoginActivity;
 
 
@@ -21,8 +20,7 @@ public class SplashActivity extends Activity {
         catch(InterruptedException e){
             e.printStackTrace();
         }
-        //startActivity(new Intent(this, LoginActivity.class));
-        startActivity(new Intent(this, Daum.class));
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 }

@@ -36,7 +36,7 @@ public class Select_MenuActivity extends Activity implements View.OnClickListene
         {
             case R.id.iv1:
                 iv = (ImageView) findViewById(R.id.iv1);
-                menu ="한식".toString();
+                menu ="한식&분식".toString();
                 break;
             case R.id.iv2:
                 iv = (ImageView) findViewById(R.id.iv2);

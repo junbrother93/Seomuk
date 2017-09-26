@@ -36,7 +36,7 @@ public class PopupActivity_Menu extends Activity {
         {
             case R.id.pop1_1:
                 localId = (Button) findViewById(R.id.pop1_1);
-                menu = "한식".toString();
+                menu = "한식&분식".toString();
                 break;
             case R.id.pop2_2:
                 localId = (Button) findViewById(R.id.pop2_2);
@@ -73,6 +73,8 @@ public class PopupActivity_Menu extends Activity {
             case R.id.pop10_10:
                 localId = (Button) findViewById(R.id.pop10_10);
                 menu = "food".toString();
+                break;
+            case R.id.close:
                 break;
 
         }
