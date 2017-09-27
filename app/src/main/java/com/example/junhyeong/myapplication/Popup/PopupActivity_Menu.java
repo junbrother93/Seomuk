@@ -9,17 +9,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.Main.MainActivity;
 import com.example.junhyeong.myapplication.R;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -84,9 +75,23 @@ public class PopupActivity_Menu extends Activity {
                 localId = (Button) findViewById(R.id.pop10_10);
                 menu = "food".toString();
                 break;
-<<<<<<< HEAD
-            case R.id.close:
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        }
+        Intent intent = getIntent();
+        String local = intent.getStringExtra("local");
+        url = "http://13.124.127.124:3000/auth/menu/"+ menu + "/loc/" + local.toString();
+
+        // url , local 값 MainActivity로 전송
+        ActMain.putExtra("url", url);
+        ActMain.putExtra("menu", menu);
+        ActMain.putExtra("local",local);
+        Log.e(url,"url");
+        setResult(RESULT_OK, ActMain);
+        finish();
+
+
+        /*  리뷰 테스트
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -111,22 +116,7 @@ public class PopupActivity_Menu extends Activity {
                     }
                 };
                 requestQueue.add(postStringRequest);
-                break;
-
-=======
->>>>>>> c6af3ddaff9cb6006de03862d68ecd27c66d031f
-        }
-        Intent intent = getIntent();
-        String local = intent.getStringExtra("local");
-        url = "http://13.124.127.124:3000/auth/menu/"+ menu + "/loc/" + local.toString();
-
-        // url , local 값 MainActivity로 전송
-        ActMain.putExtra("url", url);
-        ActMain.putExtra("menu", menu);
-        ActMain.putExtra("local",local);
-        Log.e(url,"url");
-        setResult(RESULT_OK, ActMain);
-        finish();
+                */
     }
 
     @Override
