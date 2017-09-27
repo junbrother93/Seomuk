@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -83,6 +84,7 @@ public class PopupActivity_Menu extends Activity {
                 localId = (Button) findViewById(R.id.pop10_10);
                 menu = "food".toString();
                 break;
+<<<<<<< HEAD
             case R.id.close:
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
@@ -111,6 +113,8 @@ public class PopupActivity_Menu extends Activity {
                 requestQueue.add(postStringRequest);
                 break;
 
+=======
+>>>>>>> c6af3ddaff9cb6006de03862d68ecd27c66d031f
         }
         Intent intent = getIntent();
         String local = intent.getStringExtra("local");
@@ -123,8 +127,15 @@ public class PopupActivity_Menu extends Activity {
         Log.e(url,"url");
         setResult(RESULT_OK, ActMain);
         finish();
-
-
-
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        //바깥레이어 클릭시 안닫히게
+        if(event.getAction()== MotionEvent.ACTION_OUTSIDE){
+            return false;
+        }
+        return true;
+    }
+
 }

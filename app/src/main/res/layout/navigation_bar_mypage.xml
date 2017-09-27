@@ -5,26 +5,19 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/Menu"
+        android:id="@+id/Favorite"
         android:layout_width="0dip"
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:onClick="onClick"
-        android:text="메뉴"/>
+        android:text="즐겨찾기"/>
     <Button
-        android:id="@+id/Location"
+        android:id="@+id/Riview"
         android:layout_width="0dip"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:text="지역"/>
+        android:text="리뷰"/>
 
-    <Button
-        android:id="@+id/MyPage"
-        android:layout_width="0dip"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:onClick="onClick"
-        android:text="마이 페이지"/>
 
 
 

@@ -22,6 +22,7 @@ import com.example.junhyeong.myapplication.Google.MapsActivity;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Local;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Menu;
 import com.example.junhyeong.myapplication.R;
+import com.example.junhyeong.myapplication.Select.Select_MyPage_Activity;
 import com.example.junhyeong.myapplication.widget.IndexableListView;
 
 import org.json.JSONObject;
@@ -34,13 +35,15 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     public static final String REQUEST_TAG = "MainActivity";
     private final int DYNAMIC_VIEW_ID = 10000;
     private RequestQueue mQueue, mQueue2;
-    private Button mButton, BtnLocalChange, BtnMenuChange;
+    private Button mButton, BtnLocalChange, BtnMenuChange, BtnMyPage;
     private ArrayList<Store> arrayList;
     private ArrayList<Store2> arrayList2;
     private IndexableListView listview;
     private int AnsimValue;
     private Intent ActPop_Location;
     private Intent ActPop_Menu;
+    private Intent MyPage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +53,13 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
 
         ActPop_Location = new Intent(this, PopupActivity_Local.class);
         ActPop_Menu = new Intent(this, PopupActivity_Menu.class);
+        MyPage = new Intent(this, Select_MyPage_Activity.class);
+
 
         BtnLocalChange = (Button) findViewById(R.id.Location); // 네비게이션바에 있는 "지역" 버튼
         BtnMenuChange = (Button)findViewById(R.id.Menu);
+        BtnMyPage = (Button)findViewById((R.id.MyPage));
+
         mButton = (Button) findViewById(R.id.mButton); // 글씨바뀌는건 위의 mButton 버튼
 
         Intent intent = getIntent();
@@ -67,6 +74,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             AnsimValue = 1;
             url = "http://13.124.127.124:3000/food/loc/" + local.toString();
         }
+        else
+            AnsimValue = 0;
         ActPop_Menu.putExtra("local",local);
         setResult(RESULT_OK,ActPop_Menu);
         ActPop_Location.putExtra("menu",menu);
@@ -93,15 +102,33 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
 
             }
         });
+        BtnMyPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(MyPage);
+
+            }
+        });
+
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // PopupActivity 에서 보낸 url, local 값을 받음
-        String url = data.getStringExtra("url");
-        String local = data.getStringExtra("local");
-        String menu = data.getStringExtra("menu");
+        String url;
+        String local;
+        String menu;
+        url = data.getStringExtra("url");
+        local = data.getStringExtra("local");
+        menu = data.getStringExtra("menu");
+        if(menu.toString().equals("food")) {
+            AnsimValue = 1;
+            url = "http://13.124.127.124:3000/food/loc/" + local.toString();
+        }
+        else
+            AnsimValue = 0;
         ActPop_Location.putExtra("menu",menu);
         setResult(RESULT_OK,ActPop_Location);
         ActPop_Menu.putExtra("local",local);
