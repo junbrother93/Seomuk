@@ -3,10 +3,10 @@ package com.example.junhyeong.myapplication.Google;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.example.junhyeong.myapplication.R;
@@ -14,7 +14,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -23,28 +22,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private double x, y;
     private String store_name;
+    private Typeface BMJUA;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_googlemap);
+        BMJUA = Typeface.createFromAsset(this.getAssets(), "fonts/BMJUA_ttf.ttf");
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         Intent intent = getIntent();
         store_name = intent.getStringExtra("store_name");
+        String store_grade = intent.getStringExtra("store_grade");
         String store_address = intent.getStringExtra("store_address");
-        String store_call = intent.getStringExtra("store_call");
+        String store_call = intent.getStringExtra("store_call");//전화번호아이콘 만들어지면 사용
         x = intent.getDoubleExtra("X", 0.0);
         y = intent.getDoubleExtra("Y", 0.0);
-        TextView i,v,w;
+        TextView i,v,w,title;
+        title = (TextView) findViewById(R.id.textView9);
+        title.setTypeface(BMJUA);
         i = (TextView) findViewById(R.id.textView6);
         v = (TextView) findViewById(R.id.textView7);
         w = (TextView) findViewById(R.id.textView8);
-        Log.e("x : ", "x " + x);Log.e("y : ", "y " + y);
         i.setText(store_name);
         v.setText(store_address);
-        w.setText(store_call);
+        w.setText(store_grade);
     }
 
 

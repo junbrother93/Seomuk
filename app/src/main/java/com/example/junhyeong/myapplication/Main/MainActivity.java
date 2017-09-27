@@ -237,7 +237,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             // 정렬 한 것 어댑터에 추가
             for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
             {
-                adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), arrayList.get(i).getCTF_NAME(), arrayList.get(i).getCTF_TEL());
+                adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), arrayList.get(i).getCTF_NAME());
             }
             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -247,6 +247,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     Toast.makeText(MainActivity.this, "" + id, Toast.LENGTH_LONG).show();
                     intent.putExtra("store_name", arrayList.get((int) id).getCTF_NAME());
                     intent.putExtra("store_address", arrayList.get((int) id).getCTF_ADDR());
+                    intent.putExtra("store_grade", arrayList.get((int) id).getCTF_TYPE_NAME());
                     intent.putExtra("store_call", arrayList.get((int) id).getCTF_TEL());
                     intent.putExtra("X", arrayList.get((int) id).getCTF_X());
                     intent.putExtra("Y", arrayList.get((int) id).getCTF_Y());
@@ -333,7 +334,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             // 정렬 한 것 어댑터에 추가
             for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
             {
-                adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), arrayList2.get(i).getUPSO_NM(), arrayList2.get(i).getTEL_NO());
+                adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), arrayList2.get(i).getUPSO_NM());
             }
             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -343,6 +344,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     Toast.makeText(MainActivity.this, "" + id, Toast.LENGTH_LONG).show();
                     intent.putExtra("store_name", arrayList2.get((int) id).getUPSO_NM());
                     intent.putExtra("store_address", arrayList2.get((int) id).getRDN_DETAIL_ADDR());
+                    intent.putExtra("store_grade", arrayList2.get((int) id).getCRTFC_GBN_NM());
                     intent.putExtra("store_call", arrayList2.get((int) id).getTEL_NO());
                     intent.putExtra("X", arrayList2.get((int) id).getY_DNTS());
                     intent.putExtra("Y", arrayList2.get((int) id).getX_CNTS());
