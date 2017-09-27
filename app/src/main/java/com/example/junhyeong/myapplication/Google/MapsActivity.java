@@ -9,14 +9,23 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -37,6 +46,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String store_call = intent.getStringExtra("store_call");
         x = intent.getDoubleExtra("X", 0.0);
         y = intent.getDoubleExtra("Y", 0.0);
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest postStringRequest = new StringRequest(Request.Method.GET, "https://dapi.kakao.com/v2/local/geo/transcoord.json?x=" + x + "&y=" + y + "&input_coord=WTM&output_coord=WGS84", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Log.e("asfd","asdf" + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+
+        }) {
+            @Override
+            public Map getHeaders() throws AuthFailureError {
+                Map params = new HashMap();
+                params.put("client_id", "KakaoAk 19ecef4f68dc725c76b07d9302ef942a");
+                return params;
+            }
+        };
+        requestQueue.add(postStringRequest);
+
+
         TextView i,v,w;
         i = (TextView) findViewById(R.id.textView6);
         v = (TextView) findViewById(R.id.textView7);

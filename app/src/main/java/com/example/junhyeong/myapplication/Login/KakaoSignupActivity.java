@@ -16,7 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.junhyeong.myapplication.Main.MainActivity;
+import com.example.junhyeong.myapplication.Select.Select_MenuActivity;
 import com.kakao.auth.ApiResponseCallback;
 import com.kakao.auth.AuthService;
 import com.kakao.auth.ErrorCode;
@@ -88,7 +88,7 @@ public class KakaoSignupActivity extends AppCompatActivity {
     }
 
     private void redirectMainActivity() {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, Select_MenuActivity.class));
         finish();
     }
 
@@ -128,7 +128,8 @@ public class KakaoSignupActivity extends AppCompatActivity {
                 StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/user/sign_up", new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        Log.e("response : ","response : " + response);
+                        // 서버에서 User id 받아오는 부분
                     }
                 }, new Response.ErrorListener() {
                     @Override

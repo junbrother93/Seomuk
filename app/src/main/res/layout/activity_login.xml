@@ -10,36 +10,60 @@
     <FrameLayout
         android:layout_width="368dp"
         android:layout_height="200dp"
-        android:paddingTop="10dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
+        android:layout_marginBottom="16dp"
         android:gravity="bottom"
         android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="8dp"
-        android:layout_marginBottom="2dp">
-
+        tools:layout_editor_absoluteX="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.kakao.usermgmt.LoginButton
-                android:id="@+id/com_kakao_login"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                />
+                android:layout_height="wrap_content">
 
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/login_button"
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.kakao.usermgmt.LoginButton
+                        android:id="@+id/com_kakao_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp" />
+
+
+                </FrameLayout>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp" />
+                android:layout_height="wrap_content">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <com.facebook.login.widget.LoginButton
+                        android:id="@+id/login_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp" />
+                    <ImageView
+                        android:id="@+id/fake_facebook"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:src="@drawable/a2"/>
+                </FrameLayout>
+
+            </LinearLayout>
+
 
             <Button
                 android:id="@+id/unlogin"

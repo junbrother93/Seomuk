@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,12 +37,15 @@ import java.util.Map;
  * Created by wnsgu on 2017-08-04.
  */
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity implements View.OnClickListener {
 
     private SessionCallback callback;      //콜백 선언 for kakao
     CallbackManager callbackManager;       //콜백 선언 for facebook
     Button unlogin;
     Intent intent;
+
+    private ImageView fakefacebook, fakekakao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +53,9 @@ public class LoginActivity extends Activity {
         intent = new Intent(this,Select_MenuActivity.class);
         unlogin = (Button)findViewById(R.id.unlogin);
         unlogin.setOnClickListener(new AccessListener());
+
+        fakefacebook = (ImageView) findViewById(R.id.fake_facebook);
+        fakefacebook.setOnClickListener(this);
 
         callback = new SessionCallback();                // 이 두개의 함수 중요함 for kakao
         Session.getCurrentSession().addCallback(callback);
@@ -196,5 +203,14 @@ public class LoginActivity extends Activity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fake_facebook:
+
+                break;
+        }
     }
 }
