@@ -87,9 +87,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         BtnLocalChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivityForResult(ActPop_Location, 0);
-
             }
         });
 
@@ -97,17 +95,15 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         BtnMenuChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivityForResult(ActPop_Menu, 0);
-
             }
         });
+
+
         BtnMyPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivity(MyPage);
-
             }
         });
 
@@ -146,6 +142,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     @Override
     public void onResponse(JSONObject response) {
         int total = response.optInt("total", 0);    // 총 갯수
+
+        // 안심먹거리일 경우
         if (AnsimValue == 1) {
             arrayList = new ArrayList<Store>();
 
@@ -195,24 +193,17 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 ArrCTF_X.add(ArrData.get(i).optDouble("CTF_X", 0.0));
                 ArrCTF_Y.add(ArrData.get(i).optDouble("CTF_Y", 0.0));
 
-
-
-
-
-
-            /*
-            ArrCTF_CODE.add(ArrData.get(i).optInt("CTF_CODE", 0));
-            ArrCTF_TYPE.add(ArrData.get(i).optInt("CTF_TYPE", 0));
-            ArrCTF_TYPE_NAME.add(ArrData.get(i).optString("CTF_TYPE_NAME", "No Value"));
-            ArrCTF_NAME.add(ArrData.get(i).optString("CTF_NAME", "No Value"));
-            ArrCTF_X.add(ArrData.get(i).optDouble("CTF_X", 0.0));
-            ArrCTF_Y.add(ArrData.get(i).optDouble("CTF_Y", 0.0));
-            ArrCTF_ADDR.add(ArrData.get(i).optString("CTF_ADDR", "No Value"));
-            ArrCTF_TEL.add(ArrData.get(i).optString("CTF_TEL", "No Value"));
-            */
-
-                // 아이템 추가
-                //adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), "", ArrCTF_NAME.get(i));
+                // 쓸지 안쓸지 결정
+                /*
+                ArrCTF_CODE.add(ArrData.get(i).optInt("CTF_CODE", 0));
+                ArrCTF_TYPE.add(ArrData.get(i).optInt("CTF_TYPE", 0));
+                ArrCTF_TYPE_NAME.add(ArrData.get(i).optString("CTF_TYPE_NAME", "No Value"));
+                ArrCTF_NAME.add(ArrData.get(i).optString("CTF_NAME", "No Value"));
+                ArrCTF_X.add(ArrData.get(i).optDouble("CTF_X", 0.0));
+                ArrCTF_Y.add(ArrData.get(i).optDouble("CTF_Y", 0.0));
+                ArrCTF_ADDR.add(ArrData.get(i).optString("CTF_ADDR", "No Value"));
+                ArrCTF_TEL.add(ArrData.get(i).optString("CTF_TEL", "No Value"));
+                */
 
                 // 객체 추가
                 Store s = new Store();
@@ -229,11 +220,6 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             }
             // 정렬
             Collections.sort(arrayList);
-      /*  ContentAdapter adapter1 = new ContentAdapter(this,android.R.layout.simple_list_item_1,ArrCTF_NAME);
-        listview.setAdapter(adapter1);
-*/
-
-
             // 정렬 한 것 어댑터에 추가
             for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
             {
@@ -254,7 +240,10 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     startActivity(intent);
                 }
             });
-        } else {
+        }
+
+        // 지정 업소인 경우
+        else {
             arrayList2 = new ArrayList<Store2>();
 
             // 리스트 생성
@@ -300,9 +289,6 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 UPSO_NM.add(ArrData.get(i).optString("UPSO_NM", "No Value"));
                 TEL_NO.add(ArrData.get(i).optString("TEL_NO", "No Value"));
 
-                // 아이템 추가
-                //adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), "", ArrCTF_NAME.get(i));
-
                 // 객체 추가
                 Store2 s = new Store2();
 
@@ -329,7 +315,6 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             }
             // 정렬
             Collections.sort(arrayList2);
-
 
             // 정렬 한 것 어댑터에 추가
             for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
@@ -360,12 +345,4 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         jsonRequest.setTag(REQUEST_TAG);
         mQueue.add(jsonRequest);
     }
-
-    protected void jsonRequest2(String url)
-    {
-        final PodJsonRequest jsonRequest2 = new PodJsonRequest(Request.Method.GET, url, new JSONObject(), MainActivity.this, MainActivity.this);
-        jsonRequest2.setTag(REQUEST_TAG);
-        mQueue2.add(jsonRequest2);
-    }
-
 }

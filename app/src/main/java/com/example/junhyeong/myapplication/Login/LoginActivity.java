@@ -75,17 +75,14 @@ public class LoginActivity extends Activity {
             public void onSuccess(LoginResult loginResult) {
                 Toast.makeText(getApplicationContext(), "페이스북 로그인 성공", Toast.LENGTH_LONG).show();
                 final AccessToken token = loginResult.getAccessToken();
+
                 Log.e("fd_ID", token.getUserId());
 
-
-                /**********************************************************************************
-                 포스트
-                 **********************************************************************************/
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/user/sign_up", new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        Log.e("response : ","response : " + response);
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -104,25 +101,6 @@ public class LoginActivity extends Activity {
                     }
                 };
                 requestQueue.add(postStringRequest);
-                /*
-                StringRequest deleteStringRequest = new StringRequest(Request.Method.DELETE, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-
-                });
-                */
-
-
-                /**********************************************************************************/
-
-
                 redirectMainActivity();
                 // App code
             }

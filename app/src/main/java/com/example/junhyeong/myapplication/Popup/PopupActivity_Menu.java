@@ -87,36 +87,6 @@ public class PopupActivity_Menu extends Activity {
         Log.e(url,"url");
         setResult(RESULT_OK, ActMain);
         finish();
-
-
-        /*  리뷰 테스트
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> body = new HashMap<>();
-                        body.put("text", "이 음식점의 밑반찬은 굉장히 맛있습니다.");
-                        body.put("classify", "안심");
-                        body.put("user_id", "1");
-                        body.put("store_id", "1760");
-
-                        return body;
-                    }
-                };
-                requestQueue.add(postStringRequest);
-                */
     }
 
     @Override

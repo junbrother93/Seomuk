@@ -80,7 +80,7 @@ public class KakaoSignupActivity extends AppCompatActivity {
             public void onSuccess(UserProfile userProfile) {  //성공 시 userProfile 형태로 반환
                 Logger.d("UserProfile : " + userProfile);
                 Toast.makeText(getApplicationContext(), "카카오톡 로그인 성공", Toast.LENGTH_LONG).show();
-                requestAccessTokenInfo();
+                requestAccessTokenInfo();   // 토큰 정보 요청
                 redirectMainActivity();
             }
 
@@ -118,18 +118,16 @@ public class KakaoSignupActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(AccessTokenInfoResponse accessTokenInfoResponse) {
+
                 final long userId = accessTokenInfoResponse.getUserId();
                 Log.e("userId", "userId=" + userId);
-
-                long expiresInMilis = accessTokenInfoResponse.getExpiresInMillis();
-                Log.e("expires", "this access token expires after " + expiresInMilis + " milliseconds.");
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/user/sign_up", new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        // 서버 응답
                         Log.e("response : ","response : " + response);
-                        // 서버에서 User id 받아오는 부분
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -148,18 +146,9 @@ public class KakaoSignupActivity extends AppCompatActivity {
                     }
                 };
                 requestQueue.add(postStringRequest);
-
             }
         });
     }
-    /*
-    protected void redirectImageActivity() {
-        final Intent intent = new Intent(this, ImageClick.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
-        finish();
-    }
-    */
 }
 
 
