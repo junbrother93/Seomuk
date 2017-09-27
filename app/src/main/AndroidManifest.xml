@@ -38,7 +38,6 @@
         <activity android:name=".Login.KakaoSignupActivity" />
         <activity android:name=".Select.Select_MenuActivity"/>
         <activity android:name=".Select.Select_LocationActivity"/>
-        <activity android:name=".Main.SafeFoodActivity"/>
         <activity android:name=".Main.MainActivity" />
         <activity android:name=".Popup.PopupActivity_Local"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
