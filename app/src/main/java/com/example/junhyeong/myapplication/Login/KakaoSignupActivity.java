@@ -10,12 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.junhyeong.myapplication.Data.GlobalUserId;
 import com.example.junhyeong.myapplication.Select.Select_MenuActivity;
 import com.kakao.auth.ApiResponseCallback;
 import com.kakao.auth.AuthService;
@@ -27,6 +31,8 @@ import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.helper.log.Logger;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,11 +42,12 @@ public class KakaoSignupActivity extends AppCompatActivity {
      * Main으로 넘길지 가입 페이지를 그릴지 판단하기 위해 me를 호출한다.
      * @param savedInstanceState 기존 session 정보가 저장된 객체
      */
-
+    GlobalUserId GUserID = (GlobalUserId) getApplication();
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         requestMe();
     }
 
@@ -80,7 +87,7 @@ public class KakaoSignupActivity extends AppCompatActivity {
             public void onSuccess(UserProfile userProfile) {  //성공 시 userProfile 형태로 반환
                 Logger.d("UserProfile : " + userProfile);
                 Toast.makeText(getApplicationContext(), "카카오톡 로그인 성공", Toast.LENGTH_LONG).show();
-                requestAccessTokenInfo();   // 토큰 정보 요청
+                requestAccessTokenInfo_kakao();   // 토큰 정보 요청
                 redirectMainActivity();
             }
 
@@ -98,7 +105,7 @@ public class KakaoSignupActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    private void requestAccessTokenInfo() {
+    private void requestAccessTokenInfo_kakao() {
         AuthService.requestAccessTokenInfo(new ApiResponseCallback<AccessTokenInfoResponse>() {
             @Override
             public void onSessionClosed(ErrorResult errorResult) {
@@ -123,11 +130,11 @@ public class KakaoSignupActivity extends AppCompatActivity {
                 Log.e("userId", "userId=" + userId);
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/user/sign_up", new Response.Listener<String>() {
+                JsonObjectRequest postStringRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/sign_up", new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         // 서버 응답
-                        Log.e("response : ","response : " + response);
+                        GUserID.setGlobalUserID(response.optJSONObject("data").optString("id","error"));
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -146,6 +153,28 @@ public class KakaoSignupActivity extends AppCompatActivity {
                     }
                 };
                 requestQueue.add(postStringRequest);
+
+                StringRequest postStringRequest2 = new StringRequest(Request.Method.GET, "http://13.124.127.124:3000/user/sign_in", new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e("response2 : ","response2 : " + response);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+
+                }) {
+                    @Override
+                    public Map getHeaders() throws AuthFailureError {
+                        Map params = new HashMap();
+                        params.put("platform", "kakao");
+                        params.put("token", String.valueOf(userId));
+                        return params;
+                    }
+                };
+                requestQueue.add(postStringRequest2);
             }
         });
     }

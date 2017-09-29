@@ -192,29 +192,25 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 ArrCTF_TEL.add(ArrData.get(i).optString("CTF_TEL", "No Value"));
                 ArrCTF_X.add(ArrData.get(i).optDouble("CTF_X", 0.0));
                 ArrCTF_Y.add(ArrData.get(i).optDouble("CTF_Y", 0.0));
+                ArrCTF_CODE.add(ArrData.get(i).optInt("CTF_CODE",0));
 
                 // 쓸지 안쓸지 결정
                 /*
-                ArrCTF_CODE.add(ArrData.get(i).optInt("CTF_CODE", 0));
                 ArrCTF_TYPE.add(ArrData.get(i).optInt("CTF_TYPE", 0));
                 ArrCTF_TYPE_NAME.add(ArrData.get(i).optString("CTF_TYPE_NAME", "No Value"));
-                ArrCTF_NAME.add(ArrData.get(i).optString("CTF_NAME", "No Value"));
-                ArrCTF_X.add(ArrData.get(i).optDouble("CTF_X", 0.0));
-                ArrCTF_Y.add(ArrData.get(i).optDouble("CTF_Y", 0.0));
                 ArrCTF_ADDR.add(ArrData.get(i).optString("CTF_ADDR", "No Value"));
-                ArrCTF_TEL.add(ArrData.get(i).optString("CTF_TEL", "No Value"));
                 */
 
                 // 객체 추가
                 Store s = new Store();
                 s.setArrData(response.optJSONArray("data").optJSONObject(i));
                 s.setCTF_CODE(ArrData.get(i).optInt("CTF_CODE", 0));
-                s.setCTF_TYPE(ArrData.get(i).optInt("CTF_TYPE", 0));
-                s.setCTF_TYPE_NAME(ArrData.get(i).optString("CTF_TYPE_NAME", "No Value"));
+                //s.setCTF_TYPE(ArrData.get(i).optInt("CTF_TYPE", 0));
+                //s.setCTF_TYPE_NAME(ArrData.get(i).optString("CTF_TYPE_NAME", "No Value"));
                 s.setCTF_NAME(ArrData.get(i).optString("CTF_NAME", "No Value"));
-                s.setCTF_X(ArrData.get(i).optDouble("CTF_X", 0.0));
-                s.setCTF_Y(ArrData.get(i).optDouble("CTF_Y", 0.0));
-                s.setCTF_ADDR(ArrData.get(i).optString("CTF_ADDR", "No Value"));
+                s.setCTF_X(ArrData.get(i).optDouble("CTF_X", 37.5652894));
+                s.setCTF_Y(ArrData.get(i).optDouble("CTF_Y", 126.8494668));
+                //s.setCTF_ADDR(ArrData.get(i).optString("CTF_ADDR", "No Value"));
                 s.setCTF_TEL(ArrData.get(i).optString("CTF_TEL", "No Value"));
                 arrayList.add(s);
             }
@@ -238,11 +234,12 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
 
                     Toast.makeText(MainActivity.this, "" + id, Toast.LENGTH_LONG).show();
                     intent.putExtra("store_name", arrayList.get((int) id).getCTF_NAME());
-                    intent.putExtra("store_address", arrayList.get((int) id).getCTF_ADDR());
-                    intent.putExtra("store_grade", arrayList.get((int) id).getCTF_TYPE_NAME());
+                    //intent.putExtra("store_address", arrayList.get((int) id).getCTF_ADDR());
+                    //intent.putExtra("store_grade", arrayList.get((int) id).getCTF_TYPE_NAME());
                     intent.putExtra("store_call", arrayList.get((int) id).getCTF_TEL());
                     intent.putExtra("X", arrayList.get((int) id).getCTF_X());
                     intent.putExtra("Y", arrayList.get((int) id).getCTF_Y());
+                    intent.putExtra("store_id", arrayList.get((int) id).getCTF_CODE());
                     startActivity(intent);
                 }
             });
@@ -310,8 +307,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 s.setCRTFC_CHR_NM((ArrData.get(i)).optString("CRTFC_CHR_NM", "No Value"));
                 s.setCRTFC_YMD((ArrData.get(i)).optString("CRTFC_YMD", "No Value"));
                 s.setUSE_YN((ArrData.get(i)).optString("USE_YN", "No Value"));
-                s.setY_DNTS(ArrData.get(i).optDouble("Y_DNTS", 0.0));
-                s.setX_CNTS(ArrData.get(i).optDouble("X_CNTS", 0.0));
+                s.setY_DNTS(ArrData.get(i).optDouble("Y_DNTS", 37.5652894));
+                s.setX_CNTS(ArrData.get(i).optDouble("X_CNTS", 126.8494668));
                 s.setTEL_NO(ArrData.get(i).optString("TEL_NO", "No Value"));
                 s.setRDN_DETAIL_ADDR(ArrData.get(i).optString("RDN_DETAIL_ADDR", "No Value"));
                 s.setRDN_CODE_NM(ArrData.get(i).optString("RDN_CODE_NM", "No Value"));
@@ -345,6 +342,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     intent.putExtra("store_call", arrayList2.get((int) id).getTEL_NO());
                     intent.putExtra("X", arrayList2.get((int) id).getY_DNTS());
                     intent.putExtra("Y", arrayList2.get((int) id).getX_CNTS());
+                    intent.putExtra("store_id", arrayList2.get((int) id).getCRTFC_UPSO_MGT_SNO());
+
                     startActivity(intent);
                 }
             });

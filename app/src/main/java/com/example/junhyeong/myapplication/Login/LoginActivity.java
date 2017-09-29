@@ -2,13 +2,19 @@ package com.example.junhyeong.myapplication.Login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageInstaller;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -18,10 +24,12 @@ import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Select.Select_MenuActivity;
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.Profile;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
@@ -30,6 +38,9 @@ import com.kakao.auth.Session;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,52 +66,29 @@ public class LoginActivity extends Activity {
         unlogin.setOnClickListener(new AccessListener());
 
 
-
-        callback = new SessionCallback();                // 이 두개의 함수 중요함 for kakao
+        //for kakao
+        callback = new SessionCallback();
         Session.getCurrentSession().addCallback(callback);
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
-
+        //for facebook
         callbackManager = CallbackManager.Factory.create();
+        Log.e("test","test"+AccessToken.getCurrentAccessToken());
 
-
-        //LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
-        // 페이스북 로그인 확인
-        //Session.getCurrentSession();
-
+        if(Session.getCurrentSession().isClosed()==false)
+        {
+            Toast.makeText(getApplicationContext(), "카카오톡으로 로그인이 되어있음", Toast.LENGTH_LONG).show();
+            redirectSignupActivity();
+        }
+        else
+        {
+            // 페이스북 로그인 되어있을때....
+        }
 
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Toast.makeText(getApplicationContext(), "페이스북 로그인 성공", Toast.LENGTH_LONG).show();
-                final AccessToken token = loginResult.getAccessToken();
-
-                Log.e("fd_ID", token.getUserId());
-
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/user/sign_up", new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.e("response : ","response : " + response);
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> params = new HashMap<>();
-                        params.put("platform", "fb");
-                        params.put("token", token.getUserId());
-
-                        return params;
-                    }
-                };
-                requestQueue.add(postStringRequest);
+                requestAccessTokenInfo(loginResult);
                 redirectMainActivity();
                 // App code
             }
@@ -117,8 +105,6 @@ public class LoginActivity extends Activity {
                 // App code
             }
         });
-
-
     }
 
     // 비회원 로그인
@@ -164,7 +150,7 @@ public class LoginActivity extends Activity {
                 Logger.e(exception);
             }
             Toast.makeText(getApplicationContext(), "세션 연결 실패", Toast.LENGTH_LONG).show();
-            redirectMainActivity();     // 세션 연결이 실패했을때
+            redirectLoginActivity();     // 세션 연결이 실패했을때
         }                               // 로그인화면을 다시 불러옴
     }
 
@@ -175,6 +161,12 @@ public class LoginActivity extends Activity {
         finish();
     }
 
+    protected void redirectLoginActivity() {
+        final Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+        finish();
+    }
     protected void redirectMainActivity() {
         final Intent intent = new Intent(this, Select_MenuActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -182,4 +174,55 @@ public class LoginActivity extends Activity {
         finish();
     }
 
+
+    private void requestAccessTokenInfo(LoginResult loginResult) {
+        final AccessToken token = loginResult.getAccessToken();
+        Log.e("fd_ID", token.getUserId());
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/user/sign_up", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("response : ","response : " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("platform", "fb");
+                params.put("token", token.getUserId());
+
+                return params;
+            }
+        };
+        requestQueue.add(postStringRequest);
+
+        StringRequest postStringRequest2 = new StringRequest(Request.Method.GET, "http://13.124.127.124:3000/user/sign_in", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("response2 : ","response2 : " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+
+        }) {
+            @Override
+            public Map getHeaders() throws AuthFailureError {
+                Map params = new HashMap();
+                params.put("platform", "fb");
+                params.put("token", token.getUserId());
+                return params;
+            }
+        };
+        requestQueue.add(postStringRequest2);
+    }
 }
