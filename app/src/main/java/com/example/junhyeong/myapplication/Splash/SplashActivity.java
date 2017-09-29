@@ -8,10 +8,12 @@ import com.example.junhyeong.myapplication.Login.LoginActivity;
 
 
 public class SplashActivity extends Activity {
-    @Override
 
+    @Override
     protected  void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
+
 
       try
         {
@@ -22,5 +24,9 @@ public class SplashActivity extends Activity {
         }
         startActivity(new Intent(this, LoginActivity.class));
         finish();
+
+
     }
+
+
 }
