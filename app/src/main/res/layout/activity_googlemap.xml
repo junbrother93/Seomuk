@@ -6,7 +6,14 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="352dp">
+        android:layout_height="15dp"
+        android:background="@drawable/background">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="330dp">
 
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -24,7 +31,8 @@
     <FrameLayout
         android:background="@drawable/border"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        >
 
         <TextView
             android:id="@+id/textView9"
@@ -46,17 +54,19 @@
     <GridLayout
         android:id="@+id/Gridlayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
         android:layout_weight="1"
+        android:orientation="vertical"
         android:layout_marginTop="5dp"
         android:paddingTop="5dp">
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="90dp"
+            android:layout_width="70dp"
             android:layout_height="40dp"
             android:layout_weight="1"
+            android:textSize="8pt"
+            android:textStyle="bold"
             android:layout_marginTop="15dp"
             android:layout_row="0"
             android:layout_column="0"
@@ -65,9 +75,11 @@
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="90dp"
+            android:layout_width="70dp"
             android:layout_height="40dp"
             android:layout_weight="1"
+            android:textSize="8pt"
+            android:textStyle="bold"
             android:layout_marginTop="15dp"
             android:layout_row="1"
             android:layout_column="0"
@@ -76,13 +88,14 @@
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="90dp"
+            android:layout_width="70dp"
             android:layout_height="40dp"
             android:layout_weight="1"
+            android:textSize="8pt"
+            android:textStyle="bold"
             android:layout_marginTop="15dp"
             android:layout_row="2"
             android:layout_column="0"
-
             android:text="인증등급 : " />
 
         <TextView
@@ -90,8 +103,9 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_weight="1"
+            android:textSize="8pt"
             android:layout_marginTop="15dp"
-            android:paddingLeft="10dp"
+
             android:layout_row="0"
             android:layout_column="1"
             android:text="업체명~~~~~" />
@@ -101,8 +115,9 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_weight="1"
+            android:textSize="8pt"
             android:layout_marginTop="15dp"
-            android:paddingLeft="10dp"
+
             android:layout_row="1"
             android:layout_column="1"
             android:text="주소~~~~~" />
@@ -111,13 +126,38 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+            android:textSize="8pt"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
-            android:paddingLeft="10dp"
+
             android:layout_row="2"
             android:layout_column="1"
             android:text="인증등급~~~~" />
 
     </GridLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <ImageView
+            android:id="@+id/ReviewBtn"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="left|center_vertical"
+            android:src="@drawable/review" />
+
+        <ImageView
+            android:id="@+id/TelBtn"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_gravity="left|center"
+            android:src="@drawable/a2"
+ />
+
+    </FrameLayout>
+
 
 </LinearLayout>

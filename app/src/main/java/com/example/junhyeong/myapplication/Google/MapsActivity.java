@@ -5,6 +5,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -15,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.R;
+import com.example.junhyeong.myapplication.Review.Review_Activity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -33,14 +36,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double x, y;
     private String store_name;
     private Typeface BMJUA;
+    private Typeface BMDOHYEON;
     private static final int MY_LOCATION_REQUEST_CODE = 1;
     private String store_address;
+    private ImageView TelBtn,ReviewBtn;
+    Intent review;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_googlemap);
         BMJUA = Typeface.createFromAsset(this.getAssets(), "fonts/BMJUA_ttf.ttf");
+        BMDOHYEON = Typeface.createFromAsset(this.getAssets(), "fonts/BMDOHYEON_ttf.ttf");
+        review = new Intent(this, Review_Activity.class);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -56,7 +65,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         final TextView tvStore_name, tvStore_address, tvStore_grade, title;
         title = (TextView) findViewById(R.id.textView9);
-        title.setTypeface(BMJUA);
+        title.setTypeface(BMDOHYEON);
+
+        TelBtn = (ImageView) findViewById(R.id.TelBtn);
+
+        ReviewBtn = (ImageView) findViewById(R.id.ReviewBtn);
+        ReviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(review);
+            }
+        });
 
         tvStore_name = (TextView) findViewById(R.id.textView6);
         tvStore_address = (TextView) findViewById(R.id.textView7);
@@ -110,4 +129,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(location).title(store_name));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 17.0f));
     }
+
+
 }

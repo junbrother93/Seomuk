@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
+
 import com.example.junhyeong.myapplication.Main.ListViewItem;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.util.StringMatcher;
@@ -21,6 +22,8 @@ public class ListViewAdapter extends BaseAdapter implements SectionIndexer {
     private String mSections = "#ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ";
     // ListViewAdapter의 생성자
     public ListViewAdapter() {
+
+
 
     }
 
