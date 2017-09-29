@@ -221,9 +221,15 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             // 정렬
             Collections.sort(arrayList);
             // 정렬 한 것 어댑터에 추가
-            for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
+            if(total==0)
             {
-                adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), arrayList.get(i).getCTF_NAME());
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.warn), "정보가 존재하지 않습니다.");
+            }
+            else {
+                for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
+                {
+                    adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), arrayList.get(i).getCTF_NAME());
+                }
             }
             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -317,9 +323,15 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             Collections.sort(arrayList2);
 
             // 정렬 한 것 어댑터에 추가
-            for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
+            if(total==0)
             {
-                adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), arrayList2.get(i).getUPSO_NM());
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.warn), "정보가 존재하지 않습니다.");
+            }
+            else {
+                for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
+                {
+                    adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), arrayList2.get(i).getUPSO_NM());
+                }
             }
             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override

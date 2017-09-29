@@ -70,7 +70,7 @@ public class ListViewAdapter extends BaseAdapter implements SectionIndexer {
     // 지정한 위치(position)에 있는 데이터 리턴 : 필수 구현
     @Override
     public Object getItem(int position) {
-        return listViewItemList.get(position) ;
+        return listViewItemList.get(position).getTitle() ;
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
