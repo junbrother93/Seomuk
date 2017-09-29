@@ -2,6 +2,7 @@ package com.example.junhyeong.myapplication.Google;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -38,8 +39,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Typeface BMJUA;
     private Typeface BMDOHYEON;
     private static final int MY_LOCATION_REQUEST_CODE = 1;
+<<<<<<< HEAD
     private String store_address;
     private ImageView TelBtn,ReviewBtn, Nomap;
+=======
+    private String store_address,store_call;
+    private ImageView TelBtn,ReviewBtn;
+>>>>>>> 78f192c6d672316b4e406e2286c8d23aa36381f6
     Intent review;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +64,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         store_name = intent.getStringExtra("store_name");
         String store_grade = intent.getStringExtra("store_grade");
         //store_address = intent.getStringExtra("store_address");
+<<<<<<< HEAD
         String store_call = intent.getStringExtra("store_call"); //전화번호아이콘 만들어지면 사용
         int store_id = intent.getIntExtra("store_id", 0);
         review.putExtra("store_id", store_id);
+=======
+        store_call = intent.getStringExtra("store_call"); //전화번호아이콘 만들어지면 사용
+        store_call =store_call.replaceAll("\\p{Z}", "");
+        if(store_call.substring(0,2).equals("02")||store_call.substring(0,3).equals("010")||store_call.substring(0,3).equals("016")||store_call.substring(0,3).equals("019"))
+        {}
+        else
+        {
 
+            if(store_call.substring(0,3).equals("001"))
+            {
+                store_call=store_call.replaceAll("001","01");
+            }
+            else if(store_call.substring(0,3).equals("002")) {
+                store_call=store_call.replaceAll("002","02");
+            }
+            else if(store_call.substring(0,4).equals("0002"))
+            {
+                store_call=store_call.replaceAll("0002","02");
+            }
+            else
+                store_call="02".toString()+store_call;
+>>>>>>> 78f192c6d672316b4e406e2286c8d23aa36381f6
+
+        }
         x = intent.getDoubleExtra("X", 0.0);
         y = intent.getDoubleExtra("Y", 0.0);
 
@@ -70,6 +100,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         title.setTypeface(BMDOHYEON);
 
         TelBtn = (ImageView) findViewById(R.id.TelBtn);
+        TelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+store_call));
+                startActivity(intent);
+            }
+        });
 
         ReviewBtn = (ImageView) findViewById(R.id.ReviewBtn);
         ReviewBtn.setOnClickListener(new View.OnClickListener() {

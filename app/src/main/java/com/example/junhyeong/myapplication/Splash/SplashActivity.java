@@ -16,11 +16,12 @@ import java.security.NoSuchAlgorithmException;
 
 
 public class SplashActivity extends Activity {
-    @Override
 
+    @Override
     protected  void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
+<<<<<<< HEAD
         try {
             PackageInfo info = getPackageManager().getPackageInfo("com.example.junhyeong.myapplication", PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
@@ -33,6 +34,9 @@ public class SplashActivity extends Activity {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+=======
+
+>>>>>>> 78f192c6d672316b4e406e2286c8d23aa36381f6
 
       try
         {
@@ -43,5 +47,9 @@ public class SplashActivity extends Activity {
         }
         startActivity(new Intent(this, LoginActivity.class));
         finish();
+
+
     }
+
+
 }
