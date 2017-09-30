@@ -43,7 +43,7 @@ public class KakaoSignupActivity extends AppCompatActivity {
      * Main으로 넘길지 가입 페이지를 그릴지 판단하기 위해 me를 호출한다.
      * @param savedInstanceState 기존 session 정보가 저장된 객체
      */
-    GlobalApplication GUserID = (GlobalApplication) getApplication();
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -158,6 +158,7 @@ public class KakaoSignupActivity extends AppCompatActivity {
                 JsonObjectRequest postStringRequest2 = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/user/sign_in", new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        GlobalApplication GUserID = (GlobalApplication) getApplication();
                         Log.e("response2 : ","response2 : " + response);
                         Log.e("id", "id" + response.optJSONObject("data").optInt("id", 0));
                         GUserID.setGlobalUserID(response.optJSONObject("data").optInt("id", 0));

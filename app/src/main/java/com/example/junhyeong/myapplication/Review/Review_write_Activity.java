@@ -31,8 +31,7 @@ import java.util.Map;
 public class Review_write_Activity extends Activity {
 
     TextView ReviewTitle, ReviewBody;
-    String strReviewBody;
-    GlobalApplication GUserID = (GlobalApplication) getApplication();
+    String strReviewTitle, strReviewBody;
     Intent intent;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +60,8 @@ public class Review_write_Activity extends Activity {
         {
             case R.id.YesBtn:
                 final int store_id = intent.getIntExtra("store_id",0);
-                strReviewBody = ReviewTitle.getText().toString();
+                strReviewTitle = ReviewTitle.getText().toString();
+                strReviewBody = ReviewBody.getText().toString();
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
@@ -78,13 +78,16 @@ public class Review_write_Activity extends Activity {
                 }) {
                     @Override
                     protected Map<String, String> getParams() {
-                        Map<String, String> body = new HashMap<>();
-                        body.put("text", strReviewBody);
-                        body.put("classify", "안심");
-                        body.put("user_id", String.valueOf(GUserID.getGlobalUserID()));
-                        body.put("store_id", String.valueOf(store_id));
-                        Log.e("body", "body" + body);
-                        return body;
+                        GlobalApplication GUserID = (GlobalApplication) getApplication();
+                        Map<String, String> params = new HashMap<>();
+                        //params.put("title", strReviewTitle);
+                        params.put("text", strReviewBody);
+                        params.put("classify", "안심");
+                        params.put("user_id", String.valueOf(GUserID.getGlobalUserID()));
+                        params.put("store_id", String.valueOf(store_id));
+                        Log.e("body", "body" + params);
+
+                        return params;
                     }
                 };
                 requestQueue.add(postStringRequest);
