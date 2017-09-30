@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.Data.GlobalUserId;
+import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.R;
 
 import java.util.HashMap;
@@ -31,7 +32,7 @@ public class Review_write_Activity extends Activity {
 
     TextView ReviewTitle, ReviewBody;
     String strReviewBody;
-    GlobalUserId GUserID = (GlobalUserId) getApplication();
+    GlobalApplication GUserID = (GlobalApplication) getApplication();
     Intent intent;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

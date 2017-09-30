@@ -243,7 +243,6 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     }
                 });
             }
-<<<<<<< HEAD
             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -260,8 +259,6 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     startActivity(intent);
                 }
             });
-=======
->>>>>>> 78f192c6d672316b4e406e2286c8d23aa36381f6
         }
 
         // 지정 업소인 경우
@@ -365,7 +362,6 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     }
                 });
             }
-<<<<<<< HEAD
             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -383,8 +379,6 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     startActivity(intent);
                 }
             });
-=======
->>>>>>> 78f192c6d672316b4e406e2286c8d23aa36381f6
         }
     }
 
