@@ -44,10 +44,12 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     private Intent ActPop_Menu;
     private Intent MyPage;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mQueue = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
         mQueue2 = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
 
@@ -61,6 +63,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         BtnMyPage = (Button)findViewById((R.id.MyPage));
 
         mButton = (Button) findViewById(R.id.mButton); // 글씨바뀌는건 위의 mButton 버튼
+
 
         Intent intent = getIntent();
 
@@ -224,6 +227,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             else {
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
+
                     adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), arrayList.get(i).getCTF_NAME());
                 }
 
@@ -243,25 +247,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     }
                 });
             }
-<<<<<<< HEAD
-            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
 
-                    Toast.makeText(MainActivity.this, "" + id, Toast.LENGTH_LONG).show();
-                    intent.putExtra("store_name", arrayList.get((int) id).getCTF_NAME());
-                    //intent.putExtra("store_address", arrayList.get((int) id).getCTF_ADDR());
-                    //intent.putExtra("store_grade", arrayList.get((int) id).getCTF_TYPE_NAME());
-                    intent.putExtra("store_call", arrayList.get((int) id).getCTF_TEL());
-                    intent.putExtra("X", arrayList.get((int) id).getCTF_X());
-                    intent.putExtra("Y", arrayList.get((int) id).getCTF_Y());
-                    intent.putExtra("store_id", arrayList.get((int) id).getCTF_CODE());
-                    startActivity(intent);
-                }
-            });
-=======
->>>>>>> 78f192c6d672316b4e406e2286c8d23aa36381f6
         }
 
         // 지정 업소인 경우
@@ -365,26 +351,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     }
                 });
             }
-<<<<<<< HEAD
-            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
 
-                    Toast.makeText(MainActivity.this, "" + id, Toast.LENGTH_LONG).show();
-                    intent.putExtra("store_name", arrayList2.get((int) id).getUPSO_NM());
-                    intent.putExtra("store_address", arrayList2.get((int) id).getRDN_DETAIL_ADDR());
-                    intent.putExtra("store_grade", arrayList2.get((int) id).getCRTFC_GBN_NM());
-                    intent.putExtra("store_call", arrayList2.get((int) id).getTEL_NO());
-                    intent.putExtra("X", arrayList2.get((int) id).getY_DNTS());
-                    intent.putExtra("Y", arrayList2.get((int) id).getX_CNTS());
-                    intent.putExtra("store_id", arrayList2.get((int) id).getCRTFC_UPSO_MGT_SNO());
-
-                    startActivity(intent);
-                }
-            });
-=======
->>>>>>> 78f192c6d672316b4e406e2286c8d23aa36381f6
         }
     }
 
