@@ -6,8 +6,10 @@ package com.example.junhyeong.myapplication.GlobalApplication;
 
 import android.app.Activity;
 import android.app.Application;
+import android.support.annotation.NonNull;
 
 import com.example.junhyeong.myapplication.Adapter.KakaoSDKAdapter;
+import com.example.junhyeong.myapplication.Data.GlobalUserId;
 import com.kakao.auth.KakaoSDK;
 
 /**
@@ -18,7 +20,16 @@ import com.kakao.auth.KakaoSDK;
  */
 public class GlobalApplication extends Application {
     private static volatile GlobalApplication instance = null;
-    private static volatile Activity currentActivity = null;
+    private static volatile Activity currentActivity = null;private int GlobalUserID;
+    public int getGlobalUserID()
+    {
+        return GlobalUserID;
+    }
+    public void setGlobalUserID(int globalUserID)
+    {
+        this.GlobalUserID = globalUserID;
+    }
+
 
     @Override
     public void onCreate() {

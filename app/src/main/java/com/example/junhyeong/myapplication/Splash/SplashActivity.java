@@ -35,8 +35,6 @@ public class SplashActivity extends Activity {
         }
 
 
-
-
       try
         {
             Thread.sleep(1500);

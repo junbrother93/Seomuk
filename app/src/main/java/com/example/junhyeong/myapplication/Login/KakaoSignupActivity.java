@@ -20,6 +20,7 @@ import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.Data.GlobalUserId;
+import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.Select.Select_MenuActivity;
 import com.kakao.auth.ApiResponseCallback;
 import com.kakao.auth.AuthService;
@@ -42,7 +43,7 @@ public class KakaoSignupActivity extends AppCompatActivity {
      * Main으로 넘길지 가입 페이지를 그릴지 판단하기 위해 me를 호출한다.
      * @param savedInstanceState 기존 session 정보가 저장된 객체
      */
-    GlobalUserId GUserID = (GlobalUserId) getApplication();
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -134,7 +135,7 @@ public class KakaoSignupActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         // 서버 응답
-                        GUserID.setGlobalUserID(response.optJSONObject("data").optString("id","error"));
+
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -154,10 +155,13 @@ public class KakaoSignupActivity extends AppCompatActivity {
                 };
                 requestQueue.add(postStringRequest);
 
-                StringRequest postStringRequest2 = new StringRequest(Request.Method.GET, "http://13.124.127.124:3000/user/sign_in", new Response.Listener<String>() {
+                JsonObjectRequest postStringRequest2 = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/user/sign_in", new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
+                        GlobalApplication GUserID = (GlobalApplication) getApplication();
                         Log.e("response2 : ","response2 : " + response);
+                        Log.e("id", "id" + response.optJSONObject("data").optInt("id", 0));
+                        GUserID.setGlobalUserID(response.optJSONObject("data").optInt("id", 0));
                     }
                 }, new Response.ErrorListener() {
                     @Override

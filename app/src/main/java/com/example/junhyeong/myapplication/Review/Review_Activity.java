@@ -7,12 +7,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.R;
 
 import java.util.HashMap;
@@ -43,8 +45,30 @@ public class Review_Activity extends Activity {
             }
         });
 
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest postStringRequest2 = new StringRequest(Request.Method.GET, "http://13.124.127.124:3000/review/food", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("response2 : ","response2 : " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
 
+            }
 
+        }) {
+            @Override
+            public Map getHeaders() throws AuthFailureError {
+                GlobalApplication GUserID = (GlobalApplication) getApplication();
+                Map params = new HashMap();
+                params.put("user_id", String.valueOf(GUserID.getGlobalUserID()));
+
+                return params;
+            }
+        };
+
+        requestQueue.add(postStringRequest2);
 
     }
 }

@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Review.Review_Activity;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -39,9 +40,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Typeface BMJUA;
     private Typeface BMDOHYEON;
     private static final int MY_LOCATION_REQUEST_CODE = 1;
-
+    private ImageView TelBtn,ReviewBtn, Nomap;
     private String store_address,store_call;
-    private ImageView TelBtn,ReviewBtn;
 
     Intent review;
     @Override
@@ -61,11 +61,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         store_name = intent.getStringExtra("store_name");
         String store_grade = intent.getStringExtra("store_grade");
         //store_address = intent.getStringExtra("store_address");
-        int store_id = intent.getIntExtra("store_id", 0);
+
+        store_call = intent.getStringExtra("store_call"); //전화번호아이콘 만들어지면 사용
+        final int store_id = intent.getIntExtra("store_id", 0);
         review.putExtra("store_id", store_id);
 
         store_call = intent.getStringExtra("store_call"); //전화번호아이콘 만들어지면 사용
-        store_call =store_call.replaceAll("\\p{Z}", "");
+        store_call = store_call.replaceAll("\\p{Z}", "");
         if(store_call.substring(0,2).equals("02")||store_call.substring(0,3).equals("010")||store_call.substring(0,3).equals("016")||store_call.substring(0,3).equals("019"))
         {}
         else
@@ -84,7 +86,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
             else
                 store_call="02".toString()+store_call;
-
 
         }
         x = intent.getDoubleExtra("X", 0.0);
@@ -157,10 +158,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         };
         requestQueue.add(getXYRequest);
 
+
         JsonObjectRequest bookmarkRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.e("response", "response :" + response);
+                Log.e("즐겨찾기 :", "즐겨찾기 :" + response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -172,8 +174,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public Map getHeaders() throws AuthFailureError {
                 Map params = new HashMap();
-                params.put("store_id", "1");
-                params.put("user_id", "6");
+                GlobalApplication GUserID = (GlobalApplication) getApplication();
+                params.put("store_id", store_id);
+                params.put("user_id", GUserID.getGlobalUserID());
                 return params;
             }
         };
