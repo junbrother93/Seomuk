@@ -16,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.Adapter.ListViewAdapter;
@@ -25,6 +26,7 @@ import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Review.Review_watch_Activity;
 import com.example.junhyeong.myapplication.widget.IndexableListView;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -46,9 +48,9 @@ public class Select_MyPage_Activity extends Activity {
         setContentView(R.layout.activity_mypage);
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonObjectRequest getReviewRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/review/food", new Response.Listener<JSONObject>() {
+        JsonArrayRequest getReviewRequest = new JsonArrayRequest(Request.Method.GET, "http://13.124.127.124:3000/review/food", new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(JSONArray response) {
                 Log.e("response : ", "response : " + response);
                 ReviewArrayList = new ArrayList<Review>();
                 // 리스트 생성
@@ -76,23 +78,21 @@ public class Select_MyPage_Activity extends Activity {
                     }
                 });
 
-                Log.e("1", "1" + response);
-
                 //int total = response.optInt("total", 0);    // 총 갯수
                 int total = 4;
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
-             /*
-             getInt 대신 optInt 쓴 이유
-             http://developeryou.blogspot.kr/2015/09/getjsonobject-null.html
+                     /*
+                     getInt 대신 optInt 쓴 이유
+                     http://developeryou.blogspot.kr/2015/09/getjsonobject-null.html
 
-             JSONArray랑 jSONObject 차이
-             http://ddo-o.tistory.com/95
-             */
+                     JSONArray랑 jSONObject 차이
+                     http://ddo-o.tistory.com/95
+                     */
 
 
                     // 아이템 불러와..
-                    ArrReviewData.add(response.optJSONArray("Value").optJSONObject(i));
+                    ArrReviewData.add(response.optJSONObject(i));
                     ArrTitle.add(ArrReviewData.get(i).optString("title", "No Value"));
                     ArrBody.add(ArrReviewData.get(i).optString("body", "No Value"));
                     ArrScore.add(ArrReviewData.get(i).optInt("score", 0));
@@ -100,15 +100,15 @@ public class Select_MyPage_Activity extends Activity {
                     ArrUser_id.add(ArrReviewData.get(i).optInt("user_id", 0));
 
                     // 쓸지 안쓸지 결정
-                /*
-                ArrCTF_TYPE.add(ArrData.get(i).optInt("CTF_TYPE", 0));
-                ArrCTF_TYPE_NAME.add(ArrData.get(i).optString("CTF_TYPE_NAME", "No Value"));
-                ArrCTF_ADDR.add(ArrData.get(i).optString("CTF_ADDR", "No Value"));
-                */
+                    /*
+                    ArrCTF_TYPE.add(ArrData.get(i).optInt("CTF_TYPE", 0));
+                    ArrCTF_TYPE_NAME.add(ArrData.get(i).optString("CTF_TYPE_NAME", "No Value"));
+                    ArrCTF_ADDR.add(ArrData.get(i).optString("CTF_ADDR", "No Value"));
+                    */
 
                     // 객체 추가
                     Review s = new Review();
-                    s.setArrReviewData(response);
+                    s.setArrReviewData(response.optJSONObject(i));
                     s.setTitle(ArrReviewData.get(i).optString("title", "null"));
                     s.setBody(ArrReviewData.get(i).optString("body", "null"));
                     s.setScore(ArrReviewData.get(i).optInt("score", 0));
@@ -143,26 +143,11 @@ public class Select_MyPage_Activity extends Activity {
                         }
                     });
                 }
-                listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(getApplicationContext(), Review_watch_Activity.class);
-
-                        Toast.makeText(Select_MyPage_Activity.this, "" + id, Toast.LENGTH_LONG).show();
-                        intent.putExtra("review_title", ReviewArrayList.get((int) id).getTitle());
-                        intent.putExtra("review_body", ReviewArrayList.get((int) id).getBody());
-                        intent.putExtra("review_score", ReviewArrayList.get((int) id).getScore());
-                        intent.putExtra("review_index", ReviewArrayList.get((int) id).getIndex());
-                        intent.putExtra("review_user_id", ReviewArrayList.get((int) id).getUser_id());
-
-                        startActivity(intent);
-                    }
-                });
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Error : " , "Error : " + error);
+                Log.e("Error : ", "Error : " + error);
             }
 
         }) {
