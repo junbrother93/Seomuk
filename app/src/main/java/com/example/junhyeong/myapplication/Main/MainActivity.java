@@ -2,6 +2,7 @@ package com.example.junhyeong.myapplication.Main;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -35,7 +37,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     public static final String REQUEST_TAG = "MainActivity";
     private final int DYNAMIC_VIEW_ID = 10000;
     private RequestQueue mQueue, mQueue2;
-    private Button mButton, BtnLocalChange, BtnMenuChange, BtnMyPage;
+    private Button  BtnLocalChange, BtnMenuChange, BtnMyPage;
+    private TextView Text;
     private ArrayList<Store> arrayList;
     private ArrayList<Store2> arrayList2;
     private IndexableListView listview;
@@ -43,12 +46,15 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     private Intent ActPop_Location;
     private Intent ActPop_Menu;
     private Intent MyPage;
+    private Typeface Tmon;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Tmon = Typeface.createFromAsset(this.getAssets(), "fonts/TmonMonsori.ttf.ttf");
 
         mQueue = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
         mQueue2 = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
@@ -62,8 +68,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         BtnMenuChange = (Button)findViewById(R.id.Menu);
         BtnMyPage = (Button)findViewById((R.id.MyPage));
 
-        mButton = (Button) findViewById(R.id.mButton); // 글씨바뀌는건 위의 mButton 버튼
-
+        Text = (TextView) findViewById(R.id.Text); // 글씨바뀌는건 위의 mButton 버튼
+        Text.setTypeface(Tmon);
 
         Intent intent = getIntent();
 
@@ -359,7 +365,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     }
 
     protected void jsonRequest(String local, String url) {
-        mButton.setText(local);
+        Text.setText(local.toString());
         final PodJsonRequest jsonRequest = new PodJsonRequest(Request.Method.GET, url, new JSONObject(), MainActivity.this, MainActivity.this);
         jsonRequest.setTag(REQUEST_TAG);
         mQueue.add(jsonRequest);
