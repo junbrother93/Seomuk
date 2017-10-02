@@ -24,7 +24,7 @@
         <com.example.junhyeong.myapplication.NavigationBar.NavigationBar_myPage
             android:id="@+id/PageNavigationView2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="56dp">
         </com.example.junhyeong.myapplication.NavigationBar.NavigationBar_myPage>
     </FrameLayout>
 

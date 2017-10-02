@@ -18,14 +18,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
             android:textAlignment="center"
             android:background="#44ffd1"
-            android:textColor="#6f6fcc"
-            android:textSize="10pt"
+            android:textColor="#ffffff"
+            android:textSize="8pt"
             android:text=""
-            android:layout_weight="0.04" />
+/>
 
         <FrameLayout
             android:layout_width="match_parent"

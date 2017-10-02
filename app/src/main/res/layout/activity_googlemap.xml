@@ -42,7 +42,7 @@
         <TextView
             android:id="@+id/textView9"
             android:layout_width="match_parent"
-            android:textSize="12pt"
+            android:textSize="8pt"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="상세내용" />

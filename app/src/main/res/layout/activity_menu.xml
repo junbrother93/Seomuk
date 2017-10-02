@@ -4,6 +4,17 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="메뉴 선택"
+        android:textSize="8pt"
+        android:textAlignment="center"
+        android:paddingTop="5dp"
+        android:layout_gravity="top"
+        android:background="@drawable/border"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

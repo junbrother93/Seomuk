@@ -4,27 +4,28 @@
     android:layout_width="fill_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <ImageView
         android:id="@+id/Menu"
         android:layout_width="0dip"
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:onClick="onClick"
-        android:text="메뉴"/>
-    <Button
+        android:src="@drawable/menu"
+        />
+    <ImageView
         android:id="@+id/Location"
         android:layout_width="0dip"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:text="지역"/>
+        android:src="@drawable/location"/>
 
-    <Button
+    <ImageView
         android:id="@+id/MyPage"
         android:layout_width="0dip"
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:onClick="onClick"
-        android:text="마이 페이지"/>
+        android:src="@drawable/mypage"/>
 
 
 
