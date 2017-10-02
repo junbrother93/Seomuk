@@ -48,6 +48,7 @@
         <activity android:name=".Review.Review_Activity"/>
         <activity android:name=".Review.Review_write_Activity"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
+        <activity android:name=".Review.Review_watch_Activity"/>
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />

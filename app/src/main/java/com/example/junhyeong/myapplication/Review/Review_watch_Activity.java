@@ -27,7 +27,7 @@ import java.util.Map;
  * Created by yeonjin on 2017-09-28.
  */
 
-public class Review_write_Activity extends Activity {
+public class Review_watch_Activity extends Activity {
 
     TextView ReviewTitle, ReviewBody;
     String strReviewTitle, strReviewBody;
@@ -37,6 +37,16 @@ public class Review_write_Activity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         intent = getIntent();
+
+        String title, body;
+        int score, index, user_id;
+
+        title = intent.getStringExtra("review_title");
+        body = intent.getStringExtra("review_body");
+        score = intent.getIntExtra("review_score", 0);
+        index = intent.getIntExtra("review_index", 0);
+        user_id = intent.getIntExtra("review_user_id", 0);
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup_review);
         Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
@@ -52,8 +62,10 @@ public class Review_write_Activity extends Activity {
         ReviewTitle = (TextView) findViewById(R.id.ReviewTitle);
         ReviewBody = (TextView) findViewById(R.id.ReviewBody);
 
-
-
+        ReviewTitle.setText(title);
+        ReviewTitle.setEnabled(false);
+        ReviewBody.setText(body);
+        ReviewBody.setEnabled(false);
     }
 
     public void onClick(View view){
