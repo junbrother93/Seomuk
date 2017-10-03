@@ -46,7 +46,6 @@ public class KakaoSignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         requestMe();
     }
 
@@ -63,10 +62,9 @@ public class KakaoSignupActivity extends AppCompatActivity {
 
                 ErrorCode result = ErrorCode.valueOf(errorResult.getErrorCode());
                 if (result == ErrorCode.CLIENT_ERROR_CODE) {
-                    finish();
                     Toast.makeText(getApplicationContext(), "카카오톡 로그인 실패", Toast.LENGTH_LONG).show();
+                    finish();
                 } else {
-                    Toast.makeText(getApplicationContext(), "카카오톡 로그인 실패2", Toast.LENGTH_LONG).show();
                     redirectLoginActivity();
                 }
             }
@@ -125,8 +123,6 @@ public class KakaoSignupActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.d("Kakao_sign_up_OK : ","Kakao_sign_up_OK : " + response);
-                        //GlobalApplication GUserID = (GlobalApplication) getApplication();
-                       // GUserID.setGlobalUserID(response.optJSONObject(0).optJSONObject("data").optInt("id"));
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -151,8 +147,8 @@ public class KakaoSignupActivity extends AppCompatActivity {
                     Log.d("sleep", "sleep");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-
                 }
+
                 JsonObjectRequest Kakao_sign_in_Request = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/user/sign_in", new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

@@ -61,6 +61,7 @@ public class LoginActivity extends Activity {
         //for kakao
         callback = new SessionCallback();
         Session.getCurrentSession().addCallback(callback);
+        Session.getCurrentSession().checkAndImplicitOpen();
 
         //for facebook
         callbackManager = CallbackManager.Factory.create();
@@ -145,7 +146,7 @@ public class LoginActivity extends Activity {
                 Logger.e(exception);
             }
             Toast.makeText(getApplicationContext(), "KAKAO_onSessionOpenFailed", Toast.LENGTH_LONG).show();
-            redirectLoginActivity();     // 세션 연결이 실패했을때 로그인 화면을 다시 불러옴
+            //redirectLoginActivity();     // 세션 연결이 실패했을때 로그인 화면을 다시 불러옴
         }
     }
 
@@ -180,8 +181,6 @@ public class LoginActivity extends Activity {
             @Override
             public void onResponse(String response) {
                 Log.e("Facebook_sign_up_OK : ","Facebook_sign_up_OK : " + response);
-                GlobalApplication GUserID = (GlobalApplication) getApplication();
-                //GUserID.setGlobalUserID(response.optInt("id", 0));
             }
         }, new Response.ErrorListener() {
             @Override
@@ -202,17 +201,33 @@ public class LoginActivity extends Activity {
         };
         requestQueue.add(Facebook_sign_up_Request);
 
+        try {
+            Thread.sleep(1000);
+            Log.d("sleep", "sleep");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         JsonObjectRequest Facebook_sign_in_Request = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/user/sign_in", new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 GlobalApplication GUserID = (GlobalApplication) getApplication();
-                Log.e("response2 : ","response2 : " + response);
-                Log.e("id", "id" + response.optJSONObject("data").optInt("id", 0));
-                GUserID.setGlobalUserID(response.optJSONObject("data").optInt("id", 0));
+                Log.e("Facebook_sign_in_OK : ","Facebook_sign_in_OK : " + response);
+                if(response.optString("msg", "").equals("존재하지 않는 회원입니다"))
+                {
+                    Log.e("Facebook_sign_in_ERROR:", "Facebook_sign_in_ERROR : " + response.optString("msg"));
+                    redirectLoginActivity();
+                }
+                else {
+                    Log.d("Server_User_id : ", "Server_User_id : " + response.optJSONObject("data").optInt("id", 0));
+                    GUserID.setGlobalUserID(response.optJSONObject("data").optInt("id", 0));
+                    // Log.d("Kakao_sign_in_OK : ","Kakao_sign_in_OK : " + response);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.e("Facebook_sign_in_ERROR:","Facebook_sign_in_ERROR : " + error);
 
             }
 
