@@ -16,6 +16,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.Select.Select_MenuActivity;
@@ -92,21 +93,11 @@ public class KakaoSignupActivity extends AppCompatActivity {
         });
     }
 
-    private void redirectMainActivity() {
-        startActivity(new Intent(this, Select_MenuActivity.class));
-        finish();
-    }
-
-    protected void redirectLoginActivity() {
-        final Intent intent = new Intent(this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
-        finish();
-    }
     private void requestAccessTokenInfo_kakao() {
         AuthService.requestAccessTokenInfo(new ApiResponseCallback<AccessTokenInfoResponse>() {
             @Override
             public void onSessionClosed(ErrorResult errorResult) {
+                Log.e("onSessionClosed", "onSessionClosed msg=" + "onSessionClosed");
                 redirectMainActivity();
             }
 
@@ -124,19 +115,23 @@ public class KakaoSignupActivity extends AppCompatActivity {
             @Override
             public void onSuccess(AccessTokenInfoResponse accessTokenInfoResponse) {
 
-                final long userId = accessTokenInfoResponse.getUserId();
-                Log.e("userId", "userId=" + userId);
+                final long kakao_user_id = accessTokenInfoResponse.getUserId();
+                Log.d("kakao_user_id : ", "kakao_user_id : " + kakao_user_id);
+
+
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                JsonObjectRequest postStringRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/sign_up", new Response.Listener<JSONObject>() {
+                StringRequest Kakao_sign_up_Request = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/user/sign_up", new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONObject response) {
-                        // 서버 응답
-
+                    public void onResponse(String response) {
+                        Log.d("Kakao_sign_up_OK : ","Kakao_sign_up_OK : " + response);
+                        //GlobalApplication GUserID = (GlobalApplication) getApplication();
+                       // GUserID.setGlobalUserID(response.optJSONObject(0).optJSONObject("data").optInt("id"));
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.e("Kakao_sign_up_ERROR : ","Kakao_sign_up_ERROR : " + error);
 
                     }
 
@@ -144,40 +139,67 @@ public class KakaoSignupActivity extends AppCompatActivity {
                     @Override
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
+                        params.put("token", String.valueOf(kakao_user_id));
                         params.put("platform", "kakao");
-                        params.put("token", String.valueOf(userId));
-
                         return params;
                     }
                 };
-                requestQueue.add(postStringRequest);
+                requestQueue.add(Kakao_sign_up_Request);
 
-                JsonObjectRequest postStringRequest2 = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/user/sign_in", new Response.Listener<JSONObject>() {
+                try {
+                    Thread.sleep(1000);
+                    Log.d("sleep", "sleep");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+
+                }
+                JsonObjectRequest Kakao_sign_in_Request = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/user/sign_in", new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         GlobalApplication GUserID = (GlobalApplication) getApplication();
-                        Log.e("response2 : ","response2 : " + response);
-                        Log.e("id", "id" + response.optJSONObject("data").optInt("id", 0));
-                        GUserID.setGlobalUserID(response.optJSONObject("data").optInt("id", 0));
+                        Log.d("Kakao_sign_in_OK : ","Kakao_sign_in_OK : " + response);
+                        if(response.optString("msg", "").equals("존재하지 않는 회원입니다"))
+                        {
+                            Log.e("Kakao_sign_in_Error : ", "Kakao_sign_in_Error : " + response.optString("msg"));
+                            redirectLoginActivity();
+                        }
+                        else {
+                            Log.d("Server_User_id : ", "Server_User_id : " + response.optJSONObject("data").optInt("id", 0));
+                            GUserID.setGlobalUserID(response.optJSONObject("data").optInt("id", 0));
+                            // Log.d("Kakao_sign_in_OK : ","Kakao_sign_in_OK : " + response);
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Log.e("Kakao_sign_in_ERROR : ","Kakao_sign_in_ERROR : " + error);
                     }
 
                 }) {
                     @Override
                     public Map getHeaders() throws AuthFailureError {
                         Map params = new HashMap();
+                        params.put("token", String.valueOf(kakao_user_id));
                         params.put("platform", "kakao");
-                        params.put("token", String.valueOf(userId));
                         return params;
                     }
                 };
-                requestQueue.add(postStringRequest2);
+                requestQueue.add(Kakao_sign_in_Request);
             }
         });
+    }
+
+
+    private void redirectMainActivity() {
+        startActivity(new Intent(this, Select_MenuActivity.class));
+        finish();
+    }
+
+    protected void redirectLoginActivity() {
+        final Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+        finish();
     }
 }
 

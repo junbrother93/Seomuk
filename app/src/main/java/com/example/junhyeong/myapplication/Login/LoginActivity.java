@@ -14,8 +14,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Select.Select_MenuActivity;
 import com.facebook.AccessToken;
@@ -28,6 +30,10 @@ import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
+
+
+import org.json.JSONObject;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,8 +66,14 @@ public class LoginActivity extends Activity {
 
         //for facebook
         callbackManager = CallbackManager.Factory.create();
+
         Log.e("test","test"+AccessToken.getCurrentAccessToken());
 /*
+
+        Log.e("CurrentAccessToken : ","CurrentAccessToken : "+AccessToken.getCurrentAccessToken());
+
+
+
         if(Session.getCurrentSession().isClosed()==false)
         {
             Toast.makeText(getApplicationContext(), "카카오톡으로 로그인이 되어있음", Toast.LENGTH_LONG).show();
@@ -71,13 +83,18 @@ public class LoginActivity extends Activity {
         {
             // 페이스북 로그인 되어있을때....
         }
+
 */
+
+
+
+
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Toast.makeText(getApplicationContext(), "페이스북 로그인 성공", Toast.LENGTH_LONG).show();
                 requestAccessTokenInfo(loginResult);
-                redirectMainActivity();
+                redirectSelect_MenuActivity();
                 // App code
             }
 
@@ -99,8 +116,9 @@ public class LoginActivity extends Activity {
     class AccessListener implements Button.OnClickListener{
         @Override
         public void onClick(View v) {
-
             startActivity(intent);
+            GlobalApplication GUserID = (GlobalApplication) getApplication();
+            GUserID.setGlobalUserID(0);
             finish();
         }
     }
@@ -128,7 +146,7 @@ public class LoginActivity extends Activity {
 
         @Override
         public void onSessionOpened() {
-            Toast.makeText(getApplicationContext(), "세션 연결 성공", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "KAKAO_onSessionOpened", Toast.LENGTH_LONG).show();
             redirectSignupActivity();  // 세션 연결성공 시 redirectSignupActivity() 호출
         }
 
@@ -137,12 +155,12 @@ public class LoginActivity extends Activity {
             if (exception != null) {
                 Logger.e(exception);
             }
-            Toast.makeText(getApplicationContext(), "세션 연결 실패", Toast.LENGTH_LONG).show();
-            redirectLoginActivity();     // 세션 연결이 실패했을때
-        }                               // 로그인화면을 다시 불러옴
+            Toast.makeText(getApplicationContext(), "KAKAO_onSessionOpenFailed", Toast.LENGTH_LONG).show();
+            redirectLoginActivity();     // 세션 연결이 실패했을때 로그인 화면을 다시 불러옴
+        }
     }
 
-    protected void redirectSignupActivity() {       //세션 연결 성공 시 SignupActivity로 넘김
+    protected void redirectSignupActivity() {
         final Intent intent = new Intent(this, KakaoSignupActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
@@ -155,7 +173,8 @@ public class LoginActivity extends Activity {
         startActivity(intent);
         finish();
     }
-    protected void redirectMainActivity() {
+
+    protected void redirectSelect_MenuActivity() {
         final Intent intent = new Intent(this, Select_MenuActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
@@ -168,14 +187,17 @@ public class LoginActivity extends Activity {
         Log.e("fd_ID", token.getUserId());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/user/sign_up", new Response.Listener<String>() {
+        StringRequest Facebook_sign_up_Request = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/user/sign_up", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("response : ","response : " + response);
+                Log.e("Facebook_sign_up_OK : ","Facebook_sign_up_OK : " + response);
+                GlobalApplication GUserID = (GlobalApplication) getApplication();
+                //GUserID.setGlobalUserID(response.optInt("id", 0));
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.e("Facebook_sign_up_ERROR:","Facebook_sign_up_ERROR : " + error);
 
             }
 
@@ -189,12 +211,15 @@ public class LoginActivity extends Activity {
                 return params;
             }
         };
-        requestQueue.add(postStringRequest);
+        requestQueue.add(Facebook_sign_up_Request);
 
-        StringRequest postStringRequest2 = new StringRequest(Request.Method.GET, "http://13.124.127.124:3000/user/sign_in", new Response.Listener<String>() {
+        JsonObjectRequest Facebook_sign_in_Request = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/user/sign_in", new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(JSONObject response) {
+                GlobalApplication GUserID = (GlobalApplication) getApplication();
                 Log.e("response2 : ","response2 : " + response);
+                Log.e("id", "id" + response.optJSONObject("data").optInt("id", 0));
+                GUserID.setGlobalUserID(response.optJSONObject("data").optInt("id", 0));
             }
         }, new Response.ErrorListener() {
             @Override
@@ -211,6 +236,6 @@ public class LoginActivity extends Activity {
                 return params;
             }
         };
-        requestQueue.add(postStringRequest2);
+        requestQueue.add(Facebook_sign_in_Request);
     }
 }
