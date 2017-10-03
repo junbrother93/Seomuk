@@ -31,7 +31,9 @@ import com.kakao.auth.Session;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
 
+
 import org.json.JSONObject;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,13 +63,18 @@ public class LoginActivity extends Activity {
         //for kakao
         callback = new SessionCallback();
         Session.getCurrentSession().addCallback(callback);
-        Session.getCurrentSession().checkAndImplicitOpen();
+        //Session.getCurrentSession().checkAndImplicitOpen();
 
         //for facebook
         callbackManager = CallbackManager.Factory.create();
+
+        Log.e("test","test"+AccessToken.getCurrentAccessToken());
+/*
+
         Log.e("CurrentAccessToken : ","CurrentAccessToken : "+AccessToken.getCurrentAccessToken());
 
-        /*
+
+
         if(Session.getCurrentSession().isClosed()==false)
         {
             Toast.makeText(getApplicationContext(), "카카오톡으로 로그인이 되어있음", Toast.LENGTH_LONG).show();
@@ -77,7 +84,11 @@ public class LoginActivity extends Activity {
         {
             // 페이스북 로그인 되어있을때....
         }
-        */
+
+*/
+
+
+
 
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override

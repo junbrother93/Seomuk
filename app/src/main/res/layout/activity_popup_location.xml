@@ -14,26 +14,26 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop1"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="강서구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/gangseo" />
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop2"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="강남구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/gangnam" />
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop3"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="강동구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/gangdong" />
             </LinearLayout>
 
             <LinearLayout
@@ -41,26 +41,26 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop4"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="강북구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/gangbuk" />
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop5"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="관악구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/gwanak" />
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop6"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="광진구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/gwangjin"/>
             </LinearLayout>
 
             <LinearLayout
@@ -68,26 +68,26 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop7"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="구로구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/guro" />
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop8"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="금천구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/geumcheon" />
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop9"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="노원구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/nowon" />
             </LinearLayout>
 
             <LinearLayout
@@ -95,26 +95,26 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop10"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="도봉구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/dobong" />
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop11"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="동대문구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/dongdae" />
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop12"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="동작구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/dongjak" />
             </LinearLayout>
 
             <LinearLayout
@@ -122,26 +122,26 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop13"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="마포구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/mapo" />
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop14"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="서대문구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/seodae" />
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop15"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="서초구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/seocho" />
             </LinearLayout>
 
             <LinearLayout
@@ -149,26 +149,26 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop16"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="성동구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/seongdong"/>
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop17"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="성북구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/seongbuk" />
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop18"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="송파구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/songpa"/>
             </LinearLayout>
 
             <LinearLayout
@@ -176,26 +176,26 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop19"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="양천구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/yangcheon" />
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop20"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="영등포구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ydp" />
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop21"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="용산구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/yongsan" />
             </LinearLayout>
 
             <LinearLayout
@@ -203,37 +203,37 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop22"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="은평구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ep" />
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop23"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="종로구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/jongro" />
 
-                <Button
+                <ImageView
                     android:id = "@+id/pop24"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="중구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/junggu" />
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-                <Button
+                <ImageView
                     android:id = "@+id/pop25"
                     android:onClick = "onClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="중랑구" />
+                    android:layout_width="65dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/jungrang" />
             </LinearLayout>
         </LinearLayout>
 </RelativeLayout>

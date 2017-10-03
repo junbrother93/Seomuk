@@ -8,7 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +37,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     public static final String REQUEST_TAG = "MainActivity";
     private final int DYNAMIC_VIEW_ID = 10000;
     private RequestQueue mQueue, mQueue2;
-    private Button  BtnLocalChange, BtnMenuChange, BtnMyPage;
+    private ImageView BtnLocalChange, BtnMenuChange, BtnMyPage;
     private TextView Text;
     private ArrayList<Store> arrayList;
     private ArrayList<Store2> arrayList2;
@@ -47,6 +47,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     private Intent ActPop_Menu;
     private Intent MyPage;
     private Typeface Tmon;
+    private  ImageView warn;
 
 
     @Override
@@ -54,6 +55,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        warn = (ImageView)findViewById(R.id.warn);
         Tmon = Typeface.createFromAsset(this.getAssets(), "fonts/TmonMonsori.ttf.ttf");
 
         mQueue = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
@@ -64,9 +66,9 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         MyPage = new Intent(this, Select_MyPage_Activity.class);
 
 
-        BtnLocalChange = (Button) findViewById(R.id.Location); // 네비게이션바에 있는 "지역" 버튼
-        BtnMenuChange = (Button)findViewById(R.id.Menu);
-        BtnMyPage = (Button)findViewById((R.id.MyPage));
+        BtnLocalChange = (ImageView) findViewById(R.id.Location); // 네비게이션바에 있는 "지역" 버튼
+        BtnMenuChange = (ImageView)findViewById(R.id.Menu);
+        BtnMyPage = (ImageView)findViewById((R.id.MyPage));
 
         Text = (TextView) findViewById(R.id.Text); // 글씨바뀌는건 위의 mButton 버튼
         Text.setTypeface(Tmon);
@@ -134,10 +136,10 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         }
         else
             AnsimValue = 0;
-        ActPop_Location.putExtra("menu",menu);
-        setResult(RESULT_OK,ActPop_Location);
-        ActPop_Menu.putExtra("local",local);
-        setResult(RESULT_OK,ActPop_Menu);
+        ActPop_Location.putExtra("menu", menu);
+        setResult(RESULT_OK, ActPop_Location);
+        ActPop_Menu.putExtra("local", local);
+        setResult(RESULT_OK, ActPop_Menu);
 
         //
         jsonRequest(local, url);
@@ -215,7 +217,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 s.setArrData(response.optJSONArray("data").optJSONObject(i));
                 s.setCTF_CODE(ArrData.get(i).optInt("CTF_CODE", 0));
                 //s.setCTF_TYPE(ArrData.get(i).optInt("CTF_TYPE", 0));
-                //s.setCTF_TYPE_NAME(ArrData.get(i).optString("CTF_TYPE_NAME", "No Value"));
+                s.setCTF_TYPE_NAME(ArrData.get(i).optString("CTF_TYPE_NAME", "No Value"));
                 s.setCTF_NAME(ArrData.get(i).optString("CTF_NAME", "No Value"));
                 s.setCTF_X(ArrData.get(i).optDouble("CTF_X", 37.5652894));
                 s.setCTF_Y(ArrData.get(i).optDouble("CTF_Y", 126.8494668));
@@ -228,13 +230,20 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             // 정렬 한 것 어댑터에 추가
             if(total==0)
             {
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.warn), "정보가 존재하지 않습니다.");
+                warn.setVisibility(View.VISIBLE);
+                listview.setVisibility(View.GONE);
             }
             else {
+                warn.setVisibility(View.INVISIBLE);
+                listview.setVisibility(View.VISIBLE);
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
-
-                    adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), arrayList.get(i).getCTF_NAME());
+                    if(arrayList.get(i).getCTF_TYPE_NAME().toString().equals("자랑스러운 한국음식점".toString()))
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b6), arrayList.get(i).getCTF_NAME());
+                    else if(arrayList.get(i).getCTF_TYPE_NAME().toString().equals("원산지표시 우수음식점".toString()))
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b4), arrayList.get(i).getCTF_NAME());
+                    else
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b3), arrayList.get(i).getCTF_NAME());
                 }
             }
 
@@ -246,7 +255,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                         Toast.makeText(MainActivity.this, "" + id, Toast.LENGTH_LONG).show();
                         intent.putExtra("store_name", arrayList.get((int) id).getCTF_NAME());
                         //intent.putExtra("store_address", arrayList.get((int) id).getCTF_ADDR());
-                        //intent.putExtra("store_grade", arrayList.get((int) id).getCTF_TYPE_NAME());
+                        intent.putExtra("store_grade", arrayList.get((int) id).getCTF_TYPE_NAME());
                         intent.putExtra("store_call", arrayList.get((int) id).getCTF_TEL());
                         intent.putExtra("X", arrayList.get((int) id).getCTF_X());
                         intent.putExtra("Y", arrayList.get((int) id).getCTF_Y());
@@ -304,6 +313,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 UPSO_NM.add(ArrData.get(i).optString("UPSO_NM", "No Value"));
                 TEL_NO.add(ArrData.get(i).optString("TEL_NO", "No Value"));
 
+
                 // 객체 추가
                 Store2 s = new Store2();
 
@@ -334,12 +344,31 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             // 정렬 한 것 어댑터에 추가
             if(total==0)
             {
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.warn), "정보가 존재하지 않습니다.");
+                warn.setVisibility(View.VISIBLE);
+                listview.setVisibility(View.GONE);
             }
             else {
+                warn.setVisibility(View.INVISIBLE);
+                listview.setVisibility(View.VISIBLE);
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
-                    adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_launcher), arrayList2.get(i).getUPSO_NM());
+
+                    if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("저염실천음식점".toString())||arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("저염참여음식점".toString()))
+                    adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b7), arrayList2.get(i).getUPSO_NM());
+                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("먹을만큼적당히".toString()))
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b2), arrayList2.get(i).getUPSO_NM());
+                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("건강음식점".toString()))
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b1), arrayList2.get(i).getUPSO_NM());
+                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("위생등급제".toString()))
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b5), arrayList2.get(i).getUPSO_NM());
+                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("자랑스러운 한국음식점".toString()))
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b6), arrayList2.get(i).getUPSO_NM());
+                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("원산지표시 우수음식점".toString()))
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b4), arrayList2.get(i).getUPSO_NM());
+                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("채식메뉴음식점".toString())||arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("채식전문음식점".toString()))
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b8), arrayList2.get(i).getUPSO_NM());
+                    else
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b3), arrayList2.get(i).getUPSO_NM());
                 }
 
             }

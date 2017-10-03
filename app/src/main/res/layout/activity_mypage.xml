@@ -2,30 +2,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:id="@+id/scrollview"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="1.05">
+        android:weightSum="1">
 
-        <com.example.junhyeong.myapplication.widget.IndexableListView
-            android:id="@+id/listview2"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1.05">
 
-    </FrameLayout>
+            <ImageView
+                android:id="@+id/warn2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/warn"
+                android:visibility="invisible"/>
+            <com.example.junhyeong.myapplication.widget.IndexableListView
+                android:id="@+id/listview2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.example.junhyeong.myapplication.NavigationBar.NavigationBar_myPage
-            android:id="@+id/PageNavigationView2"
+        </FrameLayout>
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        </com.example.junhyeong.myapplication.NavigationBar.NavigationBar_myPage>
-    </FrameLayout>
+            <com.example.junhyeong.myapplication.NavigationBar.NavigationBar_myPage
+                android:id="@+id/PageNavigationView2"
+                android:layout_width="match_parent"
+                android:layout_height="56dp">
+            </com.example.junhyeong.myapplication.NavigationBar.NavigationBar_myPage>
+        </FrameLayout>
+
+    </LinearLayout>
+
 
 </LinearLayout>

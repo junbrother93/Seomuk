@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -40,10 +41,13 @@ public class Select_MyPage_Activity extends Activity {
 
     private IndexableListView listview;
     private ArrayList<Review> ReviewArrayList;
+    private ImageView warn;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
+
+        warn = (ImageView) findViewById(R.id.warn2);
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonObjectRequest getReviewRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/review/food", new Response.Listener<JSONObject>() {
@@ -76,7 +80,9 @@ public class Select_MyPage_Activity extends Activity {
                     }
                 });
 
+
                 int total = response.optInt("total", 0);    // 총 갯수
+
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
                      /*
@@ -117,8 +123,11 @@ public class Select_MyPage_Activity extends Activity {
                 Collections.sort(ReviewArrayList);
                 // 정렬 한 것 어댑터에 추가
                 if (total == 0) {
-                    adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.warn), "정보가 존재하지 않습니다.");
+                    warn.setVisibility(View.VISIBLE);
+                    listview.setVisibility(View.GONE);
                 } else {
+                    warn.setVisibility(View.INVISIBLE);
+                    listview.setVisibility(View.VISIBLE);
                     for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                     {
                         adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.mipmap.ic_launcher), ReviewArrayList.get(i).getTitle());
@@ -157,5 +166,6 @@ public class Select_MyPage_Activity extends Activity {
             }
         };
         requestQueue.add(getReviewRequest);
+
     }
 }
