@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.junhyeong.myapplication.Main.MainActivity;
 import com.example.junhyeong.myapplication.R;
@@ -31,48 +31,48 @@ public class PopupActivity_Menu extends Activity {
     }
 
     public void onClick(View view) {
-        Button localId = (Button) findViewById(R.id.pop1_1);
+        ImageView localId = (ImageView) findViewById(R.id.pop1_1);
 
         switch (view.getId())
         {
             case R.id.pop1_1:
-                localId = (Button) findViewById(R.id.pop1_1);
+                localId = (ImageView) findViewById(R.id.pop1_1);
                 menu = "한식&분식".toString();
                 break;
             case R.id.pop2_2:
-                localId = (Button) findViewById(R.id.pop2_2);
+                localId = (ImageView) findViewById(R.id.pop2_2);
                 menu = "중식".toString();
                 break;
             case R.id.pop3_3:
-                localId = (Button) findViewById(R.id.pop3_3);
+                localId = (ImageView) findViewById(R.id.pop3_3);
                 menu = "일식".toString();
                 break;
             case R.id.pop4_4:
-                localId = (Button) findViewById(R.id.pop4_4);
+                localId = (ImageView) findViewById(R.id.pop4_4);
                 menu = "양식".toString();
                 break;
             case R.id.pop5_5:
-                localId = (Button) findViewById(R.id.pop5_5);
+                localId = (ImageView) findViewById(R.id.pop5_5);
                 menu = "제과".toString();
                 break;
             case R.id.pop6_6:
-                localId = (Button) findViewById(R.id.pop6_6);
+                localId = (ImageView) findViewById(R.id.pop6_6);
                 menu = "카페".toString();
                 break;
             case R.id.pop7_7:
-                localId = (Button) findViewById(R.id.pop7_7);
+                localId = (ImageView) findViewById(R.id.pop7_7);
                 menu = "주점".toString();
                 break;
             case R.id.pop8_8:
-                localId = (Button) findViewById(R.id.pop8_8);
+                localId = (ImageView) findViewById(R.id.pop8_8);
                 menu = "패스트푸드&치킨".toString();
                 break;
             case R.id.pop9_9:
-                localId = (Button) findViewById(R.id.pop9_9);
+                localId = (ImageView) findViewById(R.id.pop9_9);
                 menu = "기타".toString();
                 break;
             case R.id.pop10_10:
-                localId = (Button) findViewById(R.id.pop10_10);
+                localId = (ImageView) findViewById(R.id.pop10_10);
                 menu = "food".toString();
                 break;
         }

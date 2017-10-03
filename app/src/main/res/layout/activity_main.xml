@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scrollview"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -13,19 +14,23 @@
         android:weightSum="1">
 
 
-        <TextView
-            android:id="@+id/Text"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:textAlignment="center"
-            android:background="#44ffd1"
-            android:textColor="#ffffff"
-            android:textSize="8pt"
-            android:text=""
-/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/Text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="#778899"
+                android:paddingBottom="3dp"
+                android:paddingTop="3dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:textSize="8pt" />
+        </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -36,8 +41,7 @@
             <com.example.junhyeong.myapplication.widget.IndexableListView
                 android:id="@+id/listview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
+                android:layout_height="match_parent"/>
         </FrameLayout>
 
         <FrameLayout

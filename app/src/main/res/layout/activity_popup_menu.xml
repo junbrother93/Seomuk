@@ -1,109 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:orientation="vertical"
     >
 
-
-            <Button
-                android:id = "@+id/pop1_1"
-                android:onClick = "onClick"
-                android:layout_width="130dp"
-                android:layout_height="100dp"
-                android:layout_row="0"
+            <ImageView
+                android:id="@+id/pop1_1"
+                android:layout_width="80dp"
+                android:layout_height="70dp"
                 android:layout_column="0"
                 android:layout_gravity="center"
-                android:text="한식" />
-
-            <Button
-                android:id = "@+id/pop2_2"
-                android:onClick = "onClick"
-                android:layout_width="130dp"
-                android:layout_height="100dp"
                 android:layout_row="0"
+                android:onClick="onClick"
+                android:src="@drawable/a1" />
+
+            <ImageView
+                android:id="@+id/pop2_2"
+                android:layout_width="80dp"
+                android:layout_height="70dp"
                 android:layout_column="1"
-                android:text="중식" />
+                android:layout_row="0"
+                android:onClick="onClick"
+                android:src="@drawable/a2" />
 
 
-
-
-
-            <Button
-                android:id = "@+id/pop3_3"
-                android:onClick = "onClick"
-                android:layout_width="130dp"
-                android:layout_height="100dp"
+            <ImageView
+                android:id="@+id/pop3_3"
+                android:layout_width="80dp"
+                android:layout_height="70dp"
+                android:layout_column="0"
                 android:layout_row="1"
-                android:layout_column="0"
-                android:text="일식" />
+                android:onClick="onClick"
+                android:src="@drawable/a3" />
 
-            <Button
-                android:id = "@+id/pop4_4"
-                android:onClick = "onClick"
-                android:layout_width="130dp"
-                android:layout_height="100dp"
+            <ImageView
+                android:id="@+id/pop4_4"
+                android:layout_width="80dp"
+                android:layout_height="70dp"
+                android:layout_column="1"
                 android:layout_row="1"
-                android:layout_column="1"
-                android:text="양식" />
+                android:onClick="onClick"
+                android:src="@drawable/a4" />
 
 
-            <Button
-                android:id = "@+id/pop5_5"
-                android:onClick = "onClick"
-                android:layout_width="130dp"
-                android:layout_height="100dp"
+            <ImageView
+                android:id="@+id/pop5_5"
+                android:layout_width="80dp"
+                android:layout_height="70dp"
+                android:layout_column="0"
                 android:layout_row="2"
-                android:layout_column="0"
-                android:text="제과" />
+                android:onClick="onClick"
+                android:src="@drawable/a5" />
 
-            <Button
-                android:id = "@+id/pop6_6"
-                android:layout_width="130dp"
-                android:layout_height="100dp"
+            <ImageView
+                android:id="@+id/pop6_6"
+                android:layout_width="80dp"
+                android:layout_height="70dp"
+                android:layout_column="1"
                 android:layout_row="2"
-                android:layout_column="1"
-                android:text="카페" />
+                android:src="@drawable/a6" />
 
 
-            <Button
-                android:id = "@+id/pop7_7"
-                android:onClick = "onClick"
-                android:layout_width="130dp"
-                android:layout_height="100dp"
-                android:layout_row="3"
+            <ImageView
+                android:id="@+id/pop7_7"
+                android:layout_width="80dp"
+                android:layout_height="70dp"
                 android:layout_column="0"
-                android:text="주점" />
-
-            <Button
-                android:id = "@+id/pop8_8"
-                android:onClick = "onClick"
-                android:layout_width="130dp"
-                android:layout_height="100dp"
                 android:layout_row="3"
+                android:onClick="onClick"
+                android:src="@drawable/a7" />
+
+            <ImageView
+                android:id="@+id/pop8_8"
+                android:layout_width="80dp"
+                android:layout_height="70dp"
                 android:layout_column="1"
-                android:text="패스트푸드" />
+                android:layout_row="3"
+                android:onClick="onClick"
+                android:src="@drawable/a8" />
 
 
-
-            <Button
-                android:id = "@+id/pop9_9"
-                android:onClick = "onClick"
-                android:layout_width="130dp"
-                android:layout_height="100dp"
-                android:layout_row="4"
+            <ImageView
+                android:id="@+id/pop9_9"
+                android:layout_width="80dp"
+                android:layout_height="70dp"
                 android:layout_column="0"
-                android:text="기타" />
-
-            <Button
-                android:id = "@+id/pop10_10"
-                android:onClick = "onClick"
-                android:layout_width="130dp"
-                android:layout_height="100dp"
                 android:layout_row="4"
+                android:onClick="onClick"
+                android:src="@drawable/a9" />
+
+            <ImageView
+                android:id="@+id/pop10_10"
+                android:layout_width="80dp"
+                android:layout_height="70dp"
                 android:layout_column="1"
-                android:text="food" />
+                android:layout_row="4"
+                android:onClick="onClick"
+                android:src="@drawable/a10" />
 
 
 
