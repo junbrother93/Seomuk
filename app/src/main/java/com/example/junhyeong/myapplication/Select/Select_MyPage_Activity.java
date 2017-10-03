@@ -144,7 +144,6 @@ public class Select_MyPage_Activity extends Activity {
                             intent.putExtra("review_score", ReviewArrayList.get((int) id).getScore());
                             intent.putExtra("review_index", ReviewArrayList.get((int) id).getIndex());
                             intent.putExtra("review_user_id", ReviewArrayList.get((int) id).getUser_id());
-
                             startActivity(intent);
                         }
                     });

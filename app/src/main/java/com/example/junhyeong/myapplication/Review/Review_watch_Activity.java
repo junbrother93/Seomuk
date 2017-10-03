@@ -7,9 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,13 +28,14 @@ import java.util.Map;
 
 public class Review_watch_Activity extends Activity {
 
-    TextView ReviewTitle, ReviewBody;
-    String strReviewTitle, strReviewBody;
+    EditText ReviewTitle, ReviewBody;
+
     int score;
 
     Intent intent;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_popup_review);
         intent = getIntent();
 
         String title, body;
@@ -46,9 +46,6 @@ public class Review_watch_Activity extends Activity {
         score = intent.getIntExtra("review_score", 0);
         index = intent.getIntExtra("review_index", 0);
         user_id = intent.getIntExtra("review_user_id", 0);
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_popup_review);
         Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 
         int width = (int) (display.getWidth() * 1.0);
@@ -59,12 +56,12 @@ public class Review_watch_Activity extends Activity {
 
         getWindow().getAttributes().height = height;
 
-        ReviewTitle = (TextView) findViewById(R.id.ReviewTitle);
-        ReviewBody = (TextView) findViewById(R.id.ReviewBody);
+        ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
+        ReviewBody = (EditText) findViewById(R.id.ReviewBody);
 
-        ReviewTitle.setText(title);
+        ReviewTitle.setText(title.toString());
         ReviewTitle.setEnabled(false);
-        ReviewBody.setText(body);
+        ReviewBody.setText(body.toString());
         ReviewBody.setEnabled(false);
     }
 
@@ -73,8 +70,8 @@ public class Review_watch_Activity extends Activity {
         {
             case R.id.YesBtn:
                 final int store_id = intent.getIntExtra("store_id",0);
-                strReviewTitle = ReviewTitle.getText().toString();
-                strReviewBody = ReviewBody.getText().toString();
+               final String strReviewTitle = ReviewTitle.getText().toString();
+               final String strReviewBody = ReviewBody.getText().toString();
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {

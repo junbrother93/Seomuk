@@ -47,7 +47,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_googlemap);
         BMJUA = Typeface.createFromAsset(this.getAssets(), "fonts/BMJUA_ttf.ttf");
         BMDOHYEON = Typeface.createFromAsset(this.getAssets(), "fonts/BMDOHYEON_ttf.ttf");

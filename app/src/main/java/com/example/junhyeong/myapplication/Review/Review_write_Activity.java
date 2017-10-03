@@ -9,7 +9,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,8 +29,7 @@ import java.util.Map;
 
 public class Review_write_Activity extends Activity {
 
-    TextView ReviewTitle, ReviewBody;
-    String strReviewTitle, strReviewBody;
+    EditText ReviewTitle, ReviewBody;
     int score;
 
     Intent intent;
@@ -49,8 +48,8 @@ public class Review_write_Activity extends Activity {
 
         getWindow().getAttributes().height = height;
 
-        ReviewTitle = (TextView) findViewById(R.id.ReviewTitle);
-        ReviewBody = (TextView) findViewById(R.id.ReviewBody);
+        ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
+        ReviewBody = (EditText) findViewById(R.id.ReviewBody);
 
 
 
@@ -61,8 +60,8 @@ public class Review_write_Activity extends Activity {
         {
             case R.id.YesBtn:
                 final int store_id = intent.getIntExtra("store_id",0);
-                strReviewTitle = ReviewTitle.getText().toString();
-                strReviewBody = ReviewBody.getText().toString();
+                final String strReviewTitle = ReviewTitle.getText().toString();
+                final String strReviewBody = ReviewBody.getText().toString();
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
