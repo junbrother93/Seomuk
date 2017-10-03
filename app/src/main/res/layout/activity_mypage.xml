@@ -11,6 +11,12 @@
         android:orientation="vertical"
         android:layout_weight="1.05">
 
+        <ImageView
+            android:id="@+id/warn2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/warn"
+            android:visibility="invisible"/>
         <com.example.junhyeong.myapplication.widget.IndexableListView
             android:id="@+id/listview2"
             android:layout_width="match_parent"

@@ -47,6 +47,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     private Intent ActPop_Menu;
     private Intent MyPage;
     private Typeface Tmon;
+    private  ImageView warn;
 
 
     @Override
@@ -54,6 +55,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        warn = (ImageView)findViewById(R.id.warn);
         Tmon = Typeface.createFromAsset(this.getAssets(), "fonts/TmonMonsori.ttf.ttf");
 
         mQueue = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
@@ -228,9 +230,12 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             // 정렬 한 것 어댑터에 추가
             if(total==0)
             {
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.warn), "정보가 존재하지 않습니다.");
+                warn.setVisibility(View.VISIBLE);
+                listview.setVisibility(View.GONE);
             }
             else {
+                warn.setVisibility(View.INVISIBLE);
+                listview.setVisibility(View.VISIBLE);
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
                     if(arrayList.get(i).getCTF_TYPE_NAME().toString().equals("자랑스러운 한국음식점".toString()))
@@ -339,11 +344,15 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             // 정렬 한 것 어댑터에 추가
             if(total==0)
             {
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.warn), "정보가 존재하지 않습니다.");
+                warn.setVisibility(View.VISIBLE);
+                listview.setVisibility(View.GONE);
             }
             else {
+                warn.setVisibility(View.INVISIBLE);
+                listview.setVisibility(View.VISIBLE);
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
+
                     if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("저염실천음식점".toString())||arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("저염참여음식점".toString()))
                     adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b7), arrayList2.get(i).getUPSO_NM());
                     else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("먹을만큼적당히".toString()))
