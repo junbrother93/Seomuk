@@ -16,7 +16,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.Adapter.ListViewAdapter;
@@ -26,7 +25,6 @@ import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Review.Review_watch_Activity;
 import com.example.junhyeong.myapplication.widget.IndexableListView;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -48,9 +46,9 @@ public class Select_MyPage_Activity extends Activity {
         setContentView(R.layout.activity_mypage);
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonArrayRequest getReviewRequest = new JsonArrayRequest(Request.Method.GET, "http://13.124.127.124:3000/review/food", new Response.Listener<JSONArray>() {
+        JsonObjectRequest getReviewRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/review/food", new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray response) {
+            public void onResponse(JSONObject response) {
                 Log.e("response : ", "response : " + response);
                 ReviewArrayList = new ArrayList<Review>();
                 // 리스트 생성
@@ -78,8 +76,7 @@ public class Select_MyPage_Activity extends Activity {
                     }
                 });
 
-                //int total = response.optInt("total", 0);    // 총 갯수
-                int total = 4;
+                int total = response.optInt("total", 0);    // 총 갯수
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
                      /*
@@ -92,7 +89,7 @@ public class Select_MyPage_Activity extends Activity {
 
 
                     // 아이템 불러와..
-                    ArrReviewData.add(response.optJSONObject(i));
+                    ArrReviewData.add(response.optJSONArray("data").optJSONObject(i));
                     ArrTitle.add(ArrReviewData.get(i).optString("title", "No Value"));
                     ArrBody.add(ArrReviewData.get(i).optString("body", "No Value"));
                     ArrScore.add(ArrReviewData.get(i).optInt("score", 0));
@@ -108,7 +105,7 @@ public class Select_MyPage_Activity extends Activity {
 
                     // 객체 추가
                     Review s = new Review();
-                    s.setArrReviewData(response.optJSONObject(i));
+                    s.setArrReviewData(response.optJSONArray("data").optJSONObject(i));
                     s.setTitle(ArrReviewData.get(i).optString("title", "null"));
                     s.setBody(ArrReviewData.get(i).optString("body", "null"));
                     s.setScore(ArrReviewData.get(i).optInt("score", 0));
