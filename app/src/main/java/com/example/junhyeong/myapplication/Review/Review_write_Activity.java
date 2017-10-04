@@ -31,7 +31,8 @@ public class Review_write_Activity extends Activity {
 
     EditText ReviewTitle, ReviewBody;
     int score;
-
+    String strReviewTitle;
+    String strReviewBody;
     Intent intent;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,8 +61,8 @@ public class Review_write_Activity extends Activity {
         {
             case R.id.YesBtn:
                 final int store_id = intent.getIntExtra("store_id",0);
-                final String strReviewTitle = ReviewTitle.getText().toString();
-                final String strReviewBody = ReviewBody.getText().toString();
+                strReviewTitle = ReviewTitle.getText().toString();
+                strReviewBody = ReviewBody.getText().toString();
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
@@ -90,6 +91,7 @@ public class Review_write_Activity extends Activity {
                         return params;
                     }
                 };
+
                 requestQueue.add(postStringRequest);
                 finish();
                 break;

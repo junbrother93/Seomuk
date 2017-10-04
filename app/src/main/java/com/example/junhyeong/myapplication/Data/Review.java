@@ -38,6 +38,7 @@ public class Review implements Comparable<Review> {
     public void setUser_id(int User_id){
         user_id = User_id;
     }
+
     public Review getData1() {
         return this;
     }

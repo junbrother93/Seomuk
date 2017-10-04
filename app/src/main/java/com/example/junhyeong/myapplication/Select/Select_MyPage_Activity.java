@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -19,12 +17,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.junhyeong.myapplication.Adapter.ListViewAdapter;
+import com.example.junhyeong.myapplication.Adapter.ListViewAdapter2;
 import com.example.junhyeong.myapplication.Data.Review;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Review.Review_watch_Activity;
-import com.example.junhyeong.myapplication.widget.IndexableListView;
+import com.example.junhyeong.myapplication.widget.IndexableListView2;
 
 import org.json.JSONObject;
 
@@ -39,7 +37,7 @@ import java.util.Map;
 
 public class Select_MyPage_Activity extends Activity {
 
-    private IndexableListView listview;
+    private IndexableListView2 listview;
     private ArrayList<Review> ReviewArrayList;
     private ImageView warn;
 
@@ -64,21 +62,11 @@ public class Select_MyPage_Activity extends Activity {
                 final ArrayList<Integer> ArrUser_id = new ArrayList<Integer>();
 
                 // 리스트뷰랑 어댑터..
-                listview = (IndexableListView) findViewById(R.id.listview2);
-                ListViewAdapter adapter = new ListViewAdapter();
+                listview = (IndexableListView2) findViewById(R.id.listview2);
+                ListViewAdapter2 adapter = new ListViewAdapter2();
                 listview.setAdapter(adapter);
                 listview.setFastScrollEnabled(true);
 
-
-                // 스크롤 뷰 안에 있는 리스트 뷰 스크롤 되게설정
-                final ScrollView scrollview = (ScrollView) findViewById(R.id.scrollview);
-                listview.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        scrollview.requestDisallowInterceptTouchEvent(true);
-                        return false;
-                    }
-                });
 
 
                 int total = response.optInt("total", 0);    // 총 갯수
@@ -108,12 +96,12 @@ public class Select_MyPage_Activity extends Activity {
                     ArrCTF_TYPE_NAME.add(ArrData.get(i).optString("CTF_TYPE_NAME", "No Value"));
                     ArrCTF_ADDR.add(ArrData.get(i).optString("CTF_ADDR", "No Value"));
                     */
-
+        //        s.setArrData2(response.optJSONArray("data").optJSONObject(i));
                     // 객체 추가
                     Review s = new Review();
                     s.setArrReviewData(response.optJSONArray("data").optJSONObject(i));
-                    s.setTitle(ArrReviewData.get(i).optString("title", "null"));
-                    s.setBody(ArrReviewData.get(i).optString("body", "null"));
+                    s.setTitle(ArrReviewData.get(i).optString("title", "No value"));
+                    s.setBody(ArrReviewData.get(i).optString("body", "No value"));
                     s.setScore(ArrReviewData.get(i).optInt("score", 0));
                     s.setIndex(ArrReviewData.get(i).optInt("index", 0));
                     s.setUser_id(ArrReviewData.get(i).optInt("user_id", 0));
