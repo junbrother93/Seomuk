@@ -85,7 +85,8 @@ public class Select_MyPage_Activity extends Activity {
                     // 아이템 불러와..
                     ArrReviewData.add(response.optJSONArray("data").optJSONObject(i));
                     ArrTitle.add(ArrReviewData.get(i).optString("title", "No Value"));
-                    ArrBody.add(ArrReviewData.get(i).optString("body", "No Value"));
+                    //ArrBody.add(ArrReviewData.get(i).optString("body", "No Value"));
+                    ArrBody.add(ArrReviewData.get(i).optString("text", "No Value"));
                     ArrScore.add(ArrReviewData.get(i).optInt("score", 0));
                     ArrIndex.add(ArrReviewData.get(i).optInt("index", 0));
                     ArrUser_id.add(ArrReviewData.get(i).optInt("user_id", 0));
@@ -101,7 +102,8 @@ public class Select_MyPage_Activity extends Activity {
                     Review s = new Review();
                     s.setArrReviewData(response.optJSONArray("data").optJSONObject(i));
                     s.setTitle(ArrReviewData.get(i).optString("title", "No value"));
-                    s.setBody(ArrReviewData.get(i).optString("body", "No value"));
+                    //s.setBody(ArrReviewData.get(i).optString("body", "No value"));
+                    s.setBody(ArrReviewData.get(i).optString("text", "No value"));
                     s.setScore(ArrReviewData.get(i).optInt("score", 0));
                     s.setIndex(ArrReviewData.get(i).optInt("index", 0));
                     s.setUser_id(ArrReviewData.get(i).optInt("user_id", 0));

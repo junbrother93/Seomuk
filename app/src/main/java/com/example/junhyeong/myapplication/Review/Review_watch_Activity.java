@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.junhyeong.myapplication.R;
@@ -18,6 +19,7 @@ import com.example.junhyeong.myapplication.R;
 public class Review_watch_Activity extends Activity {
 
     EditText ReviewTitle, ReviewBody;
+    Button btnModification, btnClose;
 
     int score;
 
@@ -30,6 +32,7 @@ public class Review_watch_Activity extends Activity {
 
         String title, body;
         int score, index, user_id;
+
 
         title = intent.getStringExtra("review_title");
         body = intent.getStringExtra("review_body");
@@ -48,9 +51,15 @@ public class Review_watch_Activity extends Activity {
 
         ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
         ReviewBody = (EditText) findViewById(R.id.ReviewBody);
+        btnModification = (Button) findViewById(R.id.YesBtn);
+        btnClose = (Button) findViewById(R.id.NoBtn);
 
         ReviewTitle.setText(title);
+        ReviewTitle.setEnabled(false);
         ReviewBody.setText(body);
+        ReviewBody.setEnabled(false);
+        btnModification.setText("수정");
+        btnClose.setText("닫기");
 
     }
 }
