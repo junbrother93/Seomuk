@@ -20,12 +20,15 @@ public class Select_MenuActivity extends Activity implements View.OnClickListene
     ImageView iv;
     Intent location,Main;
     String menu, Menuurl;
+    int num;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_menu);
         location = new Intent(this, Select_LocationActivity.class);//지역선택창
         Main = new Intent(this, MainActivity.class);//지역선택창
+
+
     }
 
     @Override
@@ -76,7 +79,10 @@ public class Select_MenuActivity extends Activity implements View.OnClickListene
                 break;
 
         }
+        Intent intent = getIntent();
+        num = intent.getIntExtra("mypage",0);
         location.putExtra("menu",menu);
+        location.putExtra("mypage",num);
         setResult(RESULT_OK, Main);
         setResult(RESULT_OK, location);
 
@@ -97,7 +103,9 @@ public class Select_MenuActivity extends Activity implements View.OnClickListene
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
+                        int pid = android.os.Process.myPid();
+                        android.os.Process.killProcess(pid);
+
                     }
 
                 })

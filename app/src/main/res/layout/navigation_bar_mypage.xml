@@ -7,14 +7,14 @@
     <ImageView
         android:id="@+id/Favorite"
         android:layout_width="0dip"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:onClick="onClick"
         android:src="@drawable/favor_btn"/>
     <ImageView
         android:id="@+id/Riview"
         android:layout_width="0dip"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:src="@drawable/review"/>
 

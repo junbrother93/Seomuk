@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="15dp"
         android:background="@drawable/background">
-
     </FrameLayout>
 
     <FrameLayout
@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/border"
+        android:paddingLeft="10dp"
         android:orientation="horizontal">
 
         <TextView
@@ -51,7 +52,7 @@
             android:textSize="8pt" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/FavorBtn"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_gravity="right"
@@ -69,8 +70,8 @@
             android:layout_marginRight="13dp"
             android:src="@drawable/tel"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/imageView"
-            android:layout_toStartOf="@+id/imageView" />
+            android:layout_toLeftOf="@+id/FavorBtn"
+            android:layout_toStartOf="@+id/FavorBtn" />
 
         <ImageView
             android:id="@+id/ReviewBtn"
@@ -91,6 +92,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:paddingLeft="10dp"
         android:orientation="vertical">
 
         <TextView
@@ -188,7 +190,4 @@
             android:text="5.0/5.0" />
 
     </GridLayout>
-
-
-
 </LinearLayout>

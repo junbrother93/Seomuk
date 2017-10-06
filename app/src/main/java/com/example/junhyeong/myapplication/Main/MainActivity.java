@@ -21,7 +21,9 @@ import com.example.junhyeong.myapplication.Adapter.ListViewAdapter;
 import com.example.junhyeong.myapplication.Data.Store;
 import com.example.junhyeong.myapplication.Data.Store2;
 import com.example.junhyeong.myapplication.Google.MapsActivity;
+import com.example.junhyeong.myapplication.Login.LoginActivity;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Local;
+import com.example.junhyeong.myapplication.Popup.PopupActivity_Login;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Menu;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Select.Select_MyPage_Activity;
@@ -46,9 +48,11 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     private Intent ActPop_Location;
     private Intent ActPop_Menu;
     private Intent MyPage;
+    private Intent LoginPop;
+    private Intent Login;
     private Typeface Tmon;
     private  ImageView warn;
-
+;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +68,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         ActPop_Location = new Intent(this, PopupActivity_Local.class);
         ActPop_Menu = new Intent(this, PopupActivity_Menu.class);
         MyPage = new Intent(this, Select_MyPage_Activity.class);
-
+        Login = new Intent(this, LoginActivity.class);
+        LoginPop = new Intent(this, PopupActivity_Login.class);
 
         BtnLocalChange = (ImageView) findViewById(R.id.Location); // 네비게이션바에 있는 "지역" 버튼
         BtnMenuChange = (ImageView)findViewById(R.id.Menu);
@@ -78,8 +83,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         String local = intent.getStringExtra("local");
         String menu = intent.getStringExtra("menu");
         String url = "http://13.124.127.124:3000/auth/menu/"+menu.toString()+"/loc/"+local.toString();
-
-
+        final int num = intent.getIntExtra("mypage",1);
         // 안심 먹거리일경우 url 변경
         if(menu.toString().equals("food")) {
             AnsimValue = 1;
@@ -114,6 +118,9 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         BtnMyPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(num==1)
+                    startActivity(LoginPop);
+                else
                 startActivity(MyPage);
             }
         });

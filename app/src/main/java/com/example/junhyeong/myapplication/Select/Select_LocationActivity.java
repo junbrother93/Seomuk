@@ -18,13 +18,14 @@ public class Select_LocationActivity extends Activity implements View.OnClickLis
     public String Menuurl,Locationurl;
     public String menu;
     String local;
+    int num;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_location);
         Intent intent = getIntent();
        menu = intent.getStringExtra("menu");
-
+        num= intent.getIntExtra("mypage",0);
     }
     public void onClick(View v)
     {
@@ -113,7 +114,7 @@ public class Select_LocationActivity extends Activity implements View.OnClickLis
 
         }
 
-
+        Main.putExtra("mypage",num);
         Main.putExtra("local", local);
         Main.putExtra("menu",menu);
         setResult(RESULT_OK, Main);

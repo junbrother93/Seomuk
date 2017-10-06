@@ -40,12 +40,34 @@ public class Select_MyPage_Activity extends Activity {
     private IndexableListView2 listview;
     private ArrayList<Review> ReviewArrayList;
     private ImageView warn;
-
+    private ImageView favor,review;
+    int num_favor,num_review;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
-
+        num_favor=0;
+        num_review=0;
         warn = (ImageView) findViewById(R.id.warn2);
+        favor = (ImageView)findViewById(R.id.Favorite);
+        review = (ImageView)findViewById(R.id.Riview);
+        favor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    favor.setImageResource(R.drawable.favor_btn_click);
+                    review.setImageResource(R.drawable.review);
+
+            }
+        });
+        review.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    favor.setImageResource(R.drawable.favor_btn);
+                    review.setImageResource(R.drawable.review_click);
+                    num_favor=0;
+
+            }
+        });
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonObjectRequest getReviewRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/review/food", new Response.Listener<JSONObject>() {

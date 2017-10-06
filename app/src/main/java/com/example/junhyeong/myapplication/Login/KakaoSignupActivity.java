@@ -19,6 +19,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
+import com.example.junhyeong.myapplication.Main.MainActivity;
 import com.example.junhyeong.myapplication.Select.Select_MenuActivity;
 import com.kakao.auth.ApiResponseCallback;
 import com.kakao.auth.AuthService;
@@ -41,12 +42,12 @@ public class KakaoSignupActivity extends AppCompatActivity {
      * Main으로 넘길지 가입 페이지를 그릴지 판단하기 위해 me를 호출한다.
      * @param savedInstanceState 기존 session 정보가 저장된 객체
      */
-
-
+    private int num;
+    private Intent mypage;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mypage = new Intent(this, MainActivity.class);
         requestMe();
     }
 

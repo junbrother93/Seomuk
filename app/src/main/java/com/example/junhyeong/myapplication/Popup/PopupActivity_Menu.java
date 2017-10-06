@@ -97,6 +97,8 @@ public class PopupActivity_Menu extends Activity {
         }
         return true;
     }
-
-
+    @Override
+    public void onBackPressed() {
+     return;
+    }
 }

@@ -134,4 +134,8 @@ public class PopupActivity_Local extends Activity {
         }
         return true;
     }
+    @Override
+    public void onBackPressed() {
+        return;
+    }
 }

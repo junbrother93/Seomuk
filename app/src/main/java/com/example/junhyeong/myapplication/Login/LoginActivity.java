@@ -31,9 +31,7 @@ import com.kakao.auth.Session;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
 
-
 import org.json.JSONObject;
-
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,17 +45,19 @@ public class LoginActivity extends Activity {
     private SessionCallback callback;      //콜백 선언 for kakao
     CallbackManager callbackManager;       //콜백 선언 for facebook
     Button unlogin;
-    Intent intent;
-
+    Intent intent,mypage;
     private ImageView fakefacebook, fakekakao;
+    int num;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         intent = new Intent(this,Select_MenuActivity.class);
+
         unlogin = (Button)findViewById(R.id.unlogin);
         unlogin.setOnClickListener(new AccessListener());
+
 
 
         //for kakao
@@ -116,9 +116,12 @@ public class LoginActivity extends Activity {
     class AccessListener implements Button.OnClickListener{
         @Override
         public void onClick(View v) {
-            startActivity(intent);
+
             GlobalApplication GUserID = (GlobalApplication) getApplication();
-            GUserID.setGlobalUserID(0);
+            GUserID.setGlobalUserID(1);
+            num = GUserID.getGlobalUserID();
+            intent.putExtra("mypage",num);
+            startActivity(intent);
             finish();
         }
     }
@@ -191,8 +194,6 @@ public class LoginActivity extends Activity {
             @Override
             public void onResponse(String response) {
                 Log.e("Facebook_sign_up_OK : ","Facebook_sign_up_OK : " + response);
-                GlobalApplication GUserID = (GlobalApplication) getApplication();
-                //GUserID.setGlobalUserID(response.optInt("id", 0));
             }
         }, new Response.ErrorListener() {
             @Override

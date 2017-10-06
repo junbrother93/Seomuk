@@ -40,16 +40,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Typeface BMJUA;
     private Typeface BMDOHYEON;
     private static final int MY_LOCATION_REQUEST_CODE = 1;
-    private ImageView TelBtn,ReviewBtn, Nomap;
+    private ImageView TelBtn,ReviewBtn, Nomap,FavorBtn;
     private String store_address,store_call;
-
+    private int num;
     Intent review;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_googlemap);
+        num=0;
         BMJUA = Typeface.createFromAsset(this.getAssets(), "fonts/BMJUA_ttf.ttf");
         BMDOHYEON = Typeface.createFromAsset(this.getAssets(), "fonts/BMDOHYEON_ttf.ttf");
+
         review = new Intent(this, Review_Activity.class);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -110,6 +112,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 startActivity(review);
             }
         });
+
+        FavorBtn = (ImageView)findViewById(R.id.FavorBtn);
+        FavorBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(num==0)
+                {
+                    FavorBtn.setImageResource(R.drawable.favor);
+                    num++;
+                }
+                else
+                {
+                    FavorBtn.setImageResource(R.drawable.favor_full);
+                    num=0;
+                }
+
+            }
+        });
+
 
         tvStore_name = (TextView) findViewById(R.id.textView6);
         tvStore_address = (TextView) findViewById(R.id.textView7);
