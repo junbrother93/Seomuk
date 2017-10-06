@@ -103,8 +103,10 @@ public class Select_MenuActivity extends Activity implements View.OnClickListene
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        int pid = android.os.Process.myPid();
-                        android.os.Process.killProcess(pid);
+                        moveTaskToBack(true);
+                        finish();
+                        android.os.Process.killProcess(android.os.Process.myPid());
+
 
                     }
 

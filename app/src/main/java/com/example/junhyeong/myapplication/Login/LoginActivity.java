@@ -122,7 +122,7 @@ public class LoginActivity extends Activity {
             num = GUserID.getGlobalUserID();
             intent.putExtra("mypage",num);
             startActivity(intent);
-            finish();
+
         }
     }
 
