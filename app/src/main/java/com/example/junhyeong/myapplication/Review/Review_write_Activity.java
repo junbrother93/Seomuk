@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,6 +32,8 @@ import java.util.Map;
 public class Review_write_Activity extends Activity {
 
     EditText ReviewTitle, ReviewBody;
+    RatingBar rating;
+    TextView Value;
     int score;
     String strReviewTitle;
     String strReviewBody;
@@ -44,9 +48,28 @@ public class Review_write_Activity extends Activity {
 
         getWindow().getAttributes().width = width;
 
-
+        rating = (RatingBar)findViewById(R.id.ratingBar);
         ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
         ReviewBody = (EditText) findViewById(R.id.ReviewBody);
+        Value = (TextView)findViewById(R.id.Value);
+        rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                // 강제로 1넣기
+                if (ratingBar.getRating()<=1.0){
+                    ratingBar.setRating(1);
+                    Value.setText("1.0");
+                }
+                else if(ratingBar.getRating()>1.0&&ratingBar.getRating()<=2.0)
+                    Value.setText("2.0");
+                else if(ratingBar.getRating()>2.0&&ratingBar.getRating()<=3.0)
+                    Value.setText("3.0");
+                else if(ratingBar.getRating()>3.0&&ratingBar.getRating()<=4.0)
+                    Value.setText("4.0");
+                else if(ratingBar.getRating()>4.0&&ratingBar.getRating()<=5.0)
+                    Value.setText("5.0");
+            }
+        });
 
 
 
@@ -96,4 +119,5 @@ public class Review_write_Activity extends Activity {
                 break;
         }
     }
+
 }

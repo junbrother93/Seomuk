@@ -32,20 +32,45 @@
 
 
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
         android:background="@drawable/border">
+
+        <TextView
+            android:id="@+id/Value"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:textSize="10pt"
+            android:textAlignment="center"
+            android:paddingTop="15dp"
+            android:layout_marginLeft="7dp"
+            android:text="1.0 "/>
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:textSize="10pt"
+            android:paddingTop="15dp"
+            android:textAlignment="center"
+            android:text="/ 5.0 " />
 
         <RatingBar
             android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:paddingTop="3dp"
+            android:isIndicator="false"
             android:numStars="5"
             android:rating="1"
             android:stepSize="1"/>
-    </FrameLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,9 +80,9 @@
         <EditText
             android:id="@+id/ReviewTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_weight="1"
-            android:ems="10"
+
             android:inputType="textPersonName"
             android:hint="제목"/>
 
