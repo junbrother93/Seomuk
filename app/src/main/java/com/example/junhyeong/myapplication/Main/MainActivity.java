@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,7 +20,6 @@ import com.example.junhyeong.myapplication.Adapter.ListViewAdapter;
 import com.example.junhyeong.myapplication.Data.Store;
 import com.example.junhyeong.myapplication.Data.Store2;
 import com.example.junhyeong.myapplication.Google.MapsActivity;
-import com.example.junhyeong.myapplication.Login.LoginActivity;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Local;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Login;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Menu;
@@ -39,19 +37,15 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     public static final String REQUEST_TAG = "MainActivity";
     private final int DYNAMIC_VIEW_ID = 10000;
     private RequestQueue mQueue, mQueue2;
-    private ImageView BtnLocalChange, BtnMenuChange, BtnMyPage;
+    private ImageView BtnLocalChange, BtnMenuChange, BtnMyPage,warn;
     private TextView Text;
     private ArrayList<Store> arrayList;
     private ArrayList<Store2> arrayList2;
     private IndexableListView listview;
-    private int AnsimValue;
-    private Intent ActPop_Location;
-    private Intent ActPop_Menu;
-    private Intent MyPage;
-    private Intent LoginPop;
-    private Intent Login;
+    private int AnsimValue,num;
+    private Intent ActPop_Location,ActPop_Menu,MyPage,LoginPop;
     private Typeface Tmon;
-    private  ImageView warn;
+
 ;
 
     @Override
@@ -68,7 +62,6 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         ActPop_Location = new Intent(this, PopupActivity_Local.class);
         ActPop_Menu = new Intent(this, PopupActivity_Menu.class);
         MyPage = new Intent(this, Select_MyPage_Activity.class);
-        Login = new Intent(this, LoginActivity.class);
         LoginPop = new Intent(this, PopupActivity_Login.class);
 
         BtnLocalChange = (ImageView) findViewById(R.id.Location); // 네비게이션바에 있는 "지역" 버튼
@@ -83,7 +76,10 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         String local = intent.getStringExtra("local");
         String menu = intent.getStringExtra("menu");
         String url = "http://13.124.127.124:3000/auth/menu/"+menu.toString()+"/loc/"+local.toString();
-        final int num = intent.getIntExtra("mypage",1);
+        num = intent.getIntExtra("mypage",0);
+
+
+
         // 안심 먹거리일경우 url 변경
         if(menu.toString().equals("food")) {
             AnsimValue = 1;
@@ -259,7 +255,6 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
 
-                        Toast.makeText(MainActivity.this, "" + id, Toast.LENGTH_LONG).show();
                         intent.putExtra("store_name", arrayList.get((int) id).getCTF_NAME());
                         //intent.putExtra("store_address", arrayList.get((int) id).getCTF_ADDR());
                         intent.putExtra("store_grade", arrayList.get((int) id).getCTF_TYPE_NAME());
@@ -267,6 +262,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                         intent.putExtra("X", arrayList.get((int) id).getCTF_X());
                         intent.putExtra("Y", arrayList.get((int) id).getCTF_Y());
                         intent.putExtra("store_id", arrayList.get((int) id).getCTF_CODE());
+                        intent.putExtra("mypage",num);
+                        setResult(RESULT_OK,intent);
                         startActivity(intent);
                     }
                 });
@@ -384,7 +381,6 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
 
-                        Toast.makeText(MainActivity.this, "" + id, Toast.LENGTH_LONG).show();
                         intent.putExtra("store_name", arrayList2.get((int) id).getUPSO_NM());
                         intent.putExtra("store_address", arrayList2.get((int) id).getRDN_DETAIL_ADDR());
                         intent.putExtra("store_grade", arrayList2.get((int) id).getCRTFC_GBN_NM());
@@ -392,7 +388,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                         intent.putExtra("X", arrayList2.get((int) id).getY_DNTS());
                         intent.putExtra("Y", arrayList2.get((int) id).getX_CNTS());
                         intent.putExtra("store_id", arrayList2.get((int) id).getCRTFC_UPSO_MGT_SNO());
-
+                        intent.putExtra("mypage",num);
+                        setResult(RESULT_OK,intent);
                         startActivity(intent);
                     }
                 });

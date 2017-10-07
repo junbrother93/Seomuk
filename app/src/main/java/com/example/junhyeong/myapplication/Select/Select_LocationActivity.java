@@ -25,7 +25,7 @@ public class Select_LocationActivity extends Activity implements View.OnClickLis
         setContentView(R.layout.activity_location);
         Intent intent = getIntent();
        menu = intent.getStringExtra("menu");
-        num= intent.getIntExtra("mypage",0);
+        num = intent.getIntExtra("mypage",0);
     }
     public void onClick(View v)
     {

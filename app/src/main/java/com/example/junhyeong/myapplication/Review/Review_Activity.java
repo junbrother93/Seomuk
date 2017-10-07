@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
+import com.example.junhyeong.myapplication.Popup.PopupActivity_Login;
 import com.example.junhyeong.myapplication.R;
 
 import java.util.HashMap;
@@ -26,21 +27,28 @@ import java.util.Map;
 
 public class Review_Activity extends Activity {
     ImageView ReviewBtn2;
-    Intent intent, Review_Write;
-    int store_id;
+    Intent intent, Review_Write,Popup_login;
+    int store_id,unlogin_value;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
 
         intent = getIntent();
+        unlogin_value = intent.getIntExtra("mypage",0);
         store_id = intent.getIntExtra("store_id", 0);
         ReviewBtn2 = (ImageView)findViewById(R.id.ReviewBtn2);
         Review_Write = new Intent(this,Review_write_Activity.class);
+        Popup_login = new Intent(this, PopupActivity_Login.class);
         Review_Write.putExtra("store_id", store_id);
 
         ReviewBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(unlogin_value==1)
+                {
+                    startActivity(Popup_login);
+                }
+                else
                 startActivity(Review_Write);
             }
         });

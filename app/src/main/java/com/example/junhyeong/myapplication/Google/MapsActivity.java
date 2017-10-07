@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
+import com.example.junhyeong.myapplication.Popup.PopupActivity_Login;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Review.Review_Activity;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -42,23 +43,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int MY_LOCATION_REQUEST_CODE = 1;
     private ImageView TelBtn,ReviewBtn, Nomap,FavorBtn;
     private String store_address,store_call;
-    private int num;
+    private int num,unlogin_value;
     Intent review;
+    private Intent Popup_login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_googlemap);
+        Intent intent = getIntent();
+
         num=0;
         BMJUA = Typeface.createFromAsset(this.getAssets(), "fonts/BMJUA_ttf.ttf");
         BMDOHYEON = Typeface.createFromAsset(this.getAssets(), "fonts/BMDOHYEON_ttf.ttf");
 
         review = new Intent(this, Review_Activity.class);
+        Popup_login = new Intent(this, PopupActivity_Login.class);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Intent intent = getIntent();
+        unlogin_value = intent.getIntExtra("mypage",0);
         store_name = intent.getStringExtra("store_name");
         String store_grade = intent.getStringExtra("store_grade");
         //store_address = intent.getStringExtra("store_address");
@@ -109,6 +114,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                review.putExtra("mypage",unlogin_value);
+                setResult(RESULT_OK,review);
                 startActivity(review);
             }
         });
@@ -117,17 +124,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         FavorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(num==0)
+                if(unlogin_value==1)
                 {
-                    FavorBtn.setImageResource(R.drawable.favor);
-                    num++;
+                    startActivity(Popup_login);
                 }
-                else
-                {
-                    FavorBtn.setImageResource(R.drawable.favor_full);
-                    num=0;
+                else {
+                    if (num == 0) {
+                        FavorBtn.setImageResource(R.drawable.favor);
+                        num++;
+                    } else {
+                        FavorBtn.setImageResource(R.drawable.favor_full);
+                        num = 0;
+                    }
                 }
-
             }
         });
 
