@@ -20,10 +20,8 @@ public class Review_watch_Activity extends Activity {
 
     EditText ReviewTitle, ReviewBody;
     Button btnModification, btnClose;
-
-    int score;
-
     Intent intent;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -31,12 +29,13 @@ public class Review_watch_Activity extends Activity {
         intent = getIntent();
 
         String title, body;
-        int score, index, user_id;
+        int index, user_id;
+        double score;
 
 
         title = intent.getStringExtra("review_title");
         body = intent.getStringExtra("review_body");
-        score = intent.getIntExtra("review_score", 0);
+        score = intent.getDoubleExtra("review_score", 0);
         index = intent.getIntExtra("review_index", 0);
         user_id = intent.getIntExtra("review_user_id", 0);
         Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();

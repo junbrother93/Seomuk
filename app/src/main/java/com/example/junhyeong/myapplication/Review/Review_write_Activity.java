@@ -34,7 +34,7 @@ public class Review_write_Activity extends Activity {
     EditText ReviewTitle, ReviewBody;
     RatingBar rating;
     TextView Value;
-    int score;
+    double score;
     String strReviewTitle;
     String strReviewBody;
     Intent intent;
@@ -60,19 +60,25 @@ public class Review_write_Activity extends Activity {
                     ratingBar.setRating(1);
                     Value.setText("1.0");
                 }
-                else if(ratingBar.getRating()>1.0&&ratingBar.getRating()<=2.0)
+                else if(ratingBar.getRating()>1.0&&ratingBar.getRating()<=2.0) {
+                    ratingBar.setRating(2);
                     Value.setText("2.0");
-                else if(ratingBar.getRating()>2.0&&ratingBar.getRating()<=3.0)
+                }
+                else if(ratingBar.getRating()>2.0&&ratingBar.getRating()<=3.0) {
+                    ratingBar.setRating(3);
                     Value.setText("3.0");
-                else if(ratingBar.getRating()>3.0&&ratingBar.getRating()<=4.0)
+                }
+                else if(ratingBar.getRating()>3.0&&ratingBar.getRating()<=4.0){
+                    ratingBar.setRating(4);
                     Value.setText("4.0");
-                else if(ratingBar.getRating()>4.0&&ratingBar.getRating()<=5.0)
+                }
+                else if(ratingBar.getRating()>4.0&&ratingBar.getRating()<=5.0){
+                    ratingBar.setRating(5);
                     Value.setText("5.0");
+                }
+                score = ratingBar.getRating();
             }
         });
-
-
-
     }
 
     public void onClick(View view){
@@ -100,12 +106,14 @@ public class Review_write_Activity extends Activity {
                     protected Map<String, String> getParams() {
                         GlobalApplication GUserID = (GlobalApplication) getApplication();
                         Map<String, String> params = new HashMap<>();
-                        //params.put("title", strReviewTitle);
+                        params.put("title", strReviewTitle);
                         params.put("text", strReviewBody);
                         params.put("classify", "안심");
                         params.put("user_id", String.valueOf(GUserID.getGlobalUserID()));
                         params.put("store_id", String.valueOf(store_id));
+                        params.put("score", String.valueOf(score));
                         Log.e("body", "body" + params);
+
 
                         return params;
                     }

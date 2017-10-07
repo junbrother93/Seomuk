@@ -79,7 +79,7 @@ public class Select_MyPage_Activity extends Activity {
                 final ArrayList<JSONObject> ArrReviewData = new ArrayList<JSONObject>();
                 final ArrayList<String> ArrTitle = new ArrayList<String>();
                 final ArrayList<String> ArrBody = new ArrayList<String>();
-                final ArrayList<Integer> ArrScore = new ArrayList<Integer>();
+                final ArrayList<Double> ArrScore = new ArrayList<Double>();
                 final ArrayList<Integer> ArrIndex = new ArrayList<Integer>();
                 final ArrayList<Integer> ArrUser_id = new ArrayList<Integer>();
 
@@ -109,7 +109,7 @@ public class Select_MyPage_Activity extends Activity {
                     ArrTitle.add(ArrReviewData.get(i).optString("title", "No Value"));
                     //ArrBody.add(ArrReviewData.get(i).optString("body", "No Value"));
                     ArrBody.add(ArrReviewData.get(i).optString("text", "No Value"));
-                    ArrScore.add(ArrReviewData.get(i).optInt("score", 0));
+                    ArrScore.add(ArrReviewData.get(i).optDouble("score", 0));
                     ArrIndex.add(ArrReviewData.get(i).optInt("index", 0));
                     ArrUser_id.add(ArrReviewData.get(i).optInt("user_id", 0));
 
@@ -126,7 +126,7 @@ public class Select_MyPage_Activity extends Activity {
                     s.setTitle(ArrReviewData.get(i).optString("title", "No value"));
                     //s.setBody(ArrReviewData.get(i).optString("body", "No value"));
                     s.setBody(ArrReviewData.get(i).optString("text", "No value"));
-                    s.setScore(ArrReviewData.get(i).optInt("score", 0));
+                    s.setScore(ArrReviewData.get(i).optDouble("score", 0.0));
                     s.setIndex(ArrReviewData.get(i).optInt("index", 0));
                     s.setUser_id(ArrReviewData.get(i).optInt("user_id", 0));
                     ReviewArrayList.add(s);

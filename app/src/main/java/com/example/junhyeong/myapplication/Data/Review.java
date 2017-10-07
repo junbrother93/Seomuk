@@ -9,9 +9,10 @@ import org.json.JSONObject;
 public class Review implements Comparable<Review> {
     JSONObject ArrReviewData;
     String title, body;
-    int score, index, user_id;
+    int index, user_id;
+    double score;
 
-    public void setData(JSONObject DATA, String Title, String Body, int Score, int Index, int User_id) {
+    public void setData(JSONObject DATA, String Title, String Body, double Score, int Index, int User_id) {
         setArrReviewData(DATA);
         setTitle(Title);
         setBody(Body);
@@ -29,7 +30,7 @@ public class Review implements Comparable<Review> {
     public void setBody(String Body){
         body = Body;
     }
-    public void setScore(int Score){
+    public void setScore(double Score){
         score = Score;
     }
     public void setIndex(int Index){
@@ -49,7 +50,7 @@ public class Review implements Comparable<Review> {
         return title;
     }
     public String getBody() {return body;}
-    public int getScore() {return score;}
+    public double getScore() {return score;}
     public int getIndex() {return index;}
     public int getUser_id() {return user_id;}
 
