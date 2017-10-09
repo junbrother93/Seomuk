@@ -60,7 +60,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Popup_login = new Intent(this, PopupActivity_Login.class);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         unlogin_value = intent.getIntExtra("mypage",0);
@@ -73,6 +73,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         review.putExtra("store_id", store_id);
 
         store_call = intent.getStringExtra("store_call"); //전화번호아이콘 만들어지면 사용
+        if(store_call.equals("") || store_call.equals(null))
+        {
+            store_call="정보를 제공하지 않습니다".toString();
+        }
         store_call = store_call.replaceAll("\\p{Z}", "");
         if(store_call.substring(0,2).equals("02")||store_call.substring(0,3).equals("010")||store_call.substring(0,3).equals("016")||store_call.substring(0,3).equals("019"))
         {}
@@ -148,10 +152,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         tvStore_name.setText(store_name);
         tvStore_grade.setText(store_grade);
 
-        Log.e("x:", "x"+x);
-        Log.e("y:", "y"+y);
+        Log.e("Xvalue:", "x"+x);
+        Log.e("Yvalue:", "y"+y);
 
-        if(x == 0.0 && y == 0.0)
+        if(x == 0.0 && y == 0.0 || (x==0 && y==0))
         {
             x = 37.5652894;
             y = 126.8494668;
@@ -161,10 +165,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onResponse(JSONObject response) {
                 Log.e("response", "response :" + response.optJSONArray("results").optJSONObject(0).optString("formatted_address"));
-                if(x == 37.5652894 && y == 126.8494668)
+                if((x == 37.5652894 && y == 126.8494668))
                 {
                     ImageView noMap = (ImageView)findViewById(R.id.noMap);
                     noMap.setVisibility(View.VISIBLE);
+                    mapFragment.getView().setVisibility(View.GONE);
                     store_address = "주소정보없음";
                 }
                 else {

@@ -21,11 +21,11 @@
             <TextView
                 android:id="@+id/Text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_gravity="top"
                 android:background="#778899"
                 android:paddingBottom="3dp"
-                android:paddingTop="3dp"
+                android:paddingTop="7dp"
                 android:text=""
                 android:textAlignment="center"
                 android:textColor="#ffffff"
