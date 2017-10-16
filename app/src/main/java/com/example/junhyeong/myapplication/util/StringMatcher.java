@@ -38,13 +38,13 @@ public class StringMatcher {
         return (j == keyword.length())? true : false;
     }
 
-    private static boolean isKorean(char c) {
+    public static boolean isKorean(char c) {
         if (c >= KOREAN_UNICODE_START && c <= KOREAN_UNICODE_END)
             return true;
         return false;
     }
 
-    private static boolean isInitialSound(char c) {
+    public static boolean isInitialSound(char c) {
         for (char i : KOREAN_INITIAL) {
             if (c == i)
                 return true;
@@ -52,7 +52,7 @@ public class StringMatcher {
         return false;
     }
 
-    private static char getInitialSound(char c) {
+    public static char getInitialSound(char c) {
 
         if(!isKorean(c)){
             return c;

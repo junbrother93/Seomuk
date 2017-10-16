@@ -4,8 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="-25dp"
     tools:context="com.example.junhyeong.myapplication.Main.MainActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+
+        <ImageView
+            android:layout_margin="5dp"
+            android:id="@+id/copyright"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right"
+            android:onClick="onClick"
+            android:src="@drawable/info" />
+    </FrameLayout>
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -21,8 +34,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#CCEBE0D0">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,9 +83,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
                 android:layout_marginTop="10dp"
-
+                android:textStyle="bold"
                 android:text="비회원으로 접속" />
         </LinearLayout>
 

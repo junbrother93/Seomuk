@@ -53,8 +53,8 @@ public class Select_MyPage_Activity extends Activity {
         favor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    favor.setImageResource(R.drawable.favor_btn_click);
-                    review.setImageResource(R.drawable.review);
+                    favor.setImageResource(R.drawable.star_click);
+                    review.setImageResource(R.drawable.mypage_review);
 
             }
         });
@@ -62,8 +62,8 @@ public class Select_MyPage_Activity extends Activity {
             @Override
             public void onClick(View v) {
 
-                    favor.setImageResource(R.drawable.favor_btn);
-                    review.setImageResource(R.drawable.review_click);
+                    favor.setImageResource(R.drawable.star);
+                    review.setImageResource(R.drawable.mypage_review_click);
                     num_favor=0;
 
             }

@@ -10,13 +10,13 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:onClick="onClick"
-        android:src="@drawable/favor_btn"/>
+        android:src="@drawable/star"/>
     <ImageView
         android:id="@+id/Riview"
         android:layout_width="0dip"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:src="@drawable/review"/>
+        android:src="@drawable/mypage_review"/>
 
 
 

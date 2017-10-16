@@ -182,7 +182,7 @@ public class IndexScroller {
 		}
 	}
 	
-	private void setState(int state) {
+	public void setState(int state) {
 		if (state < STATE_HIDDEN || state > STATE_HIDING)
 			return;
 		
@@ -214,7 +214,7 @@ public class IndexScroller {
 		return (x >= mIndexbarRect.left && y >= mIndexbarRect.top && y <= mIndexbarRect.top + mIndexbarRect.height());
 	}
 	
-	private int getSectionByPoint(float y) {
+	public int getSectionByPoint(float y) {
 		if (mSections == null || mSections.length == 0)
 			return 0;
 		if (y < mIndexbarRect.top + mIndexbarMargin)
@@ -224,12 +224,12 @@ public class IndexScroller {
 		return (int) ((y - mIndexbarRect.top - mIndexbarMargin) / ((mIndexbarRect.height() - 2 * mIndexbarMargin) / mSections.length));
 	}
 	
-	private void fade(long delay) {
+	public void fade(long delay) {
 		mHandler.removeMessages(0);
 		mHandler.sendEmptyMessageAtTime(0, SystemClock.uptimeMillis() + delay);
 	}
 	
-	private Handler mHandler = new Handler() {
+	public Handler mHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {

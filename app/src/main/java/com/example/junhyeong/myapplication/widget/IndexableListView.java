@@ -114,7 +114,7 @@ public class IndexableListView extends ListView {
 	}
 
 	@Override
-	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+	public void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
 		if (mScroller != null)
 			mScroller.onSizeChanged(w, h, oldw, oldh);

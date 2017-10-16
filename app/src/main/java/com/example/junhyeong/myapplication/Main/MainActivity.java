@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +21,7 @@ import com.example.junhyeong.myapplication.Adapter.ListViewAdapter;
 import com.example.junhyeong.myapplication.Data.Store;
 import com.example.junhyeong.myapplication.Data.Store2;
 import com.example.junhyeong.myapplication.Google.MapsActivity;
+import com.example.junhyeong.myapplication.Popup.PopupActivity_Explain;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Local;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Login;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Menu;
@@ -37,13 +39,13 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     public static final String REQUEST_TAG = "MainActivity";
     private final int DYNAMIC_VIEW_ID = 10000;
     private RequestQueue mQueue, mQueue2;
-    private ImageView BtnLocalChange, BtnMenuChange, BtnMyPage,warn;
+    private ImageView BtnLocalChange, BtnMenuChange, BtnMyPage,warn, BtnInfo;
     private TextView Text;
     private ArrayList<Store> arrayList;
     private ArrayList<Store2> arrayList2;
     private IndexableListView listview;
     private int AnsimValue,num;
-    private Intent ActPop_Location,ActPop_Menu,MyPage,LoginPop;
+    private Intent ActPop_Location,ActPop_Menu,MyPage,LoginPop,PopExplain;
     private Typeface Tmon;
 
 ;
@@ -63,10 +65,12 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         ActPop_Menu = new Intent(this, PopupActivity_Menu.class);
         MyPage = new Intent(this, Select_MyPage_Activity.class);
         LoginPop = new Intent(this, PopupActivity_Login.class);
+        PopExplain = new Intent(this,PopupActivity_Explain.class);
 
         BtnLocalChange = (ImageView) findViewById(R.id.Location); // 네비게이션바에 있는 "지역" 버튼
         BtnMenuChange = (ImageView)findViewById(R.id.Menu);
         BtnMyPage = (ImageView)findViewById((R.id.MyPage));
+        BtnInfo = (ImageView)findViewById(R.id.info);
 
         Text = (TextView) findViewById(R.id.Text); // 글씨바뀌는건 위의 mButton 버튼
         Text.setTypeface(Tmon);
@@ -120,6 +124,12 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 startActivity(MyPage);
             }
         });
+        BtnInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(PopExplain);
+            }
+        });
 
     }
 
@@ -156,7 +166,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     @Override
     public void onResponse(JSONObject response) {
         int total = response.optInt("total", 0);    // 총 갯수
-
+        Log.e("total","totalValue :"+total);
         // 안심먹거리일 경우
         if (AnsimValue == 1) {
             arrayList = new ArrayList<Store>();

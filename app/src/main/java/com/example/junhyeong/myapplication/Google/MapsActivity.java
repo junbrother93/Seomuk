@@ -137,7 +137,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         FavorBtn.setImageResource(R.drawable.favor);
                         num++;
                     } else {
-                        FavorBtn.setImageResource(R.drawable.favor_full);
+                        FavorBtn.setImageResource(R.drawable.favor_btn);
                         num = 0;
                     }
                 }

@@ -18,6 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
+import com.example.junhyeong.myapplication.Popup.PopupActiovity_Description;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Select.Select_MenuActivity;
 import com.facebook.AccessToken;
@@ -45,7 +46,8 @@ public class LoginActivity extends Activity {
     private SessionCallback callback;      //콜백 선언 for kakao
     CallbackManager callbackManager;       //콜백 선언 for facebook
     Button unlogin;
-    Intent intent,mypage;
+    Intent intent,mypage,description;
+    ImageView copyright;
     private ImageView fakefacebook, fakekakao;
     int num;
 
@@ -54,9 +56,18 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         intent = new Intent(this,Select_MenuActivity.class);
+        description = new Intent(this, PopupActiovity_Description.class);
 
         unlogin = (Button)findViewById(R.id.unlogin);
+        copyright = (ImageView)findViewById(R.id.copyright);
         unlogin.setOnClickListener(new AccessListener());
+
+        copyright.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               startActivity(description);
+            }
+        });
 
 
 

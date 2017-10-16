@@ -4,22 +4,30 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:text="메뉴 선택"
-        android:textSize="8pt"
-        android:textAlignment="center"
-        android:paddingTop="15dp"
-        android:layout_gravity="top"
-        android:background="@drawable/border"/>
+        android:background="@drawable/border"
+        >
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:background="#222121"
+            android:paddingTop="15dp"
+            android:text="메뉴 선택"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="8pt" />
+    </FrameLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#dcdcdc"
->
+        android:background="#EBE0D0">
 
         <GridLayout
             android:layout_gravity="center|fill_vertical"
@@ -36,7 +44,7 @@
                 android:layout_marginRight="25dp"
                 android:layout_row="0"
                 android:onClick="onClick"
-                android:src="@drawable/a11" />
+                android:src="@drawable/a1" />
 
             <ImageView
                 android:id="@+id/iv2"
@@ -47,7 +55,7 @@
                 android:layout_row="0"
                 android:layout_marginLeft="25dp"
                 android:onClick="onClick"
-                android:src="@drawable/a12" />
+                android:src="@drawable/a2" />
 
             <ImageView
                 android:id="@+id/iv3"
@@ -95,7 +103,7 @@
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="10dp"
                 android:onClick="onClick"
-                android:src="@drawable/a15" />
+                android:src="@drawable/a6" />
 
             <ImageView
                 android:id="@+id/iv7"
