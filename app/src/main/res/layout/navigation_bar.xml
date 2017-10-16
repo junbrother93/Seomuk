@@ -7,22 +7,25 @@
     <ImageView
         android:id="@+id/Menu"
         android:layout_width="0dip"
-        android:layout_height="fill_parent"
+        android:layout_height="30dp"
         android:layout_weight="1"
+        android:layout_gravity="center"
         android:onClick="onClick"
         android:src="@drawable/menu"
         />
     <ImageView
         android:id="@+id/Location"
         android:layout_width="0dip"
-        android:layout_height="fill_parent"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
         android:layout_weight="1"
         android:src="@drawable/location"/>
 
     <ImageView
         android:id="@+id/MyPage"
         android:layout_width="0dip"
-        android:layout_height="fill_parent"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
         android:layout_weight="1"
         android:onClick="onClick"
         android:src="@drawable/mypage"/>

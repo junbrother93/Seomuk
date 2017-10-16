@@ -6,7 +6,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="45dp"
         android:background="@drawable/border"
         >
 
@@ -15,8 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="top"
-            android:background="#222121"
-            android:paddingTop="15dp"
+            android:background="#303030"
+            android:paddingTop="10dp"
             android:text="메뉴 선택"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
@@ -27,7 +27,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EBE0D0">
+        android:background="#F5F2E7">
 
         <GridLayout
             android:layout_gravity="center|fill_vertical"
