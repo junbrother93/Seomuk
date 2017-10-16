@@ -160,6 +160,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
 
     @Override
     public void onErrorResponse(VolleyError error) {
+        Log.e("error : ", "error : " + error);
         // 에러 났을경우..
     }
 
