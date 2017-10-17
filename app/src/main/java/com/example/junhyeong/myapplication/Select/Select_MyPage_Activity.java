@@ -20,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.Adapter.ListViewAdapter2;
 import com.example.junhyeong.myapplication.Data.Review;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
+import com.example.junhyeong.myapplication.Popup.PopupActivity_Logout;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Review.Review_watch_Activity;
 import com.example.junhyeong.myapplication.widget.IndexableListView2;
@@ -40,7 +41,8 @@ public class Select_MyPage_Activity extends Activity {
     private IndexableListView2 listview;
     private ArrayList<Review> ReviewArrayList;
     private ImageView warn;
-    private ImageView favor,review;
+    private ImageView favor,review,logout;
+    private Intent PopLogout;
     int num_favor,num_review;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,8 @@ public class Select_MyPage_Activity extends Activity {
         warn = (ImageView) findViewById(R.id.warn2);
         favor = (ImageView)findViewById(R.id.Favorite);
         review = (ImageView)findViewById(R.id.Riview);
+        logout = (ImageView)findViewById(R.id.logout);
+        PopLogout = new Intent(this, PopupActivity_Logout.class);;
         favor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +69,13 @@ public class Select_MyPage_Activity extends Activity {
                     favor.setImageResource(R.drawable.star);
                     review.setImageResource(R.drawable.mypage_review_click);
                     num_favor=0;
+
+            }
+        });
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            startActivity(PopLogout);
 
             }
         });
