@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -55,6 +56,13 @@ public class Review_watch_Activity extends Activity {
         ReviewBody.setEnabled(false);
         btnModification.setText("수정");
         btnClose.setText("닫기");
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               finish();
+            }
+        });
 
     }
 }

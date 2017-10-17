@@ -10,7 +10,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -190,14 +189,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
 
 
             // 스크롤 뷰 안에 있는 리스트 뷰 스크롤 되게설정
-            final ScrollView scrollview = (ScrollView) findViewById(R.id.scrollview);
-            listview.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    scrollview.requestDisallowInterceptTouchEvent(true);
-                    return false;
-                }
-            });
+
 
             for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
             {
@@ -312,7 +304,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
 
 
             // 스크롤 뷰 안에 있는 리스트 뷰 스크롤 되게설정
-            final ScrollView scrollview = (ScrollView) findViewById(R.id.scrollview);
+
             listview.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
