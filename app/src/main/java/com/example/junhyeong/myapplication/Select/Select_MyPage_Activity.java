@@ -19,6 +19,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.Adapter.ListViewAdapter2;
 import com.example.junhyeong.myapplication.Data.Review;
+import com.example.junhyeong.myapplication.Data.Store;
+import com.example.junhyeong.myapplication.Data.Store2;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Logout;
 import com.example.junhyeong.myapplication.R;
@@ -40,6 +42,8 @@ public class Select_MyPage_Activity extends Activity {
 
     private IndexableListView2 listview;
     private ArrayList<Review> ReviewArrayList;
+    private ArrayList<Store> StoreArrayList;
+    private ArrayList<Store2> Store2ArrayList;
     private ImageView warn;
     private ImageView favor,review,logout;
     private Intent PopLogout;
@@ -80,11 +84,72 @@ public class Select_MyPage_Activity extends Activity {
             }
         });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        // 즐겨찾기
+
+        JsonObjectRequest checkBookmarkRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("checkBookmark : ", "checkBookmarkResponse : " + response);
+                int total = 1;
+                int store_id = 8888;
+                // response.optInt("total", 0);
+                // for() 문을 이용해 total 값만큼 수행
+                for(int i = 0; i < total; i ++) {
+                    JsonObjectRequest addStoreInfoRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/auth/" + store_id, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.d("addStoreInfoResponse : ", "addStoreInfoResponse : " + response);
+                            // if(store_id <= 10000) {
+                            // 안심먹거리 데이터 추가
+                            // }
+                            // else() {
+                            // 인증업소 데이터 추가
+                            // }
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("addStoreInfoError :", "addStoreInfoError :" + error);
+                        }
+
+                    }) {
+                        @Override
+                        public Map getHeaders() throws AuthFailureError {
+                            Map params = new HashMap();
+                            GlobalApplication GUserID = (GlobalApplication) getApplication();
+                            params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
+                            return params;
+                        }
+                    };
+                    requestQueue.add(addStoreInfoRequest);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("checkBookmarkError :", "checkBookmarkError :" + error);
+            }
+
+        }) {
+            @Override
+            public Map getHeaders() throws AuthFailureError {
+                Map params = new HashMap();
+                GlobalApplication GUserID = (GlobalApplication) getApplication();
+                params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
+                return params;
+            }
+        };
+        requestQueue.add(checkBookmarkRequest);
+
+        // 리뷰
+
         JsonObjectRequest getReviewRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/review/food", new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.e("response : ", "response : " + response);
+                Log.d("Review : ", "Review : " + response);
                 ReviewArrayList = new ArrayList<Review>();
                 // 리스트 생성
                 final ArrayList<JSONObject> ArrReviewData = new ArrayList<JSONObject>();

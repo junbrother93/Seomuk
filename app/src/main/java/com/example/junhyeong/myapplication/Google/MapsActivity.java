@@ -51,7 +51,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_googlemap);
         Intent intent = getIntent();
-
+        final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         num=0;
         BMJUA = Typeface.createFromAsset(this.getAssets(), "fonts/BMJUA_ttf.ttf");
         BMDOHYEON = Typeface.createFromAsset(this.getAssets(), "fonts/BMDOHYEON_ttf.ttf");
@@ -98,6 +98,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 store_call="02".toString()+store_call;
 
         }
+
         x = intent.getDoubleExtra("X", 0.0);
         y = intent.getDoubleExtra("Y", 0.0);
 
@@ -136,9 +137,59 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     if (num == 0) {
                         FavorBtn.setImageResource(R.drawable.favor);
                         num++;
+                        JsonObjectRequest addBookmarkRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d("addBookmark : ", "addBookmarkResponse : " + response);
+
+                                // 즐겨찾기 응답에 따른 즐겨찾기 버튼 상태 설정.. if문 사용
+
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e("addBookmarkErr :", "addBookmarkError :" + error);
+                            }
+
+                        }) {
+                            @Override
+                            public Map getHeaders() throws AuthFailureError {
+                                Map params = new HashMap();
+                                GlobalApplication GUserID = (GlobalApplication) getApplication();
+                                params.put("store_id", Integer.toString(store_id));
+                                params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
+                                return params;
+                            }
+                        };
+                        requestQueue.add(addBookmarkRequest);
                     } else {
                         FavorBtn.setImageResource(R.drawable.favor_btn);
                         num = 0;
+                        JsonObjectRequest deleteBookmarkRequest = new JsonObjectRequest(Request.Method.DELETE, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d("deleteBookmark : ", "deleteBookmarkResponse : " + response);
+
+                                // 즐겨찾기 응답에 따른 즐겨찾기 버튼 상태 설정.. if문 사용
+
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e("deleteBookmarkErr :", "deleteBookmarkError :" + error);
+                            }
+
+                        }) {
+                            @Override
+                            public Map getHeaders() throws AuthFailureError {
+                                Map params = new HashMap();
+                                GlobalApplication GUserID = (GlobalApplication) getApplication();
+                                params.put("store_id", Integer.toString(store_id));
+                                params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
+                                return params;
+                            }
+                        };
+                        requestQueue.add(deleteBookmarkRequest);
                     }
                 }
             }
@@ -152,19 +203,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         tvStore_name.setText(store_name);
         tvStore_grade.setText(store_grade);
 
-        Log.e("Xvalue:", "x"+x);
-        Log.e("Yvalue:", "y"+y);
+        Log.d("Xvalue:", "Xvalue : " + x);
+        Log.d("Yvalue:", "Yvalue : " + y);
 
         if(x == 0.0 && y == 0.0 || (x==0 && y==0))
         {
             x = 37.5652894;
             y = 126.8494668;
         }
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+
         JsonObjectRequest getXYRequest = new JsonObjectRequest(Request.Method.GET, "https://maps.googleapis.com/maps/api/geocode/json?language=ko&latlng=" +x+ "," +y+ "&key=AIzaSyCR6PUO1y9JYM6fPjk85fre94xNabcRqsA", new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.e("response", "response :" + response.optJSONArray("results").optJSONObject(0).optString("formatted_address"));
                 if((x == 37.5652894 && y == 126.8494668))
                 {
                     ImageView noMap = (ImageView)findViewById(R.id.noMap);
@@ -180,7 +231,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.e("getXYError : ", "getXYError : " + error);
             }
 
         }) {
@@ -193,15 +244,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         requestQueue.add(getXYRequest);
 
 
-        JsonObjectRequest bookmarkRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<JSONObject>() {
+        JsonObjectRequest checkBookmarkRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.e("즐겨찾기 :", "즐겨찾기 :" + response);
+                Log.d("checkBookmark : ", "checkbookmarkResponse : " + response);
+
+                // 즐겨찾기 응답에 따른 즐겨찾기 버튼 상태 설정.. if문 사용
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.e("checkBookmarkErr :", "checkbookmarkError :" + error);
             }
 
         }) {
@@ -209,14 +263,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public Map getHeaders() throws AuthFailureError {
                 Map params = new HashMap();
                 GlobalApplication GUserID = (GlobalApplication) getApplication();
-                params.put("store_id", store_id);
-                params.put("user_id", GUserID.getGlobalUserID());
+                params.put("store_id", Integer.toString(store_id));
+                params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
                 return params;
             }
         };
-        requestQueue.add(bookmarkRequest);
+        requestQueue.add(checkBookmarkRequest);
     }
-
 
     /**
      * Manipulates the map once available.
@@ -237,6 +290,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(location).title(store_name));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 17.0f));
     }
-
-
 }
