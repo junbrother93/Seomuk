@@ -57,6 +57,7 @@
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
         <activity android:name=".Popup.PopupActivity_Logout"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
+
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
