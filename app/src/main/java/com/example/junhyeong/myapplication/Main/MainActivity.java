@@ -13,10 +13,13 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.example.junhyeong.myapplication.Adapter.ListViewAdapter;
 import com.example.junhyeong.myapplication.Data.Store;
 import com.example.junhyeong.myapplication.Data.Store2;
@@ -29,16 +32,20 @@ import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Select.Select_MyPage_Activity;
 import com.example.junhyeong.myapplication.widget.IndexableListView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class MainActivity extends Activity implements Response.Listener<JSONObject>,
         Response.ErrorListener {
     public static final String REQUEST_TAG = "MainActivity";
-    private final int DYNAMIC_VIEW_ID = 10000;
-    private RequestQueue mQueue, mQueue2;
+    private RequestQueue mQueue;
     private ImageView BtnLocalChange, BtnMenuChange, BtnMyPage,warn, BtnInfo;
     private TextView Text;
     private ArrayList<Store> arrayList;
@@ -48,7 +55,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     private Intent ActPop_Location,ActPop_Menu,MyPage,LoginPop,PopExplain;
     private Typeface Tmon;
 
-;
+    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +66,6 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         Tmon = Typeface.createFromAsset(this.getAssets(), "fonts/TmonMonsori.ttf.ttf");
 
         mQueue = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
-        mQueue2 = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
 
         ActPop_Location = new Intent(this, PopupActivity_Local.class);
         ActPop_Menu = new Intent(this, PopupActivity_Menu.class);
@@ -79,7 +85,16 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
 
         String local = intent.getStringExtra("local");
         String menu = intent.getStringExtra("menu");
-        String url = "http://13.124.127.124:3000/auth/menu/"+menu.toString()+"/loc/"+local.toString();
+
+        try {
+            local = URLEncoder.encode(local , "UTF-8");
+            menu = URLEncoder.encode(menu , "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        url = "http://13.124.127.124:3000/auth/menu/"+menu.toString()+"/loc/"+local.toString();
+
         num = intent.getIntExtra("mypage",0);
 
 
@@ -143,6 +158,14 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         url = data.getStringExtra("url");
         local = data.getStringExtra("local");
         menu = data.getStringExtra("menu");
+
+        try {
+            local = URLEncoder.encode(local , "UTF-8");
+            menu = URLEncoder.encode(menu , "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         if(menu.toString().equals("food")) {
             AnsimValue = 1;
             url = "http://13.124.127.124:3000/food/loc/" + local.toString();
@@ -154,20 +177,27 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         ActPop_Menu.putExtra("local",local);
         setResult(RESULT_OK,ActPop_Menu);
 
-        //
         jsonRequest(local, url);
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
+        Log.e("error url : ", "error url : " + url);
         Log.e("error : ", "error : " + error);
         // 에러 났을경우..
     }
 
+
+
     @Override
     public void onResponse(JSONObject response) {
+
+
+        Log.d("url","url :"+ url);
+        Log.d("response", "response" + response);
+
         int total = response.optInt("total", 0);    // 총 갯수
-        Log.e("total","totalValue :"+total);
+        Log.d("total","totalValue :" + total);
         // 안심먹거리일 경우
         if (AnsimValue == 1) {
             arrayList = new ArrayList<Store>();
@@ -409,7 +439,13 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     }
 
     protected void jsonRequest(String local, String url) {
+        try {
+            local = URLDecoder.decode(local, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         Text.setText(local.toString());
+
         final PodJsonRequest jsonRequest = new PodJsonRequest(Request.Method.GET, url, new JSONObject(), MainActivity.this, MainActivity.this);
         jsonRequest.setTag(REQUEST_TAG);
         mQueue.add(jsonRequest);
