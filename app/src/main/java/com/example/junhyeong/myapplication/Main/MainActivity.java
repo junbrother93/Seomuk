@@ -12,13 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.NetworkResponse;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.example.junhyeong.myapplication.Adapter.ListViewAdapter;
 import com.example.junhyeong.myapplication.Data.Store;
 import com.example.junhyeong.myapplication.Data.Store2;
@@ -31,8 +28,6 @@ import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Select.Select_MyPage_Activity;
 import com.example.junhyeong.myapplication.widget.IndexableListView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -435,6 +430,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     }
 
     protected void jsonRequest(String local, String url) {
+
         try {
             local = URLDecoder.decode(local, "UTF-8");
         } catch (UnsupportedEncodingException e) {

@@ -1,14 +1,12 @@
 package com.example.junhyeong.myapplication.Review;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -43,10 +41,6 @@ public class Review_write_Activity extends Activity {
         intent = getIntent();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup_review);
-        Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        int width = (int) (display.getWidth() * 1.0);
-
-        getWindow().getAttributes().width = width;
 
         rating = (RatingBar)findViewById(R.id.ratingBar);
         ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
@@ -127,5 +121,19 @@ public class Review_write_Activity extends Activity {
                 break;
         }
     }
-
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        //바깥레이어 클릭시 안닫히게
+        if(event.getAction()== MotionEvent.ACTION_OUTSIDE){
+            return false;
+        }
+        return true;
+    }
+    @Override
+    public void onBackPressed() {
+        return;
+    }
 }
+
+
+

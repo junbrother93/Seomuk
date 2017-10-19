@@ -31,17 +31,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@drawable/border"
-        android:paddingLeft="10dp"
-        android:orientation="horizontal">
+        android:background="#CCF5F5DC"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp">
 
         <TextView
             android:id="@+id/textView9"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
+            android:textColor="#0099FF"
             android:layout_gravity="center_vertical"
             android:text="상세내용"
             android:textSize="8pt" />
@@ -50,34 +51,29 @@
             android:id="@+id/FavorBtn"
             android:layout_width="50dp"
             android:layout_height="30dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/favor"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/favor" />
 
         <ImageView
             android:id="@+id/TelBtn"
             android:layout_width="50dp"
             android:layout_height="30dp"
+            android:layout_alignTop="@+id/FavorBtn"
             android:layout_gravity="left|center"
-            android:layout_marginEnd="13dp"
-            android:layout_marginRight="13dp"
-            android:src="@drawable/tel"
-            android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/FavorBtn"
-            android:layout_toStartOf="@+id/FavorBtn" />
+            android:layout_toStartOf="@+id/FavorBtn"
+            android:src="@drawable/tel" />
 
         <ImageView
             android:id="@+id/ReviewBtn"
             android:layout_width="50dp"
             android:layout_height="30dp"
-            android:layout_marginTop="5dp"
             android:layout_gravity="left|center_vertical"
-            android:layout_marginEnd="11dp"
-            android:layout_marginRight="11dp"
             android:src="@drawable/review"
-            android:layout_alignParentTop="true"
+            android:layout_alignTop="@+id/TelBtn"
             android:layout_toLeftOf="@+id/TelBtn"
             android:layout_toStartOf="@+id/TelBtn" />
 
@@ -159,7 +155,7 @@
 
             <TextView
                 android:id="@+id/textView6"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_column="1"
                 android:layout_marginTop="15dp"
@@ -170,7 +166,7 @@
 
             <TextView
                 android:id="@+id/textView7"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_column="1"
                 android:layout_marginTop="15dp"
@@ -181,7 +177,7 @@
 
             <TextView
                 android:id="@+id/textView8"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_column="1"
                 android:layout_marginTop="15dp"
@@ -192,7 +188,7 @@
 
             <TextView
                 android:id="@+id/textView11"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_column="1"
                 android:layout_marginTop="15dp"
@@ -203,7 +199,7 @@
 
             <TextView
                 android:id="@+id/textView13"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_column="1"
                 android:layout_marginTop="15dp"

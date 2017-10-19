@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="top"
-            android:background="#303030"
+            android:background="#787878"
             android:paddingTop="10dp"
             android:text="메뉴 선택"
             android:textColor="#FFFFFF"
@@ -33,7 +33,7 @@
             android:layout_gravity="center|fill_vertical"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="15dp">
 
             <ImageView
                 android:id="@+id/iv1"
