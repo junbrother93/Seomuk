@@ -45,16 +45,14 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         Response.ErrorListener {
     public static final String REQUEST_TAG = "MainActivity";
     private RequestQueue mQueue;
-    private ImageView BtnLocalChange, BtnMenuChange, BtnMyPage,warn, BtnInfo;
+    private ImageView BtnLocalChange, BtnMenuChange, BtnMyPage, warn, BtnInfo;
     private TextView Text;
     private ArrayList<Store> arrayList;
     private ArrayList<Store2> arrayList2;
     private IndexableListView listview;
-    private int AnsimValue,num;
-    private Intent ActPop_Location,ActPop_Menu,MyPage,LoginPop,PopExplain;
+    private int AnsimValue, num;
+    private Intent ActPop_Location, ActPop_Menu, MyPage, LoginPop, PopExplain;
     private Typeface Tmon;
-
-;
     String url;
 
     @Override
@@ -62,7 +60,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        warn = (ImageView)findViewById(R.id.warn);
+        warn = (ImageView) findViewById(R.id.warn);
         Tmon = Typeface.createFromAsset(this.getAssets(), "fonts/TmonMonsori.ttf.ttf");
 
         mQueue = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
@@ -71,12 +69,12 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         ActPop_Menu = new Intent(this, PopupActivity_Menu.class);
         MyPage = new Intent(this, Select_MyPage_Activity.class);
         LoginPop = new Intent(this, PopupActivity_Login.class);
-        PopExplain = new Intent(this,PopupActivity_Explain.class);
+        PopExplain = new Intent(this, PopupActivity_Explain.class);
 
         BtnLocalChange = (ImageView) findViewById(R.id.Location); // 네비게이션바에 있는 "지역" 버튼
-        BtnMenuChange = (ImageView)findViewById(R.id.Menu);
-        BtnMyPage = (ImageView)findViewById((R.id.MyPage));
-        BtnInfo = (ImageView)findViewById(R.id.info);
+        BtnMenuChange = (ImageView) findViewById(R.id.Menu);
+        BtnMyPage = (ImageView) findViewById((R.id.MyPage));
+        BtnInfo = (ImageView) findViewById(R.id.info);
 
         Text = (TextView) findViewById(R.id.Text); // 글씨바뀌는건 위의 mButton 버튼
         Text.setTypeface(Tmon);
@@ -87,29 +85,27 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         String menu = intent.getStringExtra("menu");
 
         try {
-            local = URLEncoder.encode(local , "UTF-8");
-            menu = URLEncoder.encode(menu , "UTF-8");
+            local = URLEncoder.encode(local, "UTF-8");
+            menu = URLEncoder.encode(menu, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
-        url = "http://13.124.127.124:3000/auth/menu/"+menu.toString()+"/loc/"+local.toString();
+        url = "http://13.124.127.124:3000/auth/menu/" + menu.toString() + "/loc/" + local.toString();
 
-        num = intent.getIntExtra("mypage",0);
-
+        num = intent.getIntExtra("mypage", 0);
 
 
         // 안심 먹거리일경우 url 변경
-        if(menu.toString().equals("food")) {
+        if (menu.toString().equals("food")) {
             AnsimValue = 1;
             url = "http://13.124.127.124:3000/food/loc/" + local.toString();
-        }
-        else
+        } else
             AnsimValue = 0;
-        ActPop_Menu.putExtra("local",local);
-        setResult(RESULT_OK,ActPop_Menu);
-        ActPop_Location.putExtra("menu",menu);
-        setResult(RESULT_OK,ActPop_Location);
+        ActPop_Menu.putExtra("local", local);
+        setResult(RESULT_OK, ActPop_Menu);
+        ActPop_Location.putExtra("menu", menu);
+        setResult(RESULT_OK, ActPop_Location);
 
         jsonRequest(local, url);
 
@@ -133,10 +129,10 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         BtnMyPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(num==1)
+                if (num == 1)
                     startActivity(LoginPop);
                 else
-                startActivity(MyPage);
+                    startActivity(MyPage);
             }
         });
         BtnInfo.setOnClickListener(new View.OnClickListener() {
@@ -160,22 +156,21 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         menu = data.getStringExtra("menu");
 
         try {
-            local = URLEncoder.encode(local , "UTF-8");
-            menu = URLEncoder.encode(menu , "UTF-8");
+            local = URLEncoder.encode(local, "UTF-8");
+            menu = URLEncoder.encode(menu, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
-        if(menu.toString().equals("food")) {
+        if (menu.toString().equals("food")) {
             AnsimValue = 1;
             url = "http://13.124.127.124:3000/food/loc/" + local.toString();
-        }
-        else
+        } else
             AnsimValue = 0;
-        ActPop_Location.putExtra("menu",menu);
-        setResult(RESULT_OK,ActPop_Location);
-        ActPop_Menu.putExtra("local",local);
-        setResult(RESULT_OK,ActPop_Menu);
+        ActPop_Location.putExtra("menu", menu);
+        setResult(RESULT_OK, ActPop_Location);
+        ActPop_Menu.putExtra("local", local);
+        setResult(RESULT_OK, ActPop_Menu);
 
         jsonRequest(local, url);
     }
@@ -183,24 +178,20 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     @Override
     public void onErrorResponse(VolleyError error) {
 
-       Log.e("error","Volleyerror : "+error); // 에러 났을경우..
-
-        Log.e("error url : ", "error url : " + url);
-        Log.e("error : ", "error : " + error);
-        // 에러 났을경우..
+        Log.e("error", "" + error); // 에러 났을경우..
+        Log.e("error url", "" + url);
     }
-
 
 
     @Override
     public void onResponse(JSONObject response) {
 
 
-        Log.d("url","url :"+ url);
+        Log.d("url", "url :" + url);
         Log.d("response", "response" + response);
 
         int total = response.optInt("total", 0);    // 총 갯수
-        Log.d("total","totalValue :" + total);
+        Log.d("total", "totalValue :" + total);
         // 안심먹거리일 경우
         if (AnsimValue == 1) {
             arrayList = new ArrayList<Store>();
@@ -243,7 +234,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 ArrCTF_TEL.add(ArrData.get(i).optString("CTF_TEL", "No Value"));
                 ArrCTF_X.add(ArrData.get(i).optDouble("CTF_X", 0.0));
                 ArrCTF_Y.add(ArrData.get(i).optDouble("CTF_Y", 0.0));
-                ArrCTF_CODE.add(ArrData.get(i).optInt("CTF_CODE",0));
+                ArrCTF_CODE.add(ArrData.get(i).optInt("CTF_CODE", 0));
 
                 // 쓸지 안쓸지 결정
                 /*
@@ -268,42 +259,40 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             // 정렬
             Collections.sort(arrayList);
             // 정렬 한 것 어댑터에 추가
-            if(total==0)
-            {
+            if (total == 0) {
                 warn.setVisibility(View.VISIBLE);
                 listview.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 warn.setVisibility(View.INVISIBLE);
                 listview.setVisibility(View.VISIBLE);
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
-                    if(arrayList.get(i).getCTF_TYPE_NAME().toString().equals("자랑스러운 한국음식점".toString()))
+                    if (arrayList.get(i).getCTF_TYPE_NAME().toString().equals("자랑스러운 한국음식점".toString()))
                         adapter.addItem(ContextCompat.getDrawable(MainActivity.this, R.drawable.b6), arrayList.get(i).getCTF_NAME());
-                    else if(arrayList.get(i).getCTF_TYPE_NAME().toString().equals("원산지표시 우수음식점".toString()))
+                    else if (arrayList.get(i).getCTF_TYPE_NAME().toString().equals("원산지표시 우수음식점".toString()))
                         adapter.addItem(ContextCompat.getDrawable(MainActivity.this, R.drawable.b4), arrayList.get(i).getCTF_NAME());
                     else
                         adapter.addItem(ContextCompat.getDrawable(MainActivity.this, R.drawable.b3), arrayList.get(i).getCTF_NAME());
                 }
             }
 
-                listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
 
-                        intent.putExtra("store_name", arrayList.get((int) id).getCTF_NAME());
-                        //intent.putExtra("store_address", arrayList.get((int) id).getCTF_ADDR());
-                        intent.putExtra("store_grade", arrayList.get((int) id).getCTF_TYPE_NAME());
-                        intent.putExtra("store_call", arrayList.get((int) id).getCTF_TEL());
-                        intent.putExtra("X", arrayList.get((int) id).getCTF_X());
-                        intent.putExtra("Y", arrayList.get((int) id).getCTF_Y());
-                        intent.putExtra("store_id", arrayList.get((int) id).getCTF_CODE());
-                        intent.putExtra("mypage",num);
-                        setResult(RESULT_OK,intent);
-                        startActivity(intent);
-                    }
-                });
+                    intent.putExtra("store_name", arrayList.get((int) id).getCTF_NAME());
+                    //intent.putExtra("store_address", arrayList.get((int) id).getCTF_ADDR());
+                    intent.putExtra("store_grade", arrayList.get((int) id).getCTF_TYPE_NAME());
+                    intent.putExtra("store_call", arrayList.get((int) id).getCTF_TEL());
+                    intent.putExtra("X", arrayList.get((int) id).getCTF_X());
+                    intent.putExtra("Y", arrayList.get((int) id).getCTF_Y());
+                    intent.putExtra("store_id", arrayList.get((int) id).getCTF_CODE());
+                    intent.putExtra("mypage", num);
+                    setResult(RESULT_OK, intent);
+                    startActivity(intent);
+                }
+            });
 
         }
 
@@ -383,53 +372,51 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             Collections.sort(arrayList2);
 
             // 정렬 한 것 어댑터에 추가
-            if(total==0)
-            {
+            if (total == 0) {
                 warn.setVisibility(View.VISIBLE);
                 listview.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 warn.setVisibility(View.INVISIBLE);
                 listview.setVisibility(View.VISIBLE);
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
 
-                    if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("저염실천음식점".toString())||arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("저염참여음식점".toString()))
-                    adapter.addItem(ContextCompat.getDrawable(MainActivity.this, R.drawable.b7), arrayList2.get(i).getUPSO_NM());
-                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("먹을만큼적당히".toString()))
+                    if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("저염실천음식점".toString()) || arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("저염참여음식점".toString()))
+                        adapter.addItem(ContextCompat.getDrawable(MainActivity.this, R.drawable.b7), arrayList2.get(i).getUPSO_NM());
+                    else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("먹을만큼적당히".toString()))
                         adapter.addItem(ContextCompat.getDrawable(MainActivity.this, R.drawable.b2), arrayList2.get(i).getUPSO_NM());
-                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("건강음식점".toString()))
+                    else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("건강음식점".toString()))
                         adapter.addItem(ContextCompat.getDrawable(MainActivity.this, R.drawable.b1), arrayList2.get(i).getUPSO_NM());
-                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("위생등급제".toString()))
+                    else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("위생등급제".toString()))
                         adapter.addItem(ContextCompat.getDrawable(MainActivity.this, R.drawable.b5), arrayList2.get(i).getUPSO_NM());
-                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("자랑스러운 한국음식점".toString()))
+                    else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("자랑스러운 한국음식점".toString()))
                         adapter.addItem(ContextCompat.getDrawable(MainActivity.this, R.drawable.b6), arrayList2.get(i).getUPSO_NM());
-                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("원산지표시 우수음식점".toString()))
+                    else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("원산지표시 우수음식점".toString()))
                         adapter.addItem(ContextCompat.getDrawable(MainActivity.this, R.drawable.b4), arrayList2.get(i).getUPSO_NM());
-                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("채식메뉴음식점".toString())||arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("채식전문음식점".toString()))
+                    else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("채식메뉴음식점".toString()) || arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("채식전문음식점".toString()))
                         adapter.addItem(ContextCompat.getDrawable(MainActivity.this, R.drawable.b8), arrayList2.get(i).getUPSO_NM());
                     else
                         adapter.addItem(ContextCompat.getDrawable(MainActivity.this, R.drawable.b3), arrayList2.get(i).getUPSO_NM());
                 }
 
             }
-                listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
 
-                        intent.putExtra("store_name", arrayList2.get((int) id).getUPSO_NM());
-                        intent.putExtra("store_address", arrayList2.get((int) id).getRDN_DETAIL_ADDR());
-                        intent.putExtra("store_grade", arrayList2.get((int) id).getCRTFC_GBN_NM());
-                        intent.putExtra("store_call", arrayList2.get((int) id).getTEL_NO());
-                        intent.putExtra("X", arrayList2.get((int) id).getY_DNTS());
-                        intent.putExtra("Y", arrayList2.get((int) id).getX_CNTS());
-                        intent.putExtra("store_id", arrayList2.get((int) id).getCRTFC_UPSO_MGT_SNO());
-                        intent.putExtra("mypage",num);
-                        setResult(RESULT_OK,intent);
-                        startActivity(intent);
-                    }
-                });
+                    intent.putExtra("store_name", arrayList2.get((int) id).getUPSO_NM());
+                    intent.putExtra("store_address", arrayList2.get((int) id).getRDN_DETAIL_ADDR());
+                    intent.putExtra("store_grade", arrayList2.get((int) id).getCRTFC_GBN_NM());
+                    intent.putExtra("store_call", arrayList2.get((int) id).getTEL_NO());
+                    intent.putExtra("X", arrayList2.get((int) id).getY_DNTS());
+                    intent.putExtra("Y", arrayList2.get((int) id).getX_CNTS());
+                    intent.putExtra("store_id", arrayList2.get((int) id).getCRTFC_UPSO_MGT_SNO());
+                    intent.putExtra("mypage", num);
+                    setResult(RESULT_OK, intent);
+                    startActivity(intent);
+                }
+            });
 
         }
     }
@@ -437,9 +424,11 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     protected void jsonRequest(String local, String url) {
         try {
             local = URLDecoder.decode(local, "UTF-8");
+            Log.d("UTF-8", local);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
         Text.setText(local.toString());
 
         final PodJsonRequest jsonRequest = new PodJsonRequest(Request.Method.GET, url, new JSONObject(), MainActivity.this, MainActivity.this);

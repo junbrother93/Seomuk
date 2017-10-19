@@ -42,12 +42,10 @@ public class KakaoSignupActivity extends AppCompatActivity {
      * Main으로 넘길지 가입 페이지를 그릴지 판단하기 위해 me를 호출한다.
      * @param savedInstanceState 기존 session 정보가 저장된 객체
      */
-    private int num;
-    private Intent mypage;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mypage = new Intent(this, MainActivity.class);
         requestMe();
     }
 
@@ -65,23 +63,21 @@ public class KakaoSignupActivity extends AppCompatActivity {
                 ErrorCode result = ErrorCode.valueOf(errorResult.getErrorCode());
                 if (result == ErrorCode.CLIENT_ERROR_CODE) {
                     finish();
-                    Toast.makeText(getApplicationContext(), "카카오톡 로그인 실패", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "카카오톡 로그인 실패2", Toast.LENGTH_LONG).show();
                     redirectLoginActivity();
                 }
             }
 
             @Override
             public void onSessionClosed(ErrorResult errorResult) {
-                Toast.makeText(getApplicationContext(), "카카오톡 세션 닫힘", Toast.LENGTH_LONG).show();
+                Log.e("kakao session closed :", "" + errorResult.getErrorMessage());
                 redirectLoginActivity();
             }
 
             @Override
             public void onNotSignedUp() {
-                Toast.makeText(getApplicationContext(), "카카오톡 회원이 아님", Toast.LENGTH_LONG).show();
-            } // 카카오톡 회원이 아닐 시 showSignup(); 호출해야함
+                Log.e("kakao_not_sign_up", "");
+            }
 
             @Override
             public void onSuccess(UserProfile userProfile) {  //성공 시 userProfile 형태로 반환

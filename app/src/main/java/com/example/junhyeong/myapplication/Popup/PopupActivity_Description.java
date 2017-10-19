@@ -12,7 +12,7 @@ import com.example.junhyeong.myapplication.R;
  * Created by yeonjin on 2017-10-16.
  */
 
-public class PopupActiovity_Description extends Activity {
+public class PopupActivity_Description extends Activity {
 
     private ImageView BtnClose;
     protected void onCreate(Bundle savedInstanceState) {

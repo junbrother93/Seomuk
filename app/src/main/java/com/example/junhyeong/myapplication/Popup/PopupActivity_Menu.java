@@ -26,8 +26,6 @@ public class PopupActivity_Menu extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup_menu);
         ActMain = new Intent(this, MainActivity.class);
-
-
     }
 
     public void onClick(View view) {
