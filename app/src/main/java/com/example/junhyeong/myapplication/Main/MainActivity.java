@@ -48,8 +48,6 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     private int AnsimValue,num;
     private Intent ActPop_Location,ActPop_Menu,MyPage,LoginPop,PopExplain;
     private Typeface Tmon;
-
-;
     String url;
 
     @Override

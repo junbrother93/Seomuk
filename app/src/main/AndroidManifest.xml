@@ -36,7 +36,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme2">
         </activity>
-        <activity android:name=".Login.KakaoSignupActivity" />
+        <activity android:name=".Login.KakaoSignupActivity"/>
         <activity android:name=".Select.Select_MenuActivity"/>
         <activity android:name=".Select.Select_LocationActivity"/>
         <activity android:name=".Main.MainActivity" />

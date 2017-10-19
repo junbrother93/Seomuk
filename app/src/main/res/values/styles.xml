@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowAnimationStyle">@null</item>
+
     </style>
     <style name="SplashTheme" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
         <item name="android:windowBackground">@drawable/seomuk_splash</item>
@@ -14,5 +15,4 @@
     <style name="SplashTheme2" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
         <item name="android:windowBackground">@drawable/seomuk_login</item>
     </style>
-
 </resources>
