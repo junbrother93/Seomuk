@@ -18,9 +18,10 @@ import java.security.NoSuchAlgorithmException;
 public class SplashActivity extends Activity {
 
     @Override
-    protected  void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // 키 해시 확인용
         try {
             PackageInfo info = getPackageManager().getPackageInfo("com.example.junhyeong.myapplication", PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
@@ -34,19 +35,15 @@ public class SplashActivity extends Activity {
             e.printStackTrace();
         }
 
-
-      try
-        {
+        // 스플래시 화면 띄우기
+        try {
             Thread.sleep(2500);
-        }
-        catch(InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        // 로그인 액티비티로..
         startActivity(new Intent(this, LoginActivity.class));
         finish();
-
-
     }
-
-
 }

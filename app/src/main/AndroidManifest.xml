@@ -53,7 +53,7 @@
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
         <activity android:name=".Popup.PopupActivity_Login"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
-        <activity android:name=".Popup.PopupActiovity_Description"
+        <activity android:name=".Popup.PopupActivity_Description"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
         <activity android:name=".Popup.PopupActivity_Logout"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />

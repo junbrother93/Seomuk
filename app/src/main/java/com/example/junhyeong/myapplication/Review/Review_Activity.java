@@ -27,8 +27,9 @@ import java.util.Map;
 
 public class Review_Activity extends Activity {
     ImageView ReviewBtn2;
-    Intent intent, Review_Write,Popup_login;
-    int store_id,unlogin_value;
+    Intent intent,Review_Write, Popup_login;
+    int store_id, unlogin_value;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
@@ -54,15 +55,15 @@ public class Review_Activity extends Activity {
         });
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest postStringRequest2 = new StringRequest(Request.Method.GET, "http://13.124.127.124:3000/review/food", new Response.Listener<String>() {
+        StringRequest reviewRequest = new StringRequest(Request.Method.GET, "http://13.124.127.124:3000/review/food", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("response2 : ","response2 : " + response);
+                Log.d("reviewResponse", response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.e("reviewError", error.toString());
             }
 
         }) {
@@ -75,8 +76,6 @@ public class Review_Activity extends Activity {
                 return params;
             }
         };
-
-        requestQueue.add(postStringRequest2);
-
+        requestQueue.add(reviewRequest);
     }
 }

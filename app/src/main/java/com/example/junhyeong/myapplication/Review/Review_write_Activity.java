@@ -1,12 +1,15 @@
 package com.example.junhyeong.myapplication.Review;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -36,37 +39,42 @@ public class Review_write_Activity extends Activity {
     String strReviewTitle;
     String strReviewBody;
     Intent intent;
+    int width;
+    Display display;
+    int store_id;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         intent = getIntent();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup_review);
 
-        rating = (RatingBar)findViewById(R.id.ratingBar);
+        display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        width = (int) (display.getWidth() * 1.0);
+
+        getWindow().getAttributes().width = width;
+
+        rating = (RatingBar) findViewById(R.id.ratingBar);
         ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
         ReviewBody = (EditText) findViewById(R.id.ReviewBody);
-        Value = (TextView)findViewById(R.id.Value);
+        Value = (TextView) findViewById(R.id.Value);
         rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 // 강제로 1넣기
-                if (ratingBar.getRating()<=1.0){
+                if (ratingBar.getRating() <= 1.0) {
                     ratingBar.setRating(1);
                     Value.setText("1.0");
-                }
-                else if(ratingBar.getRating()>1.0&&ratingBar.getRating()<=2.0) {
+                } else if (ratingBar.getRating() > 1.0 && ratingBar.getRating() <= 2.0) {
                     ratingBar.setRating(2);
                     Value.setText("2.0");
-                }
-                else if(ratingBar.getRating()>2.0&&ratingBar.getRating()<=3.0) {
+                } else if (ratingBar.getRating() > 2.0 && ratingBar.getRating() <= 3.0) {
                     ratingBar.setRating(3);
                     Value.setText("3.0");
-                }
-                else if(ratingBar.getRating()>3.0&&ratingBar.getRating()<=4.0){
+                } else if (ratingBar.getRating() > 3.0 && ratingBar.getRating() <= 4.0) {
                     ratingBar.setRating(4);
                     Value.setText("4.0");
-                }
-                else if(ratingBar.getRating()>4.0&&ratingBar.getRating()<=5.0){
+                } else if (ratingBar.getRating() > 4.0 && ratingBar.getRating() <= 5.0) {
                     ratingBar.setRating(5);
                     Value.setText("5.0");
                 }
@@ -75,26 +83,24 @@ public class Review_write_Activity extends Activity {
         });
     }
 
-    public void onClick(View view){
-        switch(view.getId())
-        {
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.YesBtn:
-                final int store_id = intent.getIntExtra("store_id",0);
+                store_id = intent.getIntExtra("store_id", 0);
                 strReviewTitle = ReviewTitle.getText().toString();
                 strReviewBody = ReviewBody.getText().toString();
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
+                StringRequest reviewWriteRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.e("1","1"+response);
+                        Log.d("reviewWriteResponse", response);
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Log.e("reviewWriteError", error.toString());
                     }
-
                 }) {
                     @Override
                     protected Map<String, String> getParams() {
@@ -108,12 +114,10 @@ public class Review_write_Activity extends Activity {
                         params.put("score", String.valueOf(score));
                         Log.e("body", "body" + params);
 
-
                         return params;
                     }
                 };
-
-                requestQueue.add(postStringRequest);
+                requestQueue.add(reviewWriteRequest);
                 finish();
                 break;
             case R.id.NoBtn:
@@ -121,14 +125,16 @@ public class Review_write_Activity extends Activity {
                 break;
         }
     }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         //바깥레이어 클릭시 안닫히게
-        if(event.getAction()== MotionEvent.ACTION_OUTSIDE){
+        if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
             return false;
         }
         return true;
     }
+
     @Override
     public void onBackPressed() {
         return;

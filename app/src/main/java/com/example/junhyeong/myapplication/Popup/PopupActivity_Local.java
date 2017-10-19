@@ -12,28 +12,28 @@ import android.widget.ImageView;
 import com.example.junhyeong.myapplication.Main.MainActivity;
 import com.example.junhyeong.myapplication.R;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 
 /**
  * Created by Junhyeong on 2017-08-22.
  */
 
 public class PopupActivity_Local extends Activity {
-    public String url;
-    public Intent ActMain;
-    public String local;
+    public String menu, local, url;
+    public Intent ActMain, intent;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup_location);
         ActMain = new Intent(this, MainActivity.class);
-
-
+        intent = getIntent();
+        menu = intent.getStringExtra("menu");
     }
 
     public void onClick(View view) {
-        ImageView localId = (ImageView) findViewById(R.id.pop1);
-
         switch (view.getId())
         {
             case R.id.pop1:
@@ -112,16 +112,21 @@ public class PopupActivity_Local extends Activity {
                 local = "중랑구".toString();
                 break;
         }
-        Intent intent = getIntent();
 
-        String menu = intent.getStringExtra("menu");
-        url = "http://13.124.127.124:3000/auth/menu/"+ menu.toString() + "/loc/" + local;
-
-        // url , local 값 MainActivity로 전송
-        ActMain.putExtra("url", url);
+        // local 값이랑 menu 값은 먼저 보내고 나서 인코딩 후 url 설정
         ActMain.putExtra("local", local);
-        ActMain.putExtra("menu",menu);
-        Log.e(url,"url");
+        ActMain.putExtra("menu", menu);
+
+        try {
+            local = URLEncoder.encode(local, "UTF-8");
+            menu = URLEncoder.encode(menu, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        url = "http://13.124.127.124:3000/auth/menu/"+ menu.toString() + "/loc/" + local;
+        ActMain.putExtra("url", url);
+
         setResult(RESULT_OK, ActMain);
         finish();
     }

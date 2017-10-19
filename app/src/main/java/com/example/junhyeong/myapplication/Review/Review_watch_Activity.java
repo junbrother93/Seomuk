@@ -22,6 +22,9 @@ public class Review_watch_Activity extends Activity {
     EditText ReviewTitle, ReviewBody;
     Button btnModification, btnClose;
     Intent intent;
+    String title, body;
+    int index, user_id, width, height;
+    double score;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,19 +32,16 @@ public class Review_watch_Activity extends Activity {
         setContentView(R.layout.activity_popup_review);
         intent = getIntent();
 
-        String title, body;
-        int index, user_id;
-        double score;
-
-
         title = intent.getStringExtra("review_title");
         body = intent.getStringExtra("review_body");
         score = intent.getDoubleExtra("review_score", 0);
         index = intent.getIntExtra("review_index", 0);
         user_id = intent.getIntExtra("review_user_id", 0);
+
         Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        int width = (int) (display.getWidth() * 1.0);
-        int height = (int) (display.getHeight() * 0.8);
+        width = (int) (display.getWidth() * 1.0);
+        height = (int) (display.getHeight() * 0.8);
+
         getWindow().getAttributes().width = width;
         getWindow().getAttributes().height = height;
 
@@ -56,6 +56,9 @@ public class Review_watch_Activity extends Activity {
         ReviewBody.setEnabled(false);
         btnModification.setText("수정");
         btnClose.setText("닫기");
+
+        // 수정 클릭하면 수정 되도록 (수정 버튼 누르면 수정버튼은 확인 버튼으로, 닫기 버튼은 취소 버튼으로)
+        // 닫기 클릭하면 닫도록
 
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override

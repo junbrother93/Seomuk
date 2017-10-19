@@ -39,47 +39,44 @@ import java.util.Map;
  */
 
 public class Select_MyPage_Activity extends Activity {
-
     private IndexableListView2 listview;
     private ArrayList<Review> ReviewArrayList;
-    private ArrayList<Store> StoreArrayList;
-    private ArrayList<Store2> Store2ArrayList;
     private ImageView warn;
-    private ImageView favor,review,logout;
+    private ImageView favor, review, logout;
     private Intent PopLogout;
-    int num_favor,num_review;
+    int num_favor, num_review, total, store_id;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
-        num_favor=0;
-        num_review=0;
+        num_favor = 0;
+        num_review = 0;
         warn = (ImageView) findViewById(R.id.warn2);
-        favor = (ImageView)findViewById(R.id.Favorite);
-        review = (ImageView)findViewById(R.id.Riview);
-        logout = (ImageView)findViewById(R.id.logout);
-        PopLogout = new Intent(this, PopupActivity_Logout.class);;
+        favor = (ImageView) findViewById(R.id.Favorite);
+        review = (ImageView) findViewById(R.id.Riview);
+        logout = (ImageView) findViewById(R.id.logout);
+        PopLogout = new Intent(this, PopupActivity_Logout.class);
+        ;
         favor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    favor.setImageResource(R.drawable.star_click);
-                    review.setImageResource(R.drawable.mypage_review);
-
+                favor.setImageResource(R.drawable.star_click);
+                review.setImageResource(R.drawable.mypage_review);
             }
         });
         review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                    favor.setImageResource(R.drawable.star);
-                    review.setImageResource(R.drawable.mypage_review_click);
-                    num_favor=0;
-
+                favor.setImageResource(R.drawable.star);
+                review.setImageResource(R.drawable.mypage_review_click);
+                num_favor = 0;
             }
         });
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            startActivity(PopLogout);
+                startActivity(PopLogout);
 
             }
         });
@@ -91,16 +88,16 @@ public class Select_MyPage_Activity extends Activity {
         JsonObjectRequest checkBookmarkRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("checkBookmark : ", "checkBookmarkResponse : " + response);
-                int total = 1;
-                int store_id = 8888;
+                Log.d("checkBookmark", response.toString());
+                total = 1;
+                store_id = 8888;
                 // response.optInt("total", 0);
                 // for() 문을 이용해 total 값만큼 수행
-                for(int i = 0; i < total; i ++) {
+                for (int i = 0; i < total; i++) {
                     JsonObjectRequest addStoreInfoRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/auth/" + store_id, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.d("addStoreInfoResponse : ", "addStoreInfoResponse : " + response);
+                            Log.d("addStoreInfoResponse", response.toString());
                             // if(store_id <= 10000) {
                             // 안심먹거리 데이터 추가
                             // }
@@ -112,7 +109,7 @@ public class Select_MyPage_Activity extends Activity {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.e("addStoreInfoError :", "addStoreInfoError :" + error);
+                            Log.e("addStoreInfoError", error.toString());
                         }
 
                     }) {
@@ -130,7 +127,7 @@ public class Select_MyPage_Activity extends Activity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("checkBookmarkError :", "checkBookmarkError :" + error);
+                Log.e("checkBookmarkError", error.toString());
             }
 
         }) {
@@ -165,9 +162,7 @@ public class Select_MyPage_Activity extends Activity {
                 listview.setAdapter(adapter);
                 listview.setFastScrollEnabled(true);
 
-
-
-                int total = response.optInt("total", 0);    // 총 갯수
+                total = response.optInt("total", 0);    // 총 갯수
 
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
@@ -224,7 +219,7 @@ public class Select_MyPage_Activity extends Activity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Error : ", "Error : " + error);
+                Log.e("Error", error.toString());
             }
 
         }) {
@@ -237,6 +232,5 @@ public class Select_MyPage_Activity extends Activity {
             }
         };
         requestQueue.add(getReviewRequest);
-
     }
 }

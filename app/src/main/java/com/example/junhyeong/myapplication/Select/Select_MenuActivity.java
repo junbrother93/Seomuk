@@ -16,81 +16,76 @@ import com.example.junhyeong.myapplication.R;
  * Created by yeonjin on 2017-09-02.
  */
 
-public class Select_MenuActivity extends Activity implements View.OnClickListener{
+public class Select_MenuActivity extends Activity implements View.OnClickListener {
     ImageView iv;
-    Intent location,Main;
-    String menu, Menuurl;
+    Intent location, Main, intent;
+    String menu;
     int num;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_menu);
         location = new Intent(this, Select_LocationActivity.class);//지역선택창
         Main = new Intent(this, MainActivity.class);//지역선택창
-
-
     }
 
     @Override
     public void onClick(View v) {
-        iv = (ImageView)findViewById(R.id.iv1);
-
-        switch(v.getId())
-        {
+        iv = (ImageView) findViewById(R.id.iv1);
+        switch (v.getId()) {
             case R.id.iv1:
                 iv = (ImageView) findViewById(R.id.iv1);
-                menu ="한식&분식".toString();
+                menu = "한식&분식".toString();
                 break;
             case R.id.iv2:
                 iv = (ImageView) findViewById(R.id.iv2);
-                menu ="중식".toString();
+                menu = "중식".toString();
                 break;
             case R.id.iv3:
                 iv = (ImageView) findViewById(R.id.iv3);
-                menu ="일식".toString();
+                menu = "일식".toString();
                 break;
             case R.id.iv4:
                 iv = (ImageView) findViewById(R.id.iv4);
-                menu ="양식".toString();
+                menu = "양식".toString();
                 break;
             case R.id.iv5:
                 iv = (ImageView) findViewById(R.id.iv5);
-                menu ="제과".toString();
+                menu = "제과".toString();
                 break;
             case R.id.iv6:
                 iv = (ImageView) findViewById(R.id.iv6);
-                menu ="카페".toString();
+                menu = "카페".toString();
                 break;
             case R.id.iv7:
                 iv = (ImageView) findViewById(R.id.iv7);
-                menu ="주점".toString();
+                menu = "주점".toString();
                 break;
             case R.id.iv8:
                 iv = (ImageView) findViewById(R.id.iv8);
-                menu ="패스트푸드&치킨".toString();
+                menu = "패스트푸드&치킨".toString();
                 break;
             case R.id.iv9:
                 iv = (ImageView) findViewById(R.id.iv9);
-                menu ="기타".toString();
+                menu = "기타".toString();
                 break;
             case R.id.iv10:
                 iv = (ImageView) findViewById(R.id.iv10);
-                menu ="food".toString();
+                menu = "food".toString();
                 break;
 
         }
-        Intent intent = getIntent();
-        num = intent.getIntExtra("mypage",0);
-        location.putExtra("menu",menu);
-        location.putExtra("mypage",num);
+        intent = getIntent();
+        num = intent.getIntExtra("mypage", 0);
+        location.putExtra("menu", menu);
+        location.putExtra("mypage", num);
         setResult(RESULT_OK, Main);
         setResult(RESULT_OK, location);
 
         overridePendingTransition(0, 0);
         startActivity(location);
     }
-
-
 
     // 종료 할건지 물어보는 다이얼로그 생성
     @Override
@@ -99,17 +94,13 @@ public class Select_MenuActivity extends Activity implements View.OnClickListene
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("종료")
                 .setMessage("종료하시겠습니까?")
-                .setPositiveButton("예", new DialogInterface.OnClickListener()
-                {
+                .setPositiveButton("예", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         moveTaskToBack(true);
                         finish();
                         android.os.Process.killProcess(android.os.Process.myPid());
-
-
                     }
-
                 })
                 .setNegativeButton("아니오", null)
                 .show();

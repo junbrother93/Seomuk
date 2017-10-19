@@ -18,7 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
-import com.example.junhyeong.myapplication.Popup.PopupActiovity_Description;
+import com.example.junhyeong.myapplication.Popup.PopupActivity_Description;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Select.Select_MenuActivity;
 import com.facebook.AccessToken;
@@ -46,45 +46,35 @@ public class LoginActivity extends Activity {
     private SessionCallback callback;      //콜백 선언 for kakao
     CallbackManager callbackManager;       //콜백 선언 for facebook
     Button unlogin;
-    Intent intent,mypage,description;
     ImageView copyright;
-    private ImageView fakefacebook, fakekakao;
-    int num;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        intent = new Intent(this,Select_MenuActivity.class);
-        description = new Intent(this, PopupActiovity_Description.class);
 
-        unlogin = (Button)findViewById(R.id.unlogin);
-        copyright = (ImageView)findViewById(R.id.copyright);
+        unlogin = (Button) findViewById(R.id.unlogin);
+        copyright = (ImageView) findViewById(R.id.copyright);
+
         unlogin.setOnClickListener(new AccessListener());
-
         copyright.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               startActivity(description);
+                redirectPopupActivity_Description();
             }
         });
-
-
 
         //for kakao
         callback = new SessionCallback();
         Session.getCurrentSession().addCallback(callback);
+        //Session.getCurrentSession().checkAndImplicitOpen();
 
         //for facebook
         callbackManager = CallbackManager.Factory.create();
 
-        Log.e("test","test"+AccessToken.getCurrentAccessToken());
-/*
+        Log.d("Token", "CurrentAccessToken : " + AccessToken.getCurrentAccessToken());
 
-        Log.e("CurrentAccessToken : ","CurrentAccessToken : "+AccessToken.getCurrentAccessToken());
-
-
-
+        /*
         if(Session.getCurrentSession().isClosed()==false)
         {
             Toast.makeText(getApplicationContext(), "카카오톡으로 로그인이 되어있음", Toast.LENGTH_LONG).show();
@@ -94,11 +84,7 @@ public class LoginActivity extends Activity {
         {
             // 페이스북 로그인 되어있을때....
         }
-
-*/
-
-
-
+        */
 
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -106,40 +92,26 @@ public class LoginActivity extends Activity {
                 Toast.makeText(getApplicationContext(), "페이스북 로그인 성공", Toast.LENGTH_LONG).show();
                 requestAccessTokenInfo(loginResult);
                 redirectSelect_MenuActivity();
-                // App code
             }
 
             @Override
             public void onCancel() {
-                Toast.makeText(getApplicationContext(), "페이스북 로그인 취소", Toast.LENGTH_LONG).show();
-                // App code
+                Log.e("fb_Cancle", "페이스북 로그인 취소");
             }
 
             @Override
             public void onError(FacebookException exception) {
-                Toast.makeText(getApplicationContext(), "페이스북 로그인 실패", Toast.LENGTH_LONG).show();
-                // App code
+                Log.e("fb_Error", "페이스북 로그인 실패 : " + exception.getMessage());
             }
         });
     }
 
-    // 비회원 로그인
-    class AccessListener implements Button.OnClickListener{
-        @Override
-        public void onClick(View v) {
-
-            GlobalApplication GUserID = (GlobalApplication) getApplication();
-            GUserID.setGlobalUserID(1);
-            num = GUserID.getGlobalUserID();
-            intent.putExtra("mypage",num);
-            startActivity(intent);
-        }
-    }
-
-
     // kakao
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.d("requestCode", "" + requestCode);
+        Log.d("resultCode", "" + resultCode);
 
         if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
             return;
@@ -159,7 +131,7 @@ public class LoginActivity extends Activity {
 
         @Override
         public void onSessionOpened() {
-            Toast.makeText(getApplicationContext(), "KAKAO_onSessionOpened", Toast.LENGTH_LONG).show();
+            Log.d("kakao_onSessionOpened", "kakao_onSessionOpened");
             redirectSignupActivity();  // 세션 연결성공 시 redirectSignupActivity() 호출
         }
 
@@ -168,10 +140,24 @@ public class LoginActivity extends Activity {
             if (exception != null) {
                 Logger.e(exception);
             }
-            Toast.makeText(getApplicationContext(), "KAKAO_onSessionOpenFailed", Toast.LENGTH_LONG).show();
+            Log.e("kakao_onSessionFailed", "kakao_onSessionOpenFailed" + exception.getMessage());
             redirectLoginActivity();     // 세션 연결이 실패했을때 로그인 화면을 다시 불러옴
         }
     }
+
+    // 비회원 로그인
+    class AccessListener implements Button.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            GlobalApplication GUserID = (GlobalApplication) getApplication();
+            GUserID.setGlobalUserID(1); // 연진이형
+
+            Intent intent = new Intent(LoginActivity.this, Select_MenuActivity.class);
+            intent.putExtra("mypage", GUserID.getGlobalUserID());
+            startActivity(intent);
+        }
+    }
+
 
     protected void redirectSignupActivity() {
         final Intent intent = new Intent(this, KakaoSignupActivity.class);
@@ -182,14 +168,18 @@ public class LoginActivity extends Activity {
 
     protected void redirectLoginActivity() {
         final Intent intent = new Intent(this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
         finish();
     }
 
     protected void redirectSelect_MenuActivity() {
         final Intent intent = new Intent(this, Select_MenuActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+        finish();
+    }
+
+    protected void redirectPopupActivity_Description() {
+        final Intent intent = new Intent(this, PopupActivity_Description.class);
         startActivity(intent);
         finish();
     }
@@ -197,19 +187,18 @@ public class LoginActivity extends Activity {
 
     private void requestAccessTokenInfo(LoginResult loginResult) {
         final AccessToken token = loginResult.getAccessToken();
-        Log.e("fd_ID", token.getUserId());
+        Log.e("fd_token", token.getUserId());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest Facebook_sign_up_Request = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/user/sign_up", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("Facebook_sign_up_OK : ","Facebook_sign_up_OK : " + response);
+                Log.d("Facebook_sign_up_OK : ", "Facebook_sign_up_OK : " + response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Facebook_sign_up_ERROR:","Facebook_sign_up_ERROR : " + error);
-
+                Log.e("Facebook_sign_up_ERROR:", "Facebook_sign_up_ERROR : " + error);
             }
 
         }) {
@@ -228,14 +217,14 @@ public class LoginActivity extends Activity {
             @Override
             public void onResponse(JSONObject response) {
                 GlobalApplication GUserID = (GlobalApplication) getApplication();
-                Log.e("response2 : ","response2 : " + response);
-                Log.e("id", "id" + response.optJSONObject("data").optInt("id", 0));
+                Log.d("fb_sign_in_response : ", "" + response);
+                Log.d("Server_id : ", "" + response.optJSONObject("data").optInt("id", 0));
                 GUserID.setGlobalUserID(response.optJSONObject("data").optInt("id", 0));
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.e("fb_sign_in_error", "fb_sign_in_error : " + error);
             }
 
         }) {
