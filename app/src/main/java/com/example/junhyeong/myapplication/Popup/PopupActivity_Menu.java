@@ -12,6 +12,10 @@ import android.widget.ImageView;
 import com.example.junhyeong.myapplication.Main.MainActivity;
 import com.example.junhyeong.myapplication.R;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+
 
 /**
  * Created by Junhyeong on 2017-08-22.
@@ -76,13 +80,22 @@ public class PopupActivity_Menu extends Activity {
         }
         Intent intent = getIntent();
         String local = intent.getStringExtra("local");
-        url = "http://13.124.127.124:3000/auth/menu/"+ menu + "/loc/" + local.toString();
 
         // url , local 값 MainActivity로 전송
-        ActMain.putExtra("url", url);
+
         ActMain.putExtra("menu", menu);
         ActMain.putExtra("local",local);
-        Log.e(url,"url");
+
+        try {
+            local = URLEncoder.encode(local, "UTF-8");
+            menu = URLEncoder.encode(menu, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        url = "http://13.124.127.124:3000/auth/menu/"+ menu + "/loc/" + local.toString();
+
+        ActMain.putExtra("url", url);
         setResult(RESULT_OK, ActMain);
         finish();
     }
