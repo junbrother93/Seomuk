@@ -38,13 +38,18 @@ public class Review_write_Activity extends Activity {
     String strReviewTitle;
     String strReviewBody;
     Intent intent;
+    int width;
+    Display display;
+    int store_id;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         intent = getIntent();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup_review);
-        Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        int width = (int) (display.getWidth() * 1.0);
+
+        display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        width = (int) (display.getWidth() * 1.0);
 
         getWindow().getAttributes().width = width;
 
@@ -85,22 +90,21 @@ public class Review_write_Activity extends Activity {
         switch(view.getId())
         {
             case R.id.YesBtn:
-                final int store_id = intent.getIntExtra("store_id",0);
+                store_id = intent.getIntExtra("store_id",0);
                 strReviewTitle = ReviewTitle.getText().toString();
                 strReviewBody = ReviewBody.getText().toString();
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                StringRequest postStringRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
+                StringRequest reviewWriteRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.e("1","1"+response);
+                        Log.d("reviewWriteResponse", response);
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Log.e("reviewWriteError", error.toString());
                     }
-
                 }) {
                     @Override
                     protected Map<String, String> getParams() {
@@ -114,12 +118,10 @@ public class Review_write_Activity extends Activity {
                         params.put("score", String.valueOf(score));
                         Log.e("body", "body" + params);
 
-
                         return params;
                     }
                 };
-
-                requestQueue.add(postStringRequest);
+                requestQueue.add(reviewWriteRequest);
                 finish();
                 break;
             case R.id.NoBtn:
@@ -127,5 +129,4 @@ public class Review_write_Activity extends Activity {
                 break;
         }
     }
-
 }

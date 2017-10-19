@@ -15,7 +15,7 @@ import com.example.junhyeong.myapplication.R;
  */
 
 public class PopupActivity_Logout extends Activity{
-    private Button Yes,No;
+    private Button Yes, No;
     private Intent logout;
     private Intent clear;
     protected void onCreate(Bundle savedInstanceState) {

@@ -6,20 +6,15 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.android.volley.NetworkResponse;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.example.junhyeong.myapplication.Adapter.ListViewAdapter;
 import com.example.junhyeong.myapplication.Data.Store;
 import com.example.junhyeong.myapplication.Data.Store2;
@@ -32,8 +27,6 @@ import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Select.Select_MyPage_Activity;
 import com.example.junhyeong.myapplication.widget.IndexableListView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -46,32 +39,32 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         Response.ErrorListener {
     public static final String REQUEST_TAG = "MainActivity";
     private RequestQueue mQueue;
-    private ImageView BtnLocalChange, BtnMenuChange, BtnMyPage,warn, BtnInfo;
+    private ImageView BtnLocalChange, BtnMenuChange, BtnMyPage, BtnInfo , Warn;
     private TextView Text;
     private ArrayList<Store> arrayList;
     private ArrayList<Store2> arrayList2;
     private IndexableListView listview;
-    private int AnsimValue,num;
-    private Intent ActPop_Location,ActPop_Menu,MyPage,LoginPop,PopExplain;
+    private int AnsimValue, Login;
+    private Intent Popup_Location, Popup_Menu, Popup_Login, Popup_Explain, Activity_MyPage;
     private Typeface Tmon;
-
-    String url;
+    private String menu, local, url;
+    private int total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        warn = (ImageView)findViewById(R.id.warn);
+        Warn = (ImageView)findViewById(R.id.warn);
         Tmon = Typeface.createFromAsset(this.getAssets(), "fonts/TmonMonsori.ttf.ttf");
 
         mQueue = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
 
-        ActPop_Location = new Intent(this, PopupActivity_Local.class);
-        ActPop_Menu = new Intent(this, PopupActivity_Menu.class);
-        MyPage = new Intent(this, Select_MyPage_Activity.class);
-        LoginPop = new Intent(this, PopupActivity_Login.class);
-        PopExplain = new Intent(this,PopupActivity_Explain.class);
+        Popup_Location = new Intent(this, PopupActivity_Local.class);
+        Popup_Menu = new Intent(this, PopupActivity_Menu.class);
+        Popup_Login = new Intent(this, PopupActivity_Login.class);
+        Popup_Explain = new Intent(this,PopupActivity_Explain.class);
+        Activity_MyPage = new Intent(this, Select_MyPage_Activity.class);
 
         BtnLocalChange = (ImageView) findViewById(R.id.Location); // 네비게이션바에 있는 "지역" 버튼
         BtnMenuChange = (ImageView)findViewById(R.id.Menu);
@@ -83,40 +76,42 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
 
         Intent intent = getIntent();
 
-        String local = intent.getStringExtra("local");
-        String menu = intent.getStringExtra("menu");
+        menu = intent.getStringExtra("menu");
+        local = intent.getStringExtra("local");
+        Login = intent.getIntExtra("mypage",0);
 
+        // url 설정 전에 local, menu 값을 인코딩 하고 url 설정 후 다시 디코딩
         try {
-            local = URLEncoder.encode(local, "UTF-8");
             menu = URLEncoder.encode(menu, "UTF-8");
+            local = URLEncoder.encode(local, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
         url = "http://13.124.127.124:3000/auth/menu/"+menu.toString()+"/loc/"+local.toString();
-
         try {
-            local = URLDecoder.decode(local, "UTF-8");
             menu = URLDecoder.decode(menu, "UTF-8");
+            local = URLDecoder.decode(local, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
-        num = intent.getIntExtra("mypage",0);
-
+        //
 
 
-        // 안심 먹거리일경우 url 변경
+
+        // 안심 먹거리일경우
         if(menu.toString().equals("food")) {
             AnsimValue = 1;
             url = "http://13.124.127.124:3000/food/loc/" + local.toString();
         }
+
+        // 안심 먹거리가 아닐 경우
         else
             AnsimValue = 0;
-        ActPop_Menu.putExtra("local",local);
-        setResult(RESULT_OK,ActPop_Menu);
-        ActPop_Location.putExtra("menu",menu);
-        setResult(RESULT_OK,ActPop_Location);
+
+        Popup_Menu.putExtra("local",local);
+        setResult(RESULT_OK, Popup_Menu);
+        Popup_Location.putExtra("menu",menu);
+        setResult(RESULT_OK, Popup_Location);
 
         jsonRequest(local, url);
 
@@ -124,7 +119,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         BtnLocalChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(ActPop_Location, 0);
+                startActivityForResult(Popup_Location, 0);
             }
         });
 
@@ -132,7 +127,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         BtnMenuChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(ActPop_Menu, 0);
+                startActivityForResult(Popup_Menu, 0);
             }
         });
 
@@ -140,32 +135,31 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         BtnMyPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(num==1)
-                    startActivity(LoginPop);
+                if(Login == 1)
+                    startActivity(Popup_Login);
                 else
-                    startActivity(MyPage);
-            }
-        });
-        BtnInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(PopExplain);
+                    startActivity(Activity_MyPage);
             }
         });
 
+        BtnInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(Popup_Explain);
+            }
+        });
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // PopupActivity 에서 보낸 url, local 값을 받음
-        String url;
-        String local;
-        String menu;
+
         url = data.getStringExtra("url");
         local = data.getStringExtra("local");
         menu = data.getStringExtra("menu");
 
+        // 안심먹거리인 경우
         if(menu.toString().equals("food")) {
             AnsimValue = 1;
 
@@ -176,20 +170,21 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 e.printStackTrace();
             }
             url = "http://13.124.127.124:3000/food/loc/" + local.toString();
-
             try {
                 local = URLDecoder.decode(local, "UTF-8");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         }
+
+        // 안심먹거리가 아닌경우
         else
             AnsimValue = 0;
 
-        ActPop_Location.putExtra("menu",menu);
-        setResult(RESULT_OK,ActPop_Location);
-        ActPop_Menu.putExtra("local",local);
-        setResult(RESULT_OK,ActPop_Menu);
+        Popup_Location.putExtra("menu",menu);
+        setResult(RESULT_OK, Popup_Location);
+        Popup_Menu.putExtra("local",local);
+        setResult(RESULT_OK, Popup_Menu);
 
         jsonRequest(local, url);
     }
@@ -198,17 +193,14 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     public void onErrorResponse(VolleyError error) {
         Log.e("error url", url);
         Log.e("error", error.toString());
-        // 에러 났을경우..
     }
-
-
 
     @Override
     public void onResponse(JSONObject response) {
         Log.d("url", url);
         Log.d("response", response.toString());
 
-        int total = response.optInt("total", 0);    // 총 갯수
+        total = response.optInt("total", 0);    // 총 갯수
         Log.d("total", "" + total);
         // 안심먹거리일 경우
         if (AnsimValue == 1) {
@@ -231,20 +223,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             listview.setAdapter(adapter);
             listview.setFastScrollEnabled(true);
 
-
-
-
             for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
             {
-             /*
-             getInt 대신 optInt 쓴 이유
-             http://developeryou.blogspot.kr/2015/09/getjsonobject-null.html
-
-             JSONArray랑 jSONObject 차이
-             http://ddo-o.tistory.com/95
-             */
-
-
                 // 아이템 불러와..
                 ArrData.add(response.optJSONArray("data").optJSONObject(i));
                 ArrCTF_NAME.add(ArrData.get(i).optString("CTF_NAME", "No Value"));
@@ -253,7 +233,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 ArrCTF_Y.add(ArrData.get(i).optDouble("CTF_Y", 0.0));
                 ArrCTF_CODE.add(ArrData.get(i).optInt("CTF_CODE",0));
 
-                // 쓸지 안쓸지 결정
+                // 쓸지 안쓸지 결정해야함
                 /*
                 ArrCTF_TYPE.add(ArrData.get(i).optInt("CTF_TYPE", 0));
                 ArrCTF_TYPE_NAME.add(ArrData.get(i).optString("CTF_TYPE_NAME", "No Value"));
@@ -278,11 +258,11 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             // 정렬 한 것 어댑터에 추가
             if(total==0)
             {
-                warn.setVisibility(View.VISIBLE);
+                Warn.setVisibility(View.VISIBLE);
                 listview.setVisibility(View.GONE);
             }
             else {
-                warn.setVisibility(View.INVISIBLE);
+                Warn.setVisibility(View.INVISIBLE);
                 listview.setVisibility(View.VISIBLE);
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
@@ -307,7 +287,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     intent.putExtra("X", arrayList.get((int) id).getCTF_X());
                     intent.putExtra("Y", arrayList.get((int) id).getCTF_Y());
                     intent.putExtra("store_id", arrayList.get((int) id).getCTF_CODE());
-                    intent.putExtra("mypage",num);
+                    intent.putExtra("mypage", Login);
                     setResult(RESULT_OK,intent);
                     startActivity(intent);
                 }
@@ -386,11 +366,11 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             // 정렬 한 것 어댑터에 추가
             if(total==0)
             {
-                warn.setVisibility(View.VISIBLE);
+                Warn.setVisibility(View.VISIBLE);
                 listview.setVisibility(View.GONE);
             }
             else {
-                warn.setVisibility(View.INVISIBLE);
+                Warn.setVisibility(View.INVISIBLE);
                 listview.setVisibility(View.VISIBLE);
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
@@ -426,7 +406,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     intent.putExtra("X", arrayList2.get((int) id).getY_DNTS());
                     intent.putExtra("Y", arrayList2.get((int) id).getX_CNTS());
                     intent.putExtra("store_id", arrayList2.get((int) id).getCRTFC_UPSO_MGT_SNO());
-                    intent.putExtra("mypage",num);
+                    intent.putExtra("mypage", Login);
                     setResult(RESULT_OK,intent);
                     startActivity(intent);
                 }
