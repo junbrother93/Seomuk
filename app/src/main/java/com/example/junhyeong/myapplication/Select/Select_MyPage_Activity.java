@@ -147,68 +147,6 @@ public class Select_MyPage_Activity extends Activity {
 
         // 리뷰
 
-        final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
-        // 즐겨찾기
-
-        JsonObjectRequest checkBookmarkRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("checkBookmark : ", "checkBookmarkResponse : " + response);
-                int total = 1;
-                int store_id = 8888;
-                // response.optInt("total", 0);
-                // for() 문을 이용해 total 값만큼 수행
-                for(int i = 0; i < total; i ++) {
-                    JsonObjectRequest addStoreInfoRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/auth/" + store_id, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            Log.d("addStoreInfoResponse : ", "addStoreInfoResponse : " + response);
-                            // if(store_id <= 10000) {
-                            // 안심먹거리 데이터 추가
-                            // }
-                            // else() {
-                            // 인증업소 데이터 추가
-                            // }
-
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.e("addStoreInfoError :", "addStoreInfoError :" + error);
-                        }
-
-                    }) {
-                        @Override
-                        public Map getHeaders() throws AuthFailureError {
-                            Map params = new HashMap();
-                            GlobalApplication GUserID = (GlobalApplication) getApplication();
-                            params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
-                            return params;
-                        }
-                    };
-                    requestQueue.add(addStoreInfoRequest);
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("checkBookmarkError :", "checkBookmarkError :" + error);
-            }
-
-        }) {
-            @Override
-            public Map getHeaders() throws AuthFailureError {
-                Map params = new HashMap();
-                GlobalApplication GUserID = (GlobalApplication) getApplication();
-                params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
-                return params;
-            }
-        };
-        requestQueue.add(checkBookmarkRequest);
-
-        // 리뷰
-
         JsonObjectRequest getReviewRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/review/food", new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -234,16 +172,7 @@ public class Select_MyPage_Activity extends Activity {
 
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
-                     /*
-                     getInt 대신 optInt 쓴 이유
-                     http://developeryou.blogspot.kr/2015/09/getjsonobject-null.html
 
-                     JSONArray랑 jSONObject 차이
-                     http://ddo-o.tistory.com/95
-                     */
-
-
-                    // 아이템 불러와..
                     ArrReviewData.add(response.optJSONArray("data").optJSONObject(i));
                     ArrTitle.add(ArrReviewData.get(i).optString("title", "No Value"));
                     //ArrBody.add(ArrReviewData.get(i).optString("body", "No Value"));
@@ -252,15 +181,8 @@ public class Select_MyPage_Activity extends Activity {
                     ArrIndex.add(ArrReviewData.get(i).optInt("index", 0));
                     ArrUser_id.add(ArrReviewData.get(i).optInt("user_id", 0));
 
-                    // 쓸지 안쓸지 결정
-                    /*
-                    ArrCTF_TYPE.add(ArrData.get(i).optInt("CTF_TYPE", 0));
-                    ArrCTF_TYPE_NAME.add(ArrData.get(i).optString("CTF_TYPE_NAME", "No Value"));
-                    ArrCTF_ADDR.add(ArrData.get(i).optString("CTF_ADDR", "No Value"));
-                    */
-        //        s.setArrData2(response.optJSONArray("data").optJSONObject(i));
-                    // 객체 추가
                     Review s = new Review();
+
                     s.setArrReviewData(response.optJSONArray("data").optJSONObject(i));
                     s.setTitle(ArrReviewData.get(i).optString("title", "No value"));
                     //s.setBody(ArrReviewData.get(i).optString("body", "No value"));

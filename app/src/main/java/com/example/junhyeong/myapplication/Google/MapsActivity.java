@@ -42,18 +42,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Typeface BMJUA;
     private Typeface BMDOHYEON;
     private static final int MY_LOCATION_REQUEST_CODE = 1;
-    private ImageView TelBtn,ReviewBtn, Nomap,FavorBtn;
-    private String store_address,store_call;
-    private int num,unlogin_value;
+    private ImageView TelBtn, ReviewBtn, Nomap, FavorBtn;
+    private String store_address, store_call;
+    private int num, unlogin_value;
     Intent review;
     private Intent Popup_login;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_googlemap);
         Intent intent = getIntent();
         final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        num=0;
+        num = 0;
         BMJUA = Typeface.createFromAsset(this.getAssets(), "fonts/BMJUA_ttf.ttf");
         BMDOHYEON = Typeface.createFromAsset(this.getAssets(), "fonts/BMDOHYEON_ttf.ttf");
 
@@ -64,7 +65,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        unlogin_value = intent.getIntExtra("mypage",0);
+        unlogin_value = intent.getIntExtra("mypage", 0);
         store_name = intent.getStringExtra("store_name");
         String store_grade = intent.getStringExtra("store_grade");
         //store_address = intent.getStringExtra("store_address");
@@ -74,29 +75,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         review.putExtra("store_id", store_id);
 
         store_call = intent.getStringExtra("store_call"); //전화번호아이콘 만들어지면 사용
-        if(store_call.equals("") || store_call.equals(null))
-        {
-            store_call="정보를 제공하지 않습니다".toString();
+        if (store_call.equals("") || store_call.equals(null)) {
+            store_call = "정보를 제공하지 않습니다".toString();
         }
         store_call = store_call.replaceAll("\\p{Z}", "");
-        if(store_call.substring(0,2).equals("02")||store_call.substring(0,3).equals("010")||store_call.substring(0,3).equals("016")||store_call.substring(0,3).equals("019"))
-        {}
-        else
-        {
+        if (store_call.substring(0, 2).equals("02") || store_call.substring(0, 3).equals("010") || store_call.substring(0, 3).equals("016") || store_call.substring(0, 3).equals("019")) {
+        } else {
 
-            if(store_call.substring(0,3).equals("001"))
-            {
-                store_call=store_call.replaceAll("001","01");
-            }
-            else if(store_call.substring(0,3).equals("002")) {
-                store_call=store_call.replaceAll("002","02");
-            }
-            else if(store_call.substring(0,4).equals("0002"))
-            {
-                store_call=store_call.replaceAll("0002","02");
-            }
-            else
-                store_call="02".toString()+store_call;
+            if (store_call.substring(0, 3).equals("001")) {
+                store_call = store_call.replaceAll("001", "01");
+            } else if (store_call.substring(0, 3).equals("002")) {
+                store_call = store_call.replaceAll("002", "02");
+            } else if (store_call.substring(0, 4).equals("0002")) {
+                store_call = store_call.replaceAll("0002", "02");
+            } else
+                store_call = "02".toString() + store_call;
 
         }
 
@@ -111,7 +104,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         TelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+store_call));
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + store_call));
                 startActivity(intent);
             }
         });
@@ -120,31 +113,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                review.putExtra("mypage",unlogin_value);
-                setResult(RESULT_OK,review);
+                review.putExtra("mypage", unlogin_value);
+                setResult(RESULT_OK, review);
                 startActivity(review);
             }
         });
 
-        FavorBtn = (ImageView)findViewById(R.id.FavorBtn);
+        FavorBtn = (ImageView) findViewById(R.id.FavorBtn);
+
+        // 즐겨찾기 버튼 클릭 이벤트
         FavorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(unlogin_value==1)
+                if (unlogin_value == 1) // 로그인 안되있을 경우 로그인 창으로
                 {
                     startActivity(Popup_login);
-                }
-                else {
-                    if (num == 0) {
-                        FavorBtn.setImageResource(R.drawable.favor);
-                        num++;
+                } else {
+                    if (num == 0) // 비활성화 되어있는 경우 활성화 시킴
+                    {
+
                         JsonObjectRequest addBookmarkRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 Log.d("addBookmark : ", "addBookmarkResponse : " + response);
-
+                                FavorBtn.setImageResource(R.drawable.favor_btn);
+                                num++;
                                 // 즐겨찾기 응답에 따른 즐겨찾기 버튼 상태 설정.. if문 사용
-
                             }
                         }, new Response.ErrorListener() {
                             @Override
@@ -163,14 +157,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             }
                         };
                         requestQueue.add(addBookmarkRequest);
-                    } else {
-                        FavorBtn.setImageResource(R.drawable.favor_btn);
-                        num = 0;
+                    } else // 활성화 되어있는 경우 비활성화 시킴
+                        {
+
                         JsonObjectRequest deleteBookmarkRequest = new JsonObjectRequest(Request.Method.DELETE, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 Log.d("deleteBookmark : ", "deleteBookmarkResponse : " + response);
-
+                                FavorBtn.setImageResource(R.drawable.favor);
+                                num = 0;
                                 // 즐겨찾기 응답에 따른 즐겨찾기 버튼 상태 설정.. if문 사용
 
                             }
@@ -204,27 +199,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         tvStore_name.setText(store_name);
         tvStore_grade.setText(store_grade);
 
-        Log.d("Xvalue:", "Xvalue : " + x);
-        Log.d("Yvalue:", "Yvalue : " + y);
+        //Log.d("Xvalue:", "Xvalue : " + x);
+        //Log.d("Yvalue:", "Yvalue : " + y);
 
-        if(x == 0.0 && y == 0.0 || (x==0 && y==0))
-        {
+        // 위치 정보 없을 경우 임의 지정
+        if (x == 0.0 && y == 0.0 || (x == 0 && y == 0)) {
             x = 37.5652894;
             y = 126.8494668;
         }
 
 
-        JsonObjectRequest getXYRequest = new JsonObjectRequest(Request.Method.GET, "https://maps.googleapis.com/maps/api/geocode/json?language=ko&latlng=" +x+ "," +y+ "&key=AIzaSyCR6PUO1y9JYM6fPjk85fre94xNabcRqsA", new Response.Listener<JSONObject>() {
+        JsonObjectRequest getXYRequest = new JsonObjectRequest(Request.Method.GET, "https://maps.googleapis.com/maps/api/geocode/json?language=ko&latlng=" + x + "," + y + "&key=AIzaSyCR6PUO1y9JYM6fPjk85fre94xNabcRqsA", new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                if((x == 37.5652894 && y == 126.8494668))
-                {
-                    ImageView noMap = (ImageView)findViewById(R.id.noMap);
+
+                // 위치 정보 없을 경우 처리
+                if ((x == 37.5652894 && y == 126.8494668)) {
+                    ImageView noMap = (ImageView) findViewById(R.id.noMap);
                     noMap.setVisibility(View.VISIBLE);
                     mapFragment.getView().setVisibility(View.GONE);
                     store_address = "주소정보없음";
-                }
-                else {
+                } else {
                     store_address = response.optJSONArray("results").optJSONObject(0).optString("formatted_address").substring(5);
                 }
                 tvStore_address.setText(store_address);
@@ -245,10 +240,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         requestQueue.add(getXYRequest);
 
 
-        JsonObjectRequest checkBookmarkRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<JSONObject>() {
+        // 즐겨찾기 버튼 상태 서버에서 확인
+        StringRequest checkBookmarkRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(String response) {
                 Log.d("checkBookmark : ", "checkbookmarkResponse : " + response);
+
+                if (response == "OK") {
+                    FavorBtn.setImageResource(R.drawable.favor_btn);
+                    num++;
+                } else {
+                    FavorBtn.setImageResource(R.drawable.favor);
+                    num = 0;
+                }
 
                 // 즐겨찾기 응답에 따른 즐겨찾기 버튼 상태 설정.. if문 사용
 
