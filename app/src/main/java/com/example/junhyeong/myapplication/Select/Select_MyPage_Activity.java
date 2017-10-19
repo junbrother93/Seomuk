@@ -26,7 +26,6 @@ import com.example.junhyeong.myapplication.Popup.PopupActivity_Logout;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Review.Review_watch_Activity;
 import com.example.junhyeong.myapplication.widget.IndexableListView2;
-import com.kakao.auth.network.response.JSONObjectResponse;
 
 import org.json.JSONObject;
 

@@ -2,20 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_gravity="center">
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="#CCF5F5DC"
    >
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#0000ff">
+        android:background="#787878">
 
         <TextView
             android:id="@+id/textView2"
@@ -25,6 +26,7 @@
             android:textColor="#ffffff"
             android:textStyle="bold"
             android:textAlignment="center"
+            android:textSize="7pt"
             android:text="후기 남기기" />
     </FrameLayout>
 
@@ -41,12 +43,12 @@
             android:id="@+id/Value"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:textSize="10pt"
-            android:textAlignment="center"
-            android:paddingTop="15dp"
             android:layout_marginLeft="7dp"
-            android:text=" 1.0 "/>
+            android:paddingTop="15dp"
+            android:text=" 1.0 "
+            android:textAlignment="center"
+            android:textSize="10pt"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView13"

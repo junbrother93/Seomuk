@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="top"
-            android:background="#303030"
+            android:background="#787878"
             android:paddingTop="10dp"
             android:text="지역 선택"
             android:textAlignment="center"
@@ -36,7 +36,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginLeft="3dp">
+            android:layout_gravity="center|top"
+            >
 
                 <ImageView
                     android:id="@+id/local1"
@@ -299,11 +300,13 @@
 
             <ImageView
                     android:id="@+id/local25"
-                    android:onClick="onClick"
                     android:layout_width="115dp"
                     android:layout_height="90dp"
+                    android:onClick="onClick"
                     android:layout_row="8"
-                    android:layout_column="0"
+                    android:layout_column="1"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:src="@drawable/jungrang"
                     android:text="중랑구" />
 
