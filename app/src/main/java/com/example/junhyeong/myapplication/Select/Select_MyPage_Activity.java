@@ -19,12 +19,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.Adapter.ListViewAdapter2;
 import com.example.junhyeong.myapplication.Data.Review;
-import com.example.junhyeong.myapplication.Data.Store;
-import com.example.junhyeong.myapplication.Data.Store2;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
+import com.example.junhyeong.myapplication.Main.MainActivity;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Logout;
 import com.example.junhyeong.myapplication.R;
-import com.example.junhyeong.myapplication.Review.Review_watch_Activity;
+import com.example.junhyeong.myapplication.Review.Review_modification_Activity;
 import com.example.junhyeong.myapplication.widget.IndexableListView2;
 
 import org.json.JSONObject;
@@ -43,8 +42,9 @@ public class Select_MyPage_Activity extends Activity {
     private ArrayList<Review> ReviewArrayList;
     private ImageView warn;
     private ImageView favor, review, logout;
-    private Intent PopLogout;
+    private Intent PopLogout, intent;
     int num_favor, num_review, total, store_id;
+    String classify;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +56,9 @@ public class Select_MyPage_Activity extends Activity {
         review = (ImageView) findViewById(R.id.Riview);
         logout = (ImageView) findViewById(R.id.logout);
         PopLogout = new Intent(this, PopupActivity_Logout.class);
-        ;
+        intent = new Intent(this, MainActivity.class);
+        classify = intent.getStringExtra("classify");
+
         favor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,26 +87,20 @@ public class Select_MyPage_Activity extends Activity {
 
         // 즐겨찾기
 
-        JsonObjectRequest checkBookmarkRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<JSONObject>() {
+        JsonObjectRequest checkBookmarkRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/checkbm", new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("checkBookmark", response.toString());
-                total = 1;
-                store_id = 8888;
+                //total = 1;
+                //store_id = 8888;
                 // response.optInt("total", 0);
                 // for() 문을 이용해 total 값만큼 수행
+
                 for (int i = 0; i < total; i++) {
                     JsonObjectRequest addStoreInfoRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/auth/" + store_id, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.d("addStoreInfoResponse", response.toString());
-                            // if(store_id <= 10000) {
-                            // 안심먹거리 데이터 추가
-                            // }
-                            // else() {
-                            // 인증업소 데이터 추가
-                            // }
-
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -123,6 +119,7 @@ public class Select_MyPage_Activity extends Activity {
                     };
                     requestQueue.add(addStoreInfoRequest);
                 }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -132,29 +129,33 @@ public class Select_MyPage_Activity extends Activity {
 
         }) {
             @Override
-            public Map getHeaders() throws AuthFailureError {
-                Map params = new HashMap();
+            protected Map<String, String> getParams() {
                 GlobalApplication GUserID = (GlobalApplication) getApplication();
+                Map<String, String> params = new HashMap<>();
                 params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
+
                 return params;
             }
         };
         requestQueue.add(checkBookmarkRequest);
+
 
         // 리뷰
 
         JsonObjectRequest getReviewRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/review/food", new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("Review : ", "Review : " + response);
+                Log.d("Review : ", response.toString());
                 ReviewArrayList = new ArrayList<Review>();
                 // 리스트 생성
                 final ArrayList<JSONObject> ArrReviewData = new ArrayList<JSONObject>();
                 final ArrayList<String> ArrTitle = new ArrayList<String>();
                 final ArrayList<String> ArrBody = new ArrayList<String>();
+                final ArrayList<String> ArrStoreName = new ArrayList<String>();
                 final ArrayList<Double> ArrScore = new ArrayList<Double>();
                 final ArrayList<Integer> ArrIndex = new ArrayList<Integer>();
                 final ArrayList<Integer> ArrUser_id = new ArrayList<Integer>();
+
 
                 // 리스트뷰랑 어댑터..
                 listview = (IndexableListView2) findViewById(R.id.listview2);
@@ -171,9 +172,11 @@ public class Select_MyPage_Activity extends Activity {
                     ArrTitle.add(ArrReviewData.get(i).optString("title", "No Value"));
                     //ArrBody.add(ArrReviewData.get(i).optString("body", "No Value"));
                     ArrBody.add(ArrReviewData.get(i).optString("text", "No Value"));
-                    ArrScore.add(ArrReviewData.get(i).optDouble("score", 0));
+                    ArrStoreName.add(ArrReviewData.get(i).optString("store_name", "No Value"));
+                    ArrScore.add(ArrReviewData.get(i).optDouble("score", 0.0));
                     ArrIndex.add(ArrReviewData.get(i).optInt("index", 0));
                     ArrUser_id.add(ArrReviewData.get(i).optInt("user_id", 0));
+
 
                     Review s = new Review();
 
@@ -181,8 +184,9 @@ public class Select_MyPage_Activity extends Activity {
                     s.setTitle(ArrReviewData.get(i).optString("title", "No value"));
                     //s.setBody(ArrReviewData.get(i).optString("body", "No value"));
                     s.setBody(ArrReviewData.get(i).optString("text", "No value"));
+                    s.setStore_name(ArrReviewData.get(i).optString("store_name", "No value"));
                     s.setScore(ArrReviewData.get(i).optDouble("score", 0.0));
-                    s.setIndex(ArrReviewData.get(i).optInt("index", 0));
+                    s.setReview_id(ArrReviewData.get(i).optInt("index", 0));
                     s.setUser_id(ArrReviewData.get(i).optInt("user_id", 0));
                     ReviewArrayList.add(s);
                 }
@@ -203,13 +207,13 @@ public class Select_MyPage_Activity extends Activity {
                     listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getApplicationContext(), Review_watch_Activity.class);
+                            Intent intent = new Intent(getApplicationContext(), Review_modification_Activity.class);
 
                             Toast.makeText(Select_MyPage_Activity.this, "" + id, Toast.LENGTH_LONG).show();
                             intent.putExtra("review_title", ReviewArrayList.get((int) id).getTitle());
                             intent.putExtra("review_body", ReviewArrayList.get((int) id).getBody());
                             intent.putExtra("review_score", ReviewArrayList.get((int) id).getScore());
-                            intent.putExtra("review_index", ReviewArrayList.get((int) id).getIndex());
+                            intent.putExtra("review_index", ReviewArrayList.get((int) id).getReview_id());
                             intent.putExtra("review_user_id", ReviewArrayList.get((int) id).getUser_id());
                             startActivity(intent);
                         }

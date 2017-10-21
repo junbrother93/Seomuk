@@ -12,11 +12,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Login;
 import com.example.junhyeong.myapplication.R;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +32,7 @@ public class Review_Activity extends Activity {
     ImageView ReviewBtn2;
     Intent intent,Review_Write, Popup_login;
     int store_id, unlogin_value;
+    String classify;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +41,10 @@ public class Review_Activity extends Activity {
         intent = getIntent();
         unlogin_value = intent.getIntExtra("mypage",0);
         store_id = intent.getIntExtra("store_id", 0);
+        classify = intent.getStringExtra("classify");
+
+
+
         ReviewBtn2 = (ImageView)findViewById(R.id.ReviewBtn2);
         Review_Write = new Intent(this,Review_write_Activity.class);
         Popup_login = new Intent(this, PopupActivity_Login.class);
@@ -55,27 +63,28 @@ public class Review_Activity extends Activity {
         });
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest reviewRequest = new StringRequest(Request.Method.GET, "http://13.124.127.124:3000/review/food", new Response.Listener<String>() {
+
+
+        JsonObjectRequest reviewStoreRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/review/food", new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                Log.d("reviewResponse", response);
+            public void onResponse(JSONObject response) {
+                Log.d("reviewResponse", response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("reviewError", error.toString());
+                Log.e("reviewError", ""+error);
             }
 
         }) {
             @Override
             public Map getHeaders() throws AuthFailureError {
-                GlobalApplication GUserID = (GlobalApplication) getApplication();
                 Map params = new HashMap();
-                params.put("user_id", String.valueOf(GUserID.getGlobalUserID()));
-
+                params.put("store_id", store_id);
+                params.put("classify", classify);
                 return params;
             }
         };
-        requestQueue.add(reviewRequest);
+        requestQueue.add(reviewStoreRequest);
     }
 }

@@ -44,10 +44,10 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     private ArrayList<Store> arrayList;
     private ArrayList<Store2> arrayList2;
     private IndexableListView listview;
-    private int AnsimValue, Login;
+    private int Login;
     private Intent Popup_Location, Popup_Menu, Popup_Login, Popup_Explain, Activity_MyPage;
     private Typeface Tmon;
-    private String menu, local, url;
+    private String menu, local, url, classify;
     private int total;
 
     @Override
@@ -100,13 +100,13 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
 
         // 안심 먹거리일경우
         if(menu.toString().equals("food")) {
-            AnsimValue = 1;
+            classify = "안심";
             url = "http://13.124.127.124:3000/food/loc/" + local.toString();
         }
 
         // 안심 먹거리가 아닐 경우
         else
-            AnsimValue = 0;
+            classify = "인증";
 
         Popup_Menu.putExtra("local",local);
         setResult(RESULT_OK, Popup_Menu);
@@ -137,8 +137,11 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             public void onClick(View v) {
                 if(Login == 1)
                     startActivity(Popup_Login);
-                else
+                else {
                     startActivity(Activity_MyPage);
+                    Activity_MyPage.putExtra("classify", classify);
+                }
+
             }
         });
 
@@ -161,7 +164,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
 
         // 안심먹거리인 경우
         if(menu.toString().equals("food")) {
-            AnsimValue = 1;
+            classify = "안심";
 
             // url 설정 전에는 local 값 인코딩 하고 url 전송 후에 다시 디코딩
             try {
@@ -179,7 +182,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
 
         // 안심먹거리가 아닌경우
         else
-            AnsimValue = 0;
+            classify = "인증";
 
         Popup_Location.putExtra("menu",menu);
         setResult(RESULT_OK, Popup_Location);
@@ -203,7 +206,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         total = response.optInt("total", 0);    // 총 갯수
         Log.d("total", "" + total);
         // 안심먹거리일 경우
-        if (AnsimValue == 1) {
+        if (classify == "안심") {
             arrayList = new ArrayList<Store>();
 
             // 리스트 생성
@@ -231,7 +234,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 ArrCTF_TEL.add(ArrData.get(i).optString("CTF_TEL", "No Value"));
                 ArrCTF_X.add(ArrData.get(i).optDouble("CTF_X", 0.0));
                 ArrCTF_Y.add(ArrData.get(i).optDouble("CTF_Y", 0.0));
-                ArrCTF_CODE.add(ArrData.get(i).optInt("CTF_CODE",0));
+                ArrCTF_CODE.add(ArrData.get(i).optInt("CTF_CODE", 0));
 
                 // 쓸지 안쓸지 결정해야함
                 /*
@@ -256,19 +259,17 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             // 정렬
             Collections.sort(arrayList);
             // 정렬 한 것 어댑터에 추가
-            if(total==0)
-            {
+            if (total == 0) {
                 Warn.setVisibility(View.VISIBLE);
                 listview.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 Warn.setVisibility(View.INVISIBLE);
                 listview.setVisibility(View.VISIBLE);
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
-                    if(arrayList.get(i).getCTF_TYPE_NAME().toString().equals("자랑스러운 한국음식점".toString()))
+                    if (arrayList.get(i).getCTF_TYPE_NAME().toString().equals("자랑스러운 한국음식점".toString()))
                         adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b6), arrayList.get(i).getCTF_NAME());
-                    else if(arrayList.get(i).getCTF_TYPE_NAME().toString().equals("원산지표시 우수음식점".toString()))
+                    else if (arrayList.get(i).getCTF_TYPE_NAME().toString().equals("원산지표시 우수음식점".toString()))
                         adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b4), arrayList.get(i).getCTF_NAME());
                     else
                         adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b3), arrayList.get(i).getCTF_NAME());
@@ -288,7 +289,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     intent.putExtra("Y", arrayList.get((int) id).getCTF_Y());
                     intent.putExtra("store_id", arrayList.get((int) id).getCTF_CODE());
                     intent.putExtra("mypage", Login);
-                    setResult(RESULT_OK,intent);
+                    intent.putExtra("classify", classify);
+                    setResult(RESULT_OK, intent);
                     startActivity(intent);
                 }
             });
@@ -324,8 +326,6 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             ListViewAdapter adapter = new ListViewAdapter();
             listview.setAdapter(adapter);
             listview.setFastScrollEnabled(true);
-
-
 
 
             for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
@@ -364,54 +364,53 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             Collections.sort(arrayList2);
 
             // 정렬 한 것 어댑터에 추가
-            if(total==0)
-            {
+            if (total == 0) {
                 Warn.setVisibility(View.VISIBLE);
                 listview.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 Warn.setVisibility(View.INVISIBLE);
                 listview.setVisibility(View.VISIBLE);
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
 
-                    if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("저염실천음식점".toString())||arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("저염참여음식점".toString()))
+                    if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("저염실천음식점".toString()) || arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("저염참여음식점".toString()))
                         adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b7), arrayList2.get(i).getUPSO_NM());
-                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("먹을만큼적당히".toString()))
+                    else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("먹을만큼적당히".toString()))
                         adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b2), arrayList2.get(i).getUPSO_NM());
-                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("건강음식점".toString()))
+                    else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("건강음식점".toString()))
                         adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b1), arrayList2.get(i).getUPSO_NM());
-                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("위생등급제".toString()))
+                    else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("위생등급제".toString()))
                         adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b5), arrayList2.get(i).getUPSO_NM());
-                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("자랑스러운 한국음식점".toString()))
+                    else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("자랑스러운 한국음식점".toString()))
                         adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b6), arrayList2.get(i).getUPSO_NM());
-                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("원산지표시 우수음식점".toString()))
+                    else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("원산지표시 우수음식점".toString()))
                         adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b4), arrayList2.get(i).getUPSO_NM());
-                    else if(arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("채식메뉴음식점".toString())||arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("채식전문음식점".toString()))
+                    else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("채식메뉴음식점".toString()) || arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("채식전문음식점".toString()))
                         adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b8), arrayList2.get(i).getUPSO_NM());
                     else
                         adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b3), arrayList2.get(i).getUPSO_NM());
                 }
 
+                listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+
+                        intent.putExtra("store_name", arrayList2.get((int) id).getUPSO_NM());
+                        intent.putExtra("store_address", arrayList2.get((int) id).getRDN_DETAIL_ADDR());
+                        intent.putExtra("store_grade", arrayList2.get((int) id).getCRTFC_GBN_NM());
+                        intent.putExtra("store_call", arrayList2.get((int) id).getTEL_NO());
+                        intent.putExtra("X", arrayList2.get((int) id).getY_DNTS());
+                        intent.putExtra("Y", arrayList2.get((int) id).getX_CNTS());
+                        intent.putExtra("store_id", arrayList2.get((int) id).getCRTFC_UPSO_MGT_SNO());
+                        intent.putExtra("mypage", Login);
+                        intent.putExtra("classify", classify);
+                        setResult(RESULT_OK, intent);
+                        startActivity(intent);
+                    }
+                });
+
             }
-            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-
-                    intent.putExtra("store_name", arrayList2.get((int) id).getUPSO_NM());
-                    intent.putExtra("store_address", arrayList2.get((int) id).getRDN_DETAIL_ADDR());
-                    intent.putExtra("store_grade", arrayList2.get((int) id).getCRTFC_GBN_NM());
-                    intent.putExtra("store_call", arrayList2.get((int) id).getTEL_NO());
-                    intent.putExtra("X", arrayList2.get((int) id).getY_DNTS());
-                    intent.putExtra("Y", arrayList2.get((int) id).getX_CNTS());
-                    intent.putExtra("store_id", arrayList2.get((int) id).getCRTFC_UPSO_MGT_SNO());
-                    intent.putExtra("mypage", Login);
-                    setResult(RESULT_OK,intent);
-                    startActivity(intent);
-                }
-            });
-
         }
     }
 

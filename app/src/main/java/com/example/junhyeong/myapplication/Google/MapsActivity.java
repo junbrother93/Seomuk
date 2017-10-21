@@ -31,6 +31,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +45,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Typeface BMDOHYEON;
     private static final int MY_LOCATION_REQUEST_CODE = 1;
     private ImageView TelBtn, ReviewBtn, Nomap, FavorBtn;
-    private String store_address, store_call;
+    private String store_address, store_call, store_grade, classify;
     private int num, unlogin_value;
     Intent review;
     private Intent Popup_login;
@@ -67,7 +69,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         unlogin_value = intent.getIntExtra("mypage", 0);
         store_name = intent.getStringExtra("store_name");
-        String store_grade = intent.getStringExtra("store_grade");
+        store_grade = intent.getStringExtra("store_grade");
+        classify = intent.getStringExtra("classify");
+        try {
+            classify = URLEncoder.encode(classify, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         //store_address = intent.getStringExtra("store_address");
 
         store_call = intent.getStringExtra("store_call"); //전화번호아이콘 만들어지면 사용
@@ -75,7 +83,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         review.putExtra("store_id", store_id);
 
         store_call = intent.getStringExtra("store_call"); //전화번호아이콘 만들어지면 사용
-        if (store_call.equals("") || store_call.equals(null)) {
+        if (store_call.equals(" ") || store_call.equals(null)) {
             store_call = "정보를 제공하지 않습니다".toString();
         }
         store_call = store_call.replaceAll("\\p{Z}", "");
@@ -114,6 +122,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 review.putExtra("mypage", unlogin_value);
+                review.putExtra("classify", classify);
                 setResult(RESULT_OK, review);
                 startActivity(review);
             }
@@ -131,10 +140,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 } else {
                     if (num == 0) // 비활성화 되어있는 경우 활성화 시킴
                     {
-
-                        JsonObjectRequest addBookmarkRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<JSONObject>() {
+                        StringRequest addBookmarkRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<String>() {
                             @Override
-                            public void onResponse(JSONObject response) {
+                            public void onResponse(String response) {
                                 Log.d("addBookmark : ", "addBookmarkResponse : " + response);
                                 FavorBtn.setImageResource(R.drawable.favor_btn);
                                 num++;
@@ -148,11 +156,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         }) {
                             @Override
-                            public Map getHeaders() throws AuthFailureError {
-                                Map params = new HashMap();
+                            protected Map<String, String> getParams() {
                                 GlobalApplication GUserID = (GlobalApplication) getApplication();
-                                params.put("store_id", Integer.toString(store_id));
+                                Map<String, String> params = new HashMap<>();
                                 params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
+                                params.put("store_id", Integer.toString(store_id));
+                                params.put("classify", classify);
+
+                                Log.d("params", ""+params);
                                 return params;
                             }
                         };
@@ -160,9 +171,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     } else // 활성화 되어있는 경우 비활성화 시킴
                         {
 
-                        JsonObjectRequest deleteBookmarkRequest = new JsonObjectRequest(Request.Method.DELETE, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<JSONObject>() {
+                            StringRequest deleteBookmarkRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<String>() {
                             @Override
-                            public void onResponse(JSONObject response) {
+                            public void onResponse(String response) {
                                 Log.d("deleteBookmark : ", "deleteBookmarkResponse : " + response);
                                 FavorBtn.setImageResource(R.drawable.favor);
                                 num = 0;
@@ -177,11 +188,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         }) {
                             @Override
-                            public Map getHeaders() throws AuthFailureError {
-                                Map params = new HashMap();
+                            protected Map<String, String> getParams() {
                                 GlobalApplication GUserID = (GlobalApplication) getApplication();
-                                params.put("store_id", Integer.toString(store_id));
+                                Map<String, String> params = new HashMap<>();
                                 params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
+                                params.put("store_id", Integer.toString(store_id));
+                                params.put("classify", classify);
+
+                                Log.d("params", ""+params);
                                 return params;
                             }
                         };
@@ -207,7 +221,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             x = 37.5652894;
             y = 126.8494668;
         }
-
 
         JsonObjectRequest getXYRequest = new JsonObjectRequest(Request.Method.GET, "https://maps.googleapis.com/maps/api/geocode/json?language=ko&latlng=" + x + "," + y + "&key=AIzaSyCR6PUO1y9JYM6fPjk85fre94xNabcRqsA", new Response.Listener<JSONObject>() {
             @Override
@@ -241,18 +254,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         // 즐겨찾기 버튼 상태 서버에서 확인
-        StringRequest checkBookmarkRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/user/bookmark", new Response.Listener<String>() {
+        JsonObjectRequest checkBookmarkRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/user/checkbm", new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(JSONObject response) {
                 Log.d("checkBookmark : ", "checkbookmarkResponse : " + response);
 
-                if (response == "OK") {
+
+                if (response.optInt("msg", 100) == 1) {
                     FavorBtn.setImageResource(R.drawable.favor_btn);
                     num++;
                 } else {
                     FavorBtn.setImageResource(R.drawable.favor);
                     num = 0;
                 }
+
 
                 // 즐겨찾기 응답에 따른 즐겨찾기 버튼 상태 설정.. if문 사용
 
@@ -270,6 +285,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 GlobalApplication GUserID = (GlobalApplication) getApplication();
                 params.put("store_id", Integer.toString(store_id));
                 params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
+                params.put("classify", classify);
+
+                Log.d("params", ""+params);
                 return params;
             }
         };

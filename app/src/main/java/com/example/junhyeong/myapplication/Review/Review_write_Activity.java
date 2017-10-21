@@ -49,10 +49,6 @@ public class Review_write_Activity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup_review);
 
-        display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        width = (int) (display.getWidth() * 1.0);
-
-        getWindow().getAttributes().width = width;
 
         rating = (RatingBar) findViewById(R.id.ratingBar);
         ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);

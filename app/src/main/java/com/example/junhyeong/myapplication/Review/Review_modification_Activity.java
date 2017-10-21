@@ -17,7 +17,7 @@ import com.example.junhyeong.myapplication.R;
  * Created by yeonjin on 2017-09-28.
  */
 
-public class Review_watch_Activity extends Activity {
+public class Review_modification_Activity extends Activity {
 
     EditText ReviewTitle, ReviewBody;
     Button btnModification, btnClose;
@@ -38,12 +38,7 @@ public class Review_watch_Activity extends Activity {
         index = intent.getIntExtra("review_index", 0);
         user_id = intent.getIntExtra("review_user_id", 0);
 
-        Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        width = (int) (display.getWidth() * 1.0);
-        height = (int) (display.getHeight() * 0.8);
 
-        getWindow().getAttributes().width = width;
-        getWindow().getAttributes().height = height;
 
         ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
         ReviewBody = (EditText) findViewById(R.id.ReviewBody);
@@ -51,15 +46,18 @@ public class Review_watch_Activity extends Activity {
         btnClose = (Button) findViewById(R.id.NoBtn);
 
         ReviewTitle.setText(title);
-        ReviewTitle.setEnabled(false);
         ReviewBody.setText(body);
-        ReviewBody.setEnabled(false);
         btnModification.setText("수정");
         btnClose.setText("닫기");
 
         // 수정 클릭하면 수정 되도록 (수정 버튼 누르면 수정버튼은 확인 버튼으로, 닫기 버튼은 취소 버튼으로)
         // 닫기 클릭하면 닫도록
+        btnModification.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
