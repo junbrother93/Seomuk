@@ -35,7 +35,7 @@ public class Review_write_Activity extends Activity {
     EditText ReviewTitle, ReviewBody;
     RatingBar rating;
     TextView Value;
-    double score;
+    int score;
     String strReviewTitle;
     String strReviewBody;
     Intent intent;
@@ -61,20 +61,24 @@ public class Review_write_Activity extends Activity {
                 if (ratingBar.getRating() <= 1.0) {
                     ratingBar.setRating(1);
                     Value.setText("1.0");
+                    score = 1;
                 } else if (ratingBar.getRating() > 1.0 && ratingBar.getRating() <= 2.0) {
                     ratingBar.setRating(2);
                     Value.setText("2.0");
+                    score = 2;
                 } else if (ratingBar.getRating() > 2.0 && ratingBar.getRating() <= 3.0) {
                     ratingBar.setRating(3);
                     Value.setText("3.0");
+                    score = 3;
                 } else if (ratingBar.getRating() > 3.0 && ratingBar.getRating() <= 4.0) {
                     ratingBar.setRating(4);
                     Value.setText("4.0");
+                    score = 4;
                 } else if (ratingBar.getRating() > 4.0 && ratingBar.getRating() <= 5.0) {
                     ratingBar.setRating(5);
                     Value.setText("5.0");
+                    score = 5;
                 }
-                score = ratingBar.getRating();
             }
         });
     }
