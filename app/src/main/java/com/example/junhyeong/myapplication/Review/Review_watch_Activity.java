@@ -38,12 +38,9 @@ public class Review_watch_Activity extends Activity {
         index = intent.getIntExtra("review_index", 0);
         user_id = intent.getIntExtra("review_user_id", 0);
 
-        Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        width = (int) (display.getWidth() * 1.0);
-        height = (int) (display.getHeight() * 0.8);
 
-        getWindow().getAttributes().width = width;
-        getWindow().getAttributes().height = height;
+
+
 
         ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
         ReviewBody = (EditText) findViewById(R.id.ReviewBody);

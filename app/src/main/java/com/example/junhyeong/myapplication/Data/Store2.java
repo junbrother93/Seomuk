@@ -10,10 +10,10 @@ public class Store2 implements Comparable<Store2> {
     JSONObject ArrData2;
     int CRTFC_UPSO_MGT_SNO;
     String UPSO_NM, CGG_CODE_NM, COB_CODE_NM, BIZCND_CODE_NM,OWNER_NM,
-            CRTFC_GBN_NM,CRTFC_CHR_NM,CRTFC_YMD,USE_YN,TEL_NO,RDN_DETAIL_ADDR,RDN_CODE_NM,CRT_USR,FOOD_MENU;
+            CRTFC_GBN_NM,CRTFC_CHR_NM,CRTFC_YMD,USE_YN,TEL_NO,RDN_DETAIL_ADDR,RDN_CODE_NM,CRT_USR,FOOD_MENU,CRTFC_CLASS;
     double Y_DNTS, X_CNTS;
 
-    public void setData(JSONObject DATA, int CRTFC_UPSO_MGT_SNO, String UPSO_NM, String CGG_CODE_NM, String COB_CODE_NM, String BIZCND_CODE_NM, String OWNER_NM, String CRTFC_GBN_NM, String CRTFC_CHR_NM, String CRTFC_YMD, String USE_YN, int Y_DNTS, int X_CNTS, String TEL_NO,String RDN_DETAIL_ADDR, String RDN_CODE_NM,String CRT_USR,String FOOD_MENU ) {
+    public void setData(JSONObject DATA, int CRTFC_UPSO_MGT_SNO, String UPSO_NM, String CGG_CODE_NM, String COB_CODE_NM, String BIZCND_CODE_NM, String OWNER_NM, String CRTFC_GBN_NM, String CRTFC_CHR_NM, String CRTFC_YMD, String USE_YN, int Y_DNTS, int X_CNTS, String TEL_NO,String RDN_DETAIL_ADDR, String RDN_CODE_NM,String CRT_USR,String FOOD_MENU, String CLASS) {
         setArrData2(DATA);
         setCRTFC_UPSO_MGT_SNO(CRTFC_UPSO_MGT_SNO);
         setUPSO_NM(UPSO_NM);
@@ -32,6 +32,7 @@ public class Store2 implements Comparable<Store2> {
         setRDN_CODE_NM(RDN_CODE_NM);
         setCRT_USR(CRT_USR);
         setFOOD_MENU(FOOD_MENU);
+        setCRTFC_CLASS(CLASS);
     }
 
     public void setArrData2(JSONObject Data) {
@@ -87,6 +88,9 @@ public class Store2 implements Comparable<Store2> {
     }
     public void setFOOD_MENU(String FOOD) {
         FOOD_MENU = FOOD;
+    }
+    public void setCRTFC_CLASS(String CLASS) {
+        CRTFC_CLASS = CLASS;
     }
 
     public Store2 getData1() {
@@ -161,6 +165,7 @@ public class Store2 implements Comparable<Store2> {
     {
         return FOOD_MENU;
     }
+    public String getCRTFC_CLASS() {return CRTFC_CLASS;}
 
     public int compareTo(Store2 store)
     {

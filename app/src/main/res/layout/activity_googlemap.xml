@@ -194,7 +194,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_row="3"
                 android:layout_weight="1"
-                android:text=" 5.0/5.0"
+                android:text="5.0/5.0"
                 android:textSize="8pt" />
 
             <TextView

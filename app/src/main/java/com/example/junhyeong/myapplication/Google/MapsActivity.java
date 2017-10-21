@@ -43,7 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Typeface BMDOHYEON;
     private static final int MY_LOCATION_REQUEST_CODE = 1;
     private ImageView TelBtn, ReviewBtn, Nomap, FavorBtn;
-    private String store_address, store_call;
+    private String store_address, store_call, store_class;
     private int num, unlogin_value;
     Intent review;
     private Intent Popup_login;
@@ -71,10 +71,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //store_address = intent.getStringExtra("store_address");
 
         store_call = intent.getStringExtra("store_call"); //전화번호아이콘 만들어지면 사용
+        store_class = intent.getStringExtra("CRTFC_CLASS");
         final int store_id = intent.getIntExtra("store_id", 0);
         review.putExtra("store_id", store_id);
+        if(store_class.equals("00"))
+            store_class="해당사항 없음".toString();
 
-        store_call = intent.getStringExtra("store_call"); //전화번호아이콘 만들어지면 사용
+        if(store_class.substring(0,2).equals("01"))
+        {
+            store_class = store_class.replaceAll("01"," Lv.1");
+        }
+        else if(store_class.substring(0,2).equals("02"))
+        {
+            store_class = store_class.replaceAll("02"," Lv.2");
+        }
+        else if(store_class.substring(0,2).equals("03"))
+        {
+            store_class = store_class.replaceAll("03"," Lv.3");
+        }
+        else
+            store_class=" 해당사항 없음".toString();
+
         if (store_call.equals("") || store_call.equals(null)) {
             store_call = "정보를 제공하지 않습니다".toString();
         }
@@ -96,7 +113,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         x = intent.getDoubleExtra("X", 0.0);
         y = intent.getDoubleExtra("Y", 0.0);
 
-        final TextView tvStore_name, tvStore_address, tvStore_grade, title;
+        final TextView tvStore_name, tvStore_address, tvStore_grade, title, tvStore_class;
         title = (TextView) findViewById(R.id.textView9);
         title.setTypeface(BMDOHYEON);
 
@@ -195,9 +212,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         tvStore_name = (TextView) findViewById(R.id.textView6);
         tvStore_address = (TextView) findViewById(R.id.textView7);
         tvStore_grade = (TextView) findViewById(R.id.textView8);
+        tvStore_class = (TextView) findViewById(R.id.textView13);
 
         tvStore_name.setText(store_name);
         tvStore_grade.setText(store_grade);
+        tvStore_class.setText(store_class);
 
         //Log.d("Xvalue:", "Xvalue : " + x);
         //Log.d("Yvalue:", "Yvalue : " + y);

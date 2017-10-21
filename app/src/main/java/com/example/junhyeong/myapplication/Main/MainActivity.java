@@ -212,6 +212,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             ArrayList<Integer> ArrCTF_TYPE = new ArrayList<Integer>();
             ArrayList<String> ArrCTF_TYPE_NAME = new ArrayList<String>();
             ArrayList<String> ArrCTF_NAME = new ArrayList<String>();
+            ArrayList<String> ArrCRTFC_CLASS = new ArrayList<String>();
             final ArrayList<Double> ArrCTF_X = new ArrayList<Double>();
             final ArrayList<Double> ArrCTF_Y = new ArrayList<Double>();
             ArrayList<String> ArrCTF_ADDR = new ArrayList<String>();
@@ -229,6 +230,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 ArrData.add(response.optJSONArray("data").optJSONObject(i));
                 ArrCTF_NAME.add(ArrData.get(i).optString("CTF_NAME", "No Value"));
                 ArrCTF_TEL.add(ArrData.get(i).optString("CTF_TEL", "No Value"));
+                ArrCRTFC_CLASS.add(ArrData.get(i).optString("CRTFC_CLASS", "No Value"));
                 ArrCTF_X.add(ArrData.get(i).optDouble("CTF_X", 0.0));
                 ArrCTF_Y.add(ArrData.get(i).optDouble("CTF_Y", 0.0));
                 ArrCTF_CODE.add(ArrData.get(i).optInt("CTF_CODE",0));
@@ -247,6 +249,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 //s.setCTF_TYPE(ArrData.get(i).optInt("CTF_TYPE", 0));
                 s.setCTF_TYPE_NAME(ArrData.get(i).optString("CTF_TYPE_NAME", "No Value"));
                 s.setCTF_NAME(ArrData.get(i).optString("CTF_NAME", "No Value"));
+                s.setCRTFC_CLASS(ArrData.get(i).optString("CRTFC_CLASS","No Value"));
                 s.setCTF_X(ArrData.get(i).optDouble("CTF_X", 37.5652894));
                 s.setCTF_Y(ArrData.get(i).optDouble("CTF_Y", 126.8494668));
                 //s.setCTF_ADDR(ArrData.get(i).optString("CTF_ADDR", "No Value"));
@@ -284,6 +287,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     //intent.putExtra("store_address", arrayList.get((int) id).getCTF_ADDR());
                     intent.putExtra("store_grade", arrayList.get((int) id).getCTF_TYPE_NAME());
                     intent.putExtra("store_call", arrayList.get((int) id).getCTF_TEL());
+                    intent.putExtra("CRTFC_CLASS",arrayList.get((int) id).getCRTFC_CLASS());
                     intent.putExtra("X", arrayList.get((int) id).getCTF_X());
                     intent.putExtra("Y", arrayList.get((int) id).getCTF_Y());
                     intent.putExtra("store_id", arrayList.get((int) id).getCTF_CODE());
@@ -303,6 +307,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
             ArrayList<JSONObject> ArrData = new ArrayList<JSONObject>();
             ArrayList<Integer> CRTFC_UPSO_MGT_SNO = new ArrayList<Integer>();
             ArrayList<String> UPSO_NM = new ArrayList<String>();
+            ArrayList<String> CRTFC_CLASS = new ArrayList<String>();
             ArrayList<String> CGG_CODE_NM = new ArrayList<String>();
             ArrayList<String> COB_CODE_NM = new ArrayList<String>();
             ArrayList<String> BIZCND_CODE_NM = new ArrayList<String>();
@@ -333,6 +338,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 // 아이템 불러와..
                 ArrData.add(response.optJSONArray("data").optJSONObject(i));
                 UPSO_NM.add(ArrData.get(i).optString("UPSO_NM", "No Value"));
+                CRTFC_CLASS.add(ArrData.get(i).optString("CRTFC_CLASS", "No Value"));
                 TEL_NO.add(ArrData.get(i).optString("TEL_NO", "No Value"));
 
 
@@ -340,7 +346,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 Store2 s = new Store2();
 
                 s.setArrData2(response.optJSONArray("data").optJSONObject(i));
-
+                s.setCRTFC_CLASS(ArrData.get(i).optString("CRTFC_CLASS","No Value"));
                 s.setCRTFC_UPSO_MGT_SNO(ArrData.get(i).optInt("CRTFC_UPSO_MGT_SNO", 0));
                 s.setUPSO_NM((ArrData.get(i)).optString("UPSO_NM", "No Value"));
                 s.setCGG_CODE_NM((ArrData.get(i)).optString("CGG_CODE_NM", "No Value"));
@@ -403,6 +409,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     intent.putExtra("store_address", arrayList2.get((int) id).getRDN_DETAIL_ADDR());
                     intent.putExtra("store_grade", arrayList2.get((int) id).getCRTFC_GBN_NM());
                     intent.putExtra("store_call", arrayList2.get((int) id).getTEL_NO());
+                    intent.putExtra("CRTFC_CLASS", arrayList2.get((int) id).getCRTFC_CLASS());
                     intent.putExtra("X", arrayList2.get((int) id).getY_DNTS());
                     intent.putExtra("Y", arrayList2.get((int) id).getX_CNTS());
                     intent.putExtra("store_id", arrayList2.get((int) id).getCRTFC_UPSO_MGT_SNO());
