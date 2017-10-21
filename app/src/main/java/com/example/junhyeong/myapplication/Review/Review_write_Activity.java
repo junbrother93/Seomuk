@@ -1,7 +1,6 @@
 package com.example.junhyeong.myapplication.Review;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +8,6 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -48,8 +46,7 @@ public class Review_write_Activity extends Activity {
         intent = getIntent();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup_review);
-
-
+        
         rating = (RatingBar) findViewById(R.id.ratingBar);
         ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
         ReviewBody = (EditText) findViewById(R.id.ReviewBody);

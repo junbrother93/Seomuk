@@ -9,10 +9,10 @@ import org.json.JSONObject;
 public class Store implements Comparable<Store> {
     JSONObject ArrData;
     int CTF_CODE, CTF_TYPE;
-    String CTF_TYPE_NAME, CTF_NAME, CTF_ADDR, CTF_TEL;
+    String CTF_TYPE_NAME, CTF_NAME, CTF_ADDR, CTF_TEL, CRTFC_CLASS;
     double CTF_X, CTF_Y;
 
-    public void setData(JSONObject DATA, int CODE, int TYPE, String TYPE_NAME, String NAME, double X, double Y, String ADDR, String TEL) {
+    public void setData(JSONObject DATA, int CODE, int TYPE, String TYPE_NAME, String NAME, double X, double Y, String ADDR, String TEL,String CLASS) {
         setArrData(DATA);
         setCTF_CODE(CODE);
         setCTF_TYPE(TYPE);
@@ -22,6 +22,7 @@ public class Store implements Comparable<Store> {
         setCTF_Y(Y);
         setCTF_ADDR(ADDR);
         setCTF_TEL(TEL);
+        setCRTFC_CLASS(CLASS);
     }
 
     public void setArrData(JSONObject Data) {
@@ -51,6 +52,8 @@ public class Store implements Comparable<Store> {
     public void setCTF_TEL(String TEL) {
         CTF_TEL = TEL;
     }
+    public void setCRTFC_CLASS(String CLASS){CRTFC_CLASS = CLASS;}
+
     public Store getData1() {
         return this;
     }
@@ -85,6 +88,10 @@ public class Store implements Comparable<Store> {
     public String getCTF_TEL()
     {
         return CTF_TEL;
+    }
+    public String getCRTFC_CLASS()
+    {
+        return CRTFC_CLASS;
     }
 
     public int compareTo(Store store)

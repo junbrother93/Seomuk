@@ -39,7 +39,6 @@ public class Review_modification_Activity extends Activity {
         user_id = intent.getIntExtra("review_user_id", 0);
 
 
-
         ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
         ReviewBody = (EditText) findViewById(R.id.ReviewBody);
         btnModification = (Button) findViewById(R.id.YesBtn);
