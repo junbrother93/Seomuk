@@ -155,6 +155,7 @@ public class Select_MyPage_Activity extends Activity {
                 final ArrayList<Integer> ArrScore = new ArrayList<Integer>();
                 final ArrayList<Integer> ArrIndex = new ArrayList<Integer>();
                 final ArrayList<Integer> ArrUser_id = new ArrayList<Integer>();
+                final ArrayList<Integer> ArrStore_id = new ArrayList<Integer>();
 
 
                 // 리스트뷰랑 어댑터..
@@ -175,7 +176,7 @@ public class Select_MyPage_Activity extends Activity {
                     ArrScore.add(ArrReviewData.get(i).optInt("score", 0));
                     ArrIndex.add(ArrReviewData.get(i).optInt("id", 0));
                     ArrUser_id.add(ArrReviewData.get(i).optInt("UserId", 0));
-
+                    ArrStore_id.add(ArrReviewData.get(i).optInt("StoreId", 0));
 
                     Review s = new Review();
 
@@ -186,6 +187,8 @@ public class Select_MyPage_Activity extends Activity {
                     s.setScore(ArrReviewData.get(i).optInt("score", 0));
                     s.setReview_id(ArrReviewData.get(i).optInt("id", 0));
                     s.setUser_id(ArrReviewData.get(i).optInt("UserId", 0));
+                    s.setStore_id(ArrReviewData.get(i).optInt("StoreId", 0));
+
                     ReviewArrayList.add(s);
                 }
                 // 정렬
@@ -213,7 +216,8 @@ public class Select_MyPage_Activity extends Activity {
                             intent.putExtra("review_score", ReviewArrayList.get((int) id).getScore());
                             intent.putExtra("review_index", ReviewArrayList.get((int) id).getReview_id());
                             intent.putExtra("review_user_id", ReviewArrayList.get((int) id).getUser_id());
-                            startActivity(intent);
+                            intent.putExtra("review_store_id", ReviewArrayList.get((int) id).getStore_id());
+                            startActivityForResult(intent, 0);
                         }
                     });
                 }
