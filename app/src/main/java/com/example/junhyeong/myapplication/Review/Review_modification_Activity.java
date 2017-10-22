@@ -16,14 +16,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Select.Select_MyPage_Activity;
-
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +34,7 @@ public class Review_modification_Activity extends Activity {
     EditText ReviewTitle, ReviewBody;
     Button btnModification, btnClose;
     Intent intent, ActMypage;
-    String title, body;
+    String title, body, s;
     int index, user_id, width, height, score, store_id;
     RatingBar rating;
     TextView Value;
@@ -62,6 +59,7 @@ public class Review_modification_Activity extends Activity {
         btnModification = (Button) findViewById(R.id.YesBtn);
         btnClose = (Button) findViewById(R.id.NoBtn);
         rating = (RatingBar) findViewById(R.id.ratingBar);
+        Value = (TextView)findViewById(R.id.Value);
 
 
         /*
@@ -93,6 +91,18 @@ public class Review_modification_Activity extends Activity {
             }
         });
         */
+        rating.setRating(score);
+
+        if(score==1)
+            Value.setText("1.0 ");
+        else if(score==2)
+            Value.setText("2.0 ");
+        else if(score==3)
+            Value.setText("3.0 ");
+        else if(score==4)
+            Value.setText("4.0 ");
+        else
+            Value.setText("5.0 ");
 
         ReviewTitle.setText(title);
         ReviewBody.setText(body);
