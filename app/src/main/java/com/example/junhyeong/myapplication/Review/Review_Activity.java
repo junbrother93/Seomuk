@@ -49,6 +49,7 @@ public class Review_Activity extends Activity {
         Review_Write = new Intent(this,Review_write_Activity.class);
         Popup_login = new Intent(this, PopupActivity_Login.class);
         Review_Write.putExtra("store_id", store_id);
+        Review_Write.putExtra("classify", classify);
 
         ReviewBtn2.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -181,7 +181,6 @@ public class LoginActivity extends Activity {
     protected void redirectPopupActivity_Description() {
         final Intent intent = new Intent(this, PopupActivity_Description.class);
         startActivity(intent);
-        finish();
     }
 
 

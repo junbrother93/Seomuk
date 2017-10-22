@@ -10,9 +10,9 @@ public class Review implements Comparable<Review> {
     JSONObject ArrReviewData;
     String title, body, store_name;
     int review_id, user_id;
-    double score;
+    int score;
 
-    public void setData(JSONObject DATA, String Title, String Body, String Storename, double Score, int Index, int User_id) {
+    public void setData(JSONObject DATA, String Title, String Body, String Storename, int Score, int Index, int User_id) {
         setArrReviewData(DATA);
         setTitle(Title);
         setBody(Body);
@@ -32,7 +32,7 @@ public class Review implements Comparable<Review> {
         body = Body;
     }
     public void setStore_name(String Storename) {store_name = Storename;}
-    public void setScore(double Score){
+    public void setScore(int Score){
         score = Score;
     }
     public void setReview_id(int Index){
@@ -53,7 +53,7 @@ public class Review implements Comparable<Review> {
     }
     public String getBody() {return body;}
     public String getStore_name() {return store_name;}
-    public double getScore() {return score;}
+    public int getScore() {return score;}
     public int getReview_id() {return review_id;}
     public int getUser_id() {return user_id;}
 

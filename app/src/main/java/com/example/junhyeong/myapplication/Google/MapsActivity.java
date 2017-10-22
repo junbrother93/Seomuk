@@ -71,11 +71,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         store_name = intent.getStringExtra("store_name");
         store_grade = intent.getStringExtra("store_grade");
         classify = intent.getStringExtra("classify");
-        try {
-            classify = URLEncoder.encode(classify, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+
         //store_address = intent.getStringExtra("store_address");
 
         store_call = intent.getStringExtra("store_call"); //전화번호아이콘 만들어지면 사용
@@ -83,7 +79,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         review.putExtra("store_id", store_id);
 
         store_call = intent.getStringExtra("store_call"); //전화번호아이콘 만들어지면 사용
-        if (store_call.equals(" ") || store_call.equals(null)) {
+        if (store_call.equals("") || store_call.equals(null)) {
             store_call = "정보를 제공하지 않습니다".toString();
         }
         store_call = store_call.replaceAll("\\p{Z}", "");

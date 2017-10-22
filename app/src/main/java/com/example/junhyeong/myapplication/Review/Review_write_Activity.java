@@ -18,10 +18,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.R;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +43,7 @@ public class Review_write_Activity extends Activity {
     int score;
     String strReviewTitle;
     String strReviewBody;
+    String classify;
     Intent intent;
     int width;
     Display display;
@@ -46,9 +52,10 @@ public class Review_write_Activity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         intent = getIntent();
+        classify = intent.getStringExtra("classify");
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup_review);
-
 
         rating = (RatingBar) findViewById(R.id.ratingBar);
         ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
@@ -94,7 +101,7 @@ public class Review_write_Activity extends Activity {
                 StringRequest reviewWriteRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("reviewWriteResponse", response);
+                        Log.d("reviewWriteResponse", "" + response);
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -108,7 +115,7 @@ public class Review_write_Activity extends Activity {
                         Map<String, String> params = new HashMap<>();
                         params.put("title", strReviewTitle);
                         params.put("text", strReviewBody);
-                        params.put("classify", "안심");
+                        params.put("classify", classify);
                         params.put("user_id", String.valueOf(GUserID.getGlobalUserID()));
                         params.put("store_id", String.valueOf(store_id));
                         params.put("score", String.valueOf(score));
@@ -116,6 +123,7 @@ public class Review_write_Activity extends Activity {
 
                         return params;
                     }
+
                 };
                 requestQueue.add(reviewWriteRequest);
                 finish();

@@ -152,7 +152,7 @@ public class Select_MyPage_Activity extends Activity {
                 final ArrayList<String> ArrTitle = new ArrayList<String>();
                 final ArrayList<String> ArrBody = new ArrayList<String>();
                 final ArrayList<String> ArrStoreName = new ArrayList<String>();
-                final ArrayList<Double> ArrScore = new ArrayList<Double>();
+                final ArrayList<Integer> ArrScore = new ArrayList<Integer>();
                 final ArrayList<Integer> ArrIndex = new ArrayList<Integer>();
                 final ArrayList<Integer> ArrUser_id = new ArrayList<Integer>();
 
@@ -170,24 +170,22 @@ public class Select_MyPage_Activity extends Activity {
 
                     ArrReviewData.add(response.optJSONArray("data").optJSONObject(i));
                     ArrTitle.add(ArrReviewData.get(i).optString("title", "No Value"));
-                    //ArrBody.add(ArrReviewData.get(i).optString("body", "No Value"));
                     ArrBody.add(ArrReviewData.get(i).optString("text", "No Value"));
-                    ArrStoreName.add(ArrReviewData.get(i).optString("store_name", "No Value"));
-                    ArrScore.add(ArrReviewData.get(i).optDouble("score", 0.0));
-                    ArrIndex.add(ArrReviewData.get(i).optInt("index", 0));
-                    ArrUser_id.add(ArrReviewData.get(i).optInt("user_id", 0));
+                    ArrStoreName.add(ArrReviewData.get(i).optString("storename", "No Value"));
+                    ArrScore.add(ArrReviewData.get(i).optInt("score", 0));
+                    ArrIndex.add(ArrReviewData.get(i).optInt("id", 0));
+                    ArrUser_id.add(ArrReviewData.get(i).optInt("UserId", 0));
 
 
                     Review s = new Review();
 
                     s.setArrReviewData(response.optJSONArray("data").optJSONObject(i));
                     s.setTitle(ArrReviewData.get(i).optString("title", "No value"));
-                    //s.setBody(ArrReviewData.get(i).optString("body", "No value"));
                     s.setBody(ArrReviewData.get(i).optString("text", "No value"));
-                    s.setStore_name(ArrReviewData.get(i).optString("store_name", "No value"));
-                    s.setScore(ArrReviewData.get(i).optDouble("score", 0.0));
-                    s.setReview_id(ArrReviewData.get(i).optInt("index", 0));
-                    s.setUser_id(ArrReviewData.get(i).optInt("user_id", 0));
+                    s.setStore_name(ArrReviewData.get(i).optString("storename", "No value"));
+                    s.setScore(ArrReviewData.get(i).optInt("score", 0));
+                    s.setReview_id(ArrReviewData.get(i).optInt("id", 0));
+                    s.setUser_id(ArrReviewData.get(i).optInt("UserId", 0));
                     ReviewArrayList.add(s);
                 }
                 // 정렬
