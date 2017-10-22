@@ -11,7 +11,22 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.R;
+import com.example.junhyeong.myapplication.Select.Select_MyPage_Activity;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by yeonjin on 2017-09-28.
@@ -21,10 +36,9 @@ public class Review_modification_Activity extends Activity {
 
     EditText ReviewTitle, ReviewBody;
     Button btnModification, btnClose;
-    Intent intent;
+    Intent intent, ActMypage;
     String title, body;
-    int index, user_id, width, height;
-    int score;
+    int index, user_id, width, height, score, store_id;
     RatingBar rating;
     TextView Value;
 
@@ -33,14 +47,15 @@ public class Review_modification_Activity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup_review);
         intent = getIntent();
-
+        ActMypage = new Intent(this, Select_MyPage_Activity.class);
         title = intent.getStringExtra("review_title");
         body = intent.getStringExtra("review_body");
         score = intent.getIntExtra("review_score", 0);
         index = intent.getIntExtra("review_index", 0);
         user_id = intent.getIntExtra("review_user_id", 0);
+        store_id = intent.getIntExtra("review_store_id", 0);
 
-        Log.d("modification_activity", title + body + score + index + user_id);
+        Log.d("modification_activity", title + " " + body + " " + score + " " + index + " " + user_id + " " + store_id);
 
         ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
         ReviewBody = (EditText) findViewById(R.id.ReviewBody);
@@ -90,7 +105,66 @@ public class Review_modification_Activity extends Activity {
         btnModification.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                StringRequest reviewStoreRequest = new StringRequest(Request.Method.DELETE, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("reviewDeleteResponse", response.toString());
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("reviewDeleteResponse", ""+error);
+                    }
 
+                }) {
+                    @Override
+                    public Map getHeaders() throws AuthFailureError {
+                        Map params = new HashMap();
+                        params.put("user_id", Integer.toString(user_id));
+                        params.put("review_id", Integer.toString(index));
+                        return params;
+                    }
+                };
+                requestQueue.add(reviewStoreRequest);
+
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                StringRequest reviewWriteRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("reviewReWriteResponse", "" + response);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("reviewReWriteError", error.toString());
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        GlobalApplication GUserID = (GlobalApplication) getApplication();
+                        Map<String, String> params = new HashMap<>();
+                        params.put("title", ReviewTitle.getText().toString());
+                        params.put("text", ReviewBody.getText().toString());
+                        params.put("classify", "인증");
+                        params.put("user_id", String.valueOf(GUserID.getGlobalUserID()));
+                        params.put("store_id", String.valueOf(store_id));
+                        params.put("score", String.valueOf(score));
+                        Log.e("body", "body" + params);
+
+                        return params;
+                    }
+
+                };
+                requestQueue.add(reviewWriteRequest);
+
+                setResult(RESULT_OK, ActMypage);
+                finish();
             }
         });
         btnClose.setOnClickListener(new View.OnClickListener() {
