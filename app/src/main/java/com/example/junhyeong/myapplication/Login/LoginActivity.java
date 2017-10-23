@@ -212,6 +212,13 @@ public class LoginActivity extends Activity {
         };
         requestQueue.add(Facebook_sign_up_Request);
 
+        // 서버간의 통신 텀을 줌
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         JsonObjectRequest Facebook_sign_in_Request = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/user/sign_in", new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
