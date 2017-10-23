@@ -59,8 +59,7 @@
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
         <activity android:name=".Popup.PopupActivity_Explain"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
-        <activity android:name=".Select.My_Favor_Activity"/>
-        <activity android:name=".Select.My_Review_Activity"/>
+
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />

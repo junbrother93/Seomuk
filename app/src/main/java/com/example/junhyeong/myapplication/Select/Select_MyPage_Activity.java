@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -45,6 +46,7 @@ public class Select_MyPage_Activity extends Activity {
     private Intent PopLogout, intent;
     int num_favor, num_review, total, store_id;
     String classify;
+    private ViewPager mPager;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,85 +64,88 @@ public class Select_MyPage_Activity extends Activity {
         favor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                favor.setImageResource(R.drawable.star_click);
-                review.setImageResource(R.drawable.mypage_review);
+               if(num_favor==0) {
+                   favor.setImageResource(R.drawable.star_click);
+                   review.setImageResource(R.drawable.mypage_review);
+                   num_favor=0;
+               }
+
             }
         });
         review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                favor.setImageResource(R.drawable.star);
-                review.setImageResource(R.drawable.mypage_review_click);
-                num_favor = 0;
-            }
-        });
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(PopLogout);
-
-            }
-        });
-
-        final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
-        // 즐겨찾기
-
-        JsonObjectRequest checkBookmarkRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/checkbm", new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("checkBookmark", response.toString());
-                //total = 1;
-                //store_id = 8888;
-                // response.optInt("total", 0);
-                // for() 문을 이용해 total 값만큼 수행
-
-                for (int i = 0; i < total; i++) {
-                    JsonObjectRequest addStoreInfoRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/auth/" + store_id, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            Log.d("addStoreInfoResponse", response.toString());
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.e("addStoreInfoError", error.toString());
-                        }
-
-                    }) {
-                        @Override
-                        public Map getHeaders() throws AuthFailureError {
-                            Map params = new HashMap();
-                            GlobalApplication GUserID = (GlobalApplication) getApplication();
-                            params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
-                            return params;
-                        }
-                    };
-                    requestQueue.add(addStoreInfoRequest);
+                if(num_review==0) {
+                    favor.setImageResource(R.drawable.star);
+                    review.setImageResource(R.drawable.mypage_review_click);
+                    num_favor=0;
                 }
 
             }
-        }, new Response.ErrorListener() {
+        });
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("checkBookmarkError", error.toString());
+            public void onClick(View v) {
+              startActivity(PopLogout);
+            }
+        });
+
+    final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+    // 즐겨찾기
+
+    JsonObjectRequest checkBookmarkRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/checkbm", new Response.Listener<JSONObject>() {
+        @Override
+        public void onResponse(JSONObject response) {
+            Log.d("checkBookmark", response.toString());
+            //total = 1;
+            //store_id = 8888;
+            // response.optInt("total", 0);
+            // for() 문을 이용해 total 값만큼 수행
+
+            for (int i = 0; i < total; i++) {
+                JsonObjectRequest addStoreInfoRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/auth/" + store_id, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("addStoreInfoResponse", response.toString());
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("addStoreInfoError", error.toString());
+                    }
+
+                }) {
+                    @Override
+                    public Map getHeaders() throws AuthFailureError {
+                        Map params = new HashMap();
+                        GlobalApplication GUserID = (GlobalApplication) getApplication();
+                        params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
+                        return params;
+                    }
+                };
+                requestQueue.add(addStoreInfoRequest);
             }
 
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                GlobalApplication GUserID = (GlobalApplication) getApplication();
-                Map<String, String> params = new HashMap<>();
-                params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
+        }
+    }, new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Log.e("checkBookmarkError", error.toString());
+        }
 
-                return params;
-            }
-        };
+    }) {
+        @Override
+        protected Map<String, String> getParams() {
+            GlobalApplication GUserID = (GlobalApplication) getApplication();
+            Map<String, String> params = new HashMap<>();
+            params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
+
+            return params;
+        }
+    };
         requestQueue.add(checkBookmarkRequest);
 
-
-        // 리뷰
 
         JsonObjectRequest getReviewRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/review/user", new Response.Listener<JSONObject>() {
             @Override
@@ -238,5 +243,7 @@ public class Select_MyPage_Activity extends Activity {
             }
         };
         requestQueue.add(getReviewRequest);
-    }
+
 }
+}
+

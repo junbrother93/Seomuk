@@ -45,7 +45,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     private ArrayList<Store2> arrayList2;
     private IndexableListView listview;
     private int Login;
-    private Intent Popup_Location, Popup_Menu, Popup_Login, Popup_Explain, Activity_MyPage;
+    private Intent Popup_Location, Popup_Menu, Popup_Login, Popup_Explain, Activity_MyPage,Activity_review, Activity_favor;
     private Typeface Tmon;
     private String menu, local, url, classify;
     private int total;
