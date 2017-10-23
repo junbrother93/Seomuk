@@ -38,7 +38,7 @@ import java.util.Map;
 public class Review_modification_Activity extends Activity {
 
     EditText ReviewTitle, ReviewBody;
-    Button btnModification, btnClose;
+    Button btnModification, btnDelete, btnClose;
     Intent intent, ActMypage;
     String title, body;
     int index, user_id, width, height, score, store_id;
@@ -48,7 +48,7 @@ public class Review_modification_Activity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_popup_review);
+        setContentView(R.layout.activity_popup_review_modification);
         intent = getIntent();
         ActMypage = new Intent(this, Select_MyPage_Activity.class);
         title = intent.getStringExtra("review_title");
@@ -62,8 +62,9 @@ public class Review_modification_Activity extends Activity {
 
         ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
         ReviewBody = (EditText) findViewById(R.id.ReviewBody);
-        btnModification = (Button) findViewById(R.id.YesBtn);
-        btnClose = (Button) findViewById(R.id.NoBtn);
+        btnModification = (Button) findViewById(R.id.btnModification);
+        btnDelete = (Button) findViewById(R.id.btnDelete);
+        btnClose = (Button) findViewById(R.id.btnClose);
         rating = (RatingBar) findViewById(R.id.ratingBar);
 
 
@@ -100,16 +101,13 @@ public class Review_modification_Activity extends Activity {
         ReviewTitle.setText(title);
         ReviewBody.setText(body);
 
-        btnModification.setText("수정");
-        btnClose.setText("닫기");
-
         // 수정 클릭하면 수정 되도록 (수정 버튼 누르면 수정버튼은 확인 버튼으로, 닫기 버튼은 취소 버튼으로)
         // 닫기 클릭하면 닫도록
         btnModification.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                StringRequest reviewStoreRequest = new StringRequest(Request.Method.DELETE, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
+                StringRequest reviewDeleteRequest = new StringRequest(Request.Method.DELETE, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.d("reviewDeleteResponse", response.toString());
@@ -129,7 +127,7 @@ public class Review_modification_Activity extends Activity {
                         return params;
                     }
                 };
-                requestQueue.add(reviewStoreRequest);
+                requestQueue.add(reviewDeleteRequest);
 
                 try {
                     Thread.sleep(500);
@@ -167,6 +165,35 @@ public class Review_modification_Activity extends Activity {
                 requestQueue.add(reviewWriteRequest);
 
                 setResult(RESULT_OK, ActMypage);
+                finish();
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                StringRequest reviewDeleteRequest = new StringRequest(Request.Method.DELETE, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("reviewDeleteResponse", response.toString());
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("reviewDeleteResponse", ""+error);
+                    }
+
+                }) {
+                    @Override
+                    public Map getHeaders() throws AuthFailureError {
+                        Map params = new HashMap();
+                        params.put("user_id", Integer.toString(user_id));
+                        params.put("review_id", Integer.toString(index));
+                        return params;
+                    }
+                };
+                requestQueue.add(reviewDeleteRequest);
                 finish();
             }
         });
