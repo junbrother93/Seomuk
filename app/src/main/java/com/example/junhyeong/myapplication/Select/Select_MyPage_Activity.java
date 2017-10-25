@@ -18,13 +18,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.junhyeong.myapplication.Adapter.ListViewAdapter;
 import com.example.junhyeong.myapplication.Adapter.ListViewAdapter2;
 import com.example.junhyeong.myapplication.Data.Review;
+import com.example.junhyeong.myapplication.Data.Store;
+import com.example.junhyeong.myapplication.Data.Store3;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.Main.MainActivity;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Logout;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Review.Review_modification_Activity;
+import com.example.junhyeong.myapplication.widget.IndexableListView;
 import com.example.junhyeong.myapplication.widget.IndexableListView2;
 
 import org.json.JSONObject;
@@ -41,6 +45,7 @@ import java.util.Map;
 public class Select_MyPage_Activity extends Activity {
     private IndexableListView2 listview;
     private ArrayList<Review> ReviewArrayList;
+    private ArrayList<Store3> StoreArrayList;
     private ImageView warn;
     private ImageView favor, review, logout;
     private Intent PopLogout, intent;
@@ -64,21 +69,21 @@ public class Select_MyPage_Activity extends Activity {
         favor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if(num_favor==0) {
-                   favor.setImageResource(R.drawable.star_click);
-                   review.setImageResource(R.drawable.mypage_review);
-                   num_favor=0;
-               }
+                if (num_favor == 0) {
+                    favor.setImageResource(R.drawable.star_click);
+                    review.setImageResource(R.drawable.mypage_review);
+                    num_favor = 0;
+                }
 
             }
         });
         review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(num_review==0) {
+                if (num_review == 0) {
                     favor.setImageResource(R.drawable.star);
                     review.setImageResource(R.drawable.mypage_review_click);
-                    num_favor=0;
+                    num_favor = 0;
                 }
 
             }
@@ -86,64 +91,69 @@ public class Select_MyPage_Activity extends Activity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              startActivity(PopLogout);
+                startActivity(PopLogout);
             }
         });
 
-    final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-    // 즐겨찾기
+        // 즐겨찾기
 
-    JsonObjectRequest checkBookmarkRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/checkbm", new Response.Listener<JSONObject>() {
-        @Override
-        public void onResponse(JSONObject response) {
-            Log.d("checkBookmark", response.toString());
-            //total = 1;
-            //store_id = 8888;
-            // response.optInt("total", 0);
-            // for() 문을 이용해 total 값만큼 수행
+        JsonObjectRequest checkBookmarkRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/user/like", new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("checkBookmark", response.toString());
+                total = response.optInt("total");
+                StoreArrayList = new ArrayList<Store3>();
 
-            for (int i = 0; i < total; i++) {
-                JsonObjectRequest addStoreInfoRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/auth/" + store_id, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("addStoreInfoResponse", response.toString());
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("addStoreInfoError", error.toString());
-                    }
+                final ArrayList<JSONObject> ArrData = new ArrayList<JSONObject>();
+                ArrayList<String> name = new ArrayList<String>();
+                ArrayList<String> image = new ArrayList<String>();
+                ArrayList<String> classify = new ArrayList<String>();
+                ArrayList<Integer> StoreId = new ArrayList<Integer>();
 
-                }) {
-                    @Override
-                    public Map getHeaders() throws AuthFailureError {
-                        Map params = new HashMap();
-                        GlobalApplication GUserID = (GlobalApplication) getApplication();
-                        params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
-                        return params;
-                    }
-                };
-                requestQueue.add(addStoreInfoRequest);
+                // 리스트뷰랑 어댑터..
+                listview = (IndexableListView2) findViewById(R.id.listview2);
+                ListViewAdapter2 adapter = new ListViewAdapter2();
+                listview.setAdapter(adapter);
+                listview.setFastScrollEnabled(true);
+
+                for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
+                {
+                    // 아이템 불러와..
+                    ArrData.add(response.optJSONArray("data").optJSONObject(i));
+                    name.add(ArrData.get(i).optString("name", "No Value"));
+                    image.add(ArrData.get(i).optString("image", "No Value"));
+                    classify.add(ArrData.get(i).optString("classify", "No Value"));
+                    StoreId.add(ArrData.get(i).optInt("StoreId", 0));
+
+                    // 객체 추가
+                    Store3 s = new Store3();
+                    s.setArrData(response.optJSONArray("data").optJSONObject(i));
+                    s.setStoreId(ArrData.get(i).optInt("StoreId", 0));
+                    s.setName(ArrData.get(i).optString("name", "No Value"));
+                    s.setImage(ArrData.get(i).optString("image", "No Value"));
+                    s.setClassify(ArrData.get(i).optString("classify", "No Value"));
+                    StoreArrayList.add(s);
+                }
+                // 정렬
+                //Collections.sort(StoreArrayList);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("checkBookmarkError", error.toString());
             }
 
-        }
-    }, new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            Log.e("checkBookmarkError", error.toString());
-        }
-
-    }) {
-        @Override
-        protected Map<String, String> getParams() {
-            GlobalApplication GUserID = (GlobalApplication) getApplication();
-            Map<String, String> params = new HashMap<>();
-            params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
-
-            return params;
-        }
-    };
+        }) {
+            @Override
+            public Map getHeaders() throws AuthFailureError {
+                GlobalApplication GUserID = (GlobalApplication) getApplication();
+                Map params = new HashMap();
+                params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
+                return params;
+            }
+        };
         requestQueue.add(checkBookmarkRequest);
 
 
@@ -244,6 +254,6 @@ public class Select_MyPage_Activity extends Activity {
         };
         requestQueue.add(getReviewRequest);
 
-}
+    }
 }
 

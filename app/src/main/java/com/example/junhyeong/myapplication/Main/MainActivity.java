@@ -39,13 +39,13 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         Response.ErrorListener {
     public static final String REQUEST_TAG = "MainActivity";
     private RequestQueue mQueue;
-    private ImageView BtnLocalChange, BtnMenuChange, BtnMyPage, BtnInfo , Warn;
+    private ImageView BtnLocalChange, BtnMenuChange, BtnMyPage, BtnInfo, Warn;
     private TextView Text;
     private ArrayList<Store> arrayList;
     private ArrayList<Store2> arrayList2;
     private IndexableListView listview;
     private int Login;
-    private Intent Popup_Location, Popup_Menu, Popup_Login, Popup_Explain, Activity_MyPage,Activity_review, Activity_favor;
+    private Intent Popup_Location, Popup_Menu, Popup_Login, Popup_Explain, Activity_MyPage, Activity_review, Activity_favor;
     private Typeface Tmon;
     private String menu, local, url, classify;
     private int total;
@@ -55,7 +55,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Warn = (ImageView)findViewById(R.id.warn);
+        Warn = (ImageView) findViewById(R.id.warn);
         Tmon = Typeface.createFromAsset(this.getAssets(), "fonts/TmonMonsori.ttf.ttf");
 
         mQueue = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
@@ -63,13 +63,13 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         Popup_Location = new Intent(this, PopupActivity_Local.class);
         Popup_Menu = new Intent(this, PopupActivity_Menu.class);
         Popup_Login = new Intent(this, PopupActivity_Login.class);
-        Popup_Explain = new Intent(this,PopupActivity_Explain.class);
+        Popup_Explain = new Intent(this, PopupActivity_Explain.class);
         Activity_MyPage = new Intent(this, Select_MyPage_Activity.class);
 
         BtnLocalChange = (ImageView) findViewById(R.id.Location); // 네비게이션바에 있는 "지역" 버튼
-        BtnMenuChange = (ImageView)findViewById(R.id.Menu);
-        BtnMyPage = (ImageView)findViewById((R.id.MyPage));
-        BtnInfo = (ImageView)findViewById(R.id.info);
+        BtnMenuChange = (ImageView) findViewById(R.id.Menu);
+        BtnMyPage = (ImageView) findViewById((R.id.MyPage));
+        BtnInfo = (ImageView) findViewById(R.id.info);
 
         Text = (TextView) findViewById(R.id.Text); // 글씨바뀌는건 위의 mButton 버튼
         Text.setTypeface(Tmon);
@@ -78,7 +78,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
 
         menu = intent.getStringExtra("menu");
         local = intent.getStringExtra("local");
-        Login = intent.getIntExtra("mypage",0);
+        Login = intent.getIntExtra("mypage", 0);
 
         // url 설정 전에 local, menu 값을 인코딩 하고 url 설정 후 다시 디코딩
         try {
@@ -87,7 +87,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        url = "http://13.124.127.124:3000/auth/menu/"+menu.toString()+"/loc/"+local.toString();
+        url = "http://13.124.127.124:3000/auth/menu/" + menu.toString() + "/loc/" + local.toString();
         try {
             menu = URLDecoder.decode(menu, "UTF-8");
             local = URLDecoder.decode(local, "UTF-8");
@@ -97,20 +97,19 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         //
 
 
-
         // 안심 먹거리일경우
-        if(menu.toString().equals("food")) {
-            classify = "안심";
+        if (menu.toString().equals("food")) {
+            classify = "safe";
             url = "http://13.124.127.124:3000/food/loc/" + local.toString();
         }
 
         // 안심 먹거리가 아닐 경우
         else
-            classify = "인증";
+            classify = "auth";
 
-        Popup_Menu.putExtra("local",local);
+        Popup_Menu.putExtra("local", local);
         setResult(RESULT_OK, Popup_Menu);
-        Popup_Location.putExtra("menu",menu);
+        Popup_Location.putExtra("menu", menu);
         setResult(RESULT_OK, Popup_Location);
 
         jsonRequest(local, url);
@@ -135,7 +134,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         BtnMyPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Login == 1)
+                if (Login == 1)
                     startActivity(Popup_Login);
                 else {
                     startActivity(Activity_MyPage);
@@ -163,8 +162,8 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         menu = data.getStringExtra("menu");
 
         // 안심먹거리인 경우
-        if(menu.toString().equals("food")) {
-            classify = "안심";
+        if (menu.toString().equals("food")) {
+            classify = "safe";
 
             // url 설정 전에는 local 값 인코딩 하고 url 전송 후에 다시 디코딩
             try {
@@ -182,11 +181,11 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
 
         // 안심먹거리가 아닌경우
         else
-            classify = "인증";
+            classify = "auth";
 
-        Popup_Location.putExtra("menu",menu);
+        Popup_Location.putExtra("menu", menu);
         setResult(RESULT_OK, Popup_Location);
-        Popup_Menu.putExtra("local",local);
+        Popup_Menu.putExtra("local", local);
         setResult(RESULT_OK, Popup_Menu);
 
         jsonRequest(local, url);
@@ -206,7 +205,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         total = response.optInt("total", 0);    // 총 갯수
         Log.d("total", "" + total);
         // 안심먹거리일 경우
-        if (classify == "안심") {
+        if (classify == "safe") {
             arrayList = new ArrayList<Store>();
 
             // 리스트 생성
@@ -237,6 +236,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 ArrCTF_X.add(ArrData.get(i).optDouble("CTF_X", 0.0));
                 ArrCTF_Y.add(ArrData.get(i).optDouble("CTF_Y", 0.0));
                 ArrCTF_CODE.add(ArrData.get(i).optInt("CTF_CODE", 0));
+                ArrCTF_TYPE_NAME.add(ArrData.get(i).optString("CTF_TYPE_NAME", "No Value"));
 
                 // 쓸지 안쓸지 결정해야함
                 /*
@@ -249,10 +249,10 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 Store s = new Store();
                 s.setArrData(response.optJSONArray("data").optJSONObject(i));
                 s.setCTF_CODE(ArrData.get(i).optInt("CTF_CODE", 0));
-                //s.setCTF_TYPE(ArrData.get(i).optInt("CTF_TYPE", 0));
+                s.setCTF_TYPE(ArrData.get(i).optInt("CTF_TYPE", 0));
                 s.setCTF_TYPE_NAME(ArrData.get(i).optString("CTF_TYPE_NAME", "No Value"));
                 s.setCTF_NAME(ArrData.get(i).optString("CTF_NAME", "No Value"));
-                s.setCRTFC_CLASS(ArrData.get(i).optString("CRTFC_CLASS","No Value"));
+                s.setCRTFC_CLASS(ArrData.get(i).optString("CRTFC_CLASS", "No Value"));
                 s.setCTF_X(ArrData.get(i).optDouble("CTF_X", 37.5652894));
                 s.setCTF_Y(ArrData.get(i).optDouble("CTF_Y", 126.8494668));
                 //s.setCTF_ADDR(ArrData.get(i).optString("CTF_ADDR", "No Value"));
@@ -288,7 +288,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     //intent.putExtra("store_address", arrayList.get((int) id).getCTF_ADDR());
                     intent.putExtra("store_grade", arrayList.get((int) id).getCTF_TYPE_NAME());
                     intent.putExtra("store_call", arrayList.get((int) id).getCTF_TEL());
-                    intent.putExtra("CRTFC_CLASS",arrayList.get((int) id).getCRTFC_CLASS());
+                    intent.putExtra("CRTFC_CLASS", arrayList.get((int) id).getCRTFC_CLASS());
                     intent.putExtra("X", arrayList.get((int) id).getCTF_X());
                     intent.putExtra("Y", arrayList.get((int) id).getCTF_Y());
                     intent.putExtra("store_id", arrayList.get((int) id).getCTF_CODE());
@@ -346,7 +346,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 Store2 s = new Store2();
 
                 s.setArrData2(response.optJSONArray("data").optJSONObject(i));
-                s.setCRTFC_CLASS(ArrData.get(i).optString("CRTFC_CLASS","No Value"));
+                s.setCRTFC_CLASS(ArrData.get(i).optString("CRTFC_CLASS", "No Value"));
                 s.setCRTFC_UPSO_MGT_SNO(ArrData.get(i).optInt("CRTFC_UPSO_MGT_SNO", 0));
                 s.setUPSO_NM((ArrData.get(i)).optString("UPSO_NM", "No Value"));
                 s.setCGG_CODE_NM((ArrData.get(i)).optString("CGG_CODE_NM", "No Value"));
@@ -417,12 +417,9 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                         startActivity(intent);
                     }
                 });
-
-            }
-
-
             }
         }
+    }
 
     protected void jsonRequest(String local, String url) {
         final PodJsonRequest jsonRequest = new PodJsonRequest(Request.Method.GET, url, new JSONObject(), MainActivity.this, MainActivity.this);

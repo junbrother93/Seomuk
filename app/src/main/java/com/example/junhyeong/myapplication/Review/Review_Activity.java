@@ -32,7 +32,7 @@ public class Review_Activity extends Activity {
     ImageView ReviewBtn2;
     Intent intent,Review_Write, Popup_login;
     int store_id, unlogin_value;
-    String classify;
+    String classify, image;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +42,7 @@ public class Review_Activity extends Activity {
         unlogin_value = intent.getIntExtra("mypage",0);
         store_id = intent.getIntExtra("store_id", 0);
         classify = intent.getStringExtra("classify");
-
+        image = intent.getStringExtra("store_grade");
 
 
         ReviewBtn2 = (ImageView)findViewById(R.id.ReviewBtn2);
@@ -66,10 +66,10 @@ public class Review_Activity extends Activity {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
 
-        JsonObjectRequest reviewStoreRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/review/food", new Response.Listener<JSONObject>() {
+        JsonObjectRequest reviewStoreRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/review/store", new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("reviewResponse", response.toString());
+                Log.d("reviewResponse", ""+response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -81,8 +81,10 @@ public class Review_Activity extends Activity {
             @Override
             public Map getHeaders() throws AuthFailureError {
                 Map params = new HashMap();
-                params.put("store_id", store_id);
+                params.put("store_id", Integer.toString(store_id));
                 params.put("classify", classify);
+
+                Log.d("storeReviewParams", ""+params);
                 return params;
             }
         };

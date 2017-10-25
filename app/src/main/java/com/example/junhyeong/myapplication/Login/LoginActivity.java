@@ -67,7 +67,9 @@ public class LoginActivity extends Activity {
         //for kakao
         callback = new SessionCallback();
         Session.getCurrentSession().addCallback(callback);
-        //Session.getCurrentSession().checkAndImplicitOpen();
+
+        // 카카오톡 로그인 되어있으면 로그인
+        Session.getCurrentSession().checkAndImplicitOpen();
 
         //for facebook
         callbackManager = CallbackManager.Factory.create();

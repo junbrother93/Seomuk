@@ -59,6 +59,8 @@ public class Review_write_Activity extends Activity {
         ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
         ReviewBody = (EditText) findViewById(R.id.ReviewBody);
         Value = (TextView) findViewById(R.id.Value);
+
+        score = 1;
         rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -94,6 +96,11 @@ public class Review_write_Activity extends Activity {
                 store_id = intent.getIntExtra("store_id", 0);
                 strReviewTitle = ReviewTitle.getText().toString();
                 strReviewBody = ReviewBody.getText().toString();
+
+                if(strReviewTitle.equals("") || strReviewBody.equals(""))
+                {
+
+                }
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 StringRequest reviewWriteRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
