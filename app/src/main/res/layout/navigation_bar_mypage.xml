@@ -5,18 +5,20 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/Review"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:onClick="onClick"
+        android:src="@drawable/mypage_review"/>
+    <ImageView
         android:id="@+id/Favorite"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:onClick="onClick"
         android:src="@drawable/star"/>
-    <ImageView
-        android:id="@+id/Riview"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:src="@drawable/mypage_review"/>
+
 
 
 

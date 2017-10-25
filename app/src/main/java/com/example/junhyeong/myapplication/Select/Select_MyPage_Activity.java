@@ -42,7 +42,7 @@ import java.util.Map;
  * Created by yeonjin on 2017-09-26.
  */
 
-public class Select_MyPage_Activity extends Activity {
+public class Select_MyPage_Activity extends Activity implements View.OnClickListener{
     private IndexableListView2 listview;
     private ArrayList<Review> ReviewArrayList;
     private ImageView warn;
@@ -59,15 +59,17 @@ public class Select_MyPage_Activity extends Activity {
         num_review = 0;
         warn = (ImageView) findViewById(R.id.warn2);
         favor = (ImageView) findViewById(R.id.Favorite);
-        review = (ImageView) findViewById(R.id.Riview);
+        review = (ImageView) findViewById(R.id.Review);
         logout = (ImageView) findViewById(R.id.logout);
         PopLogout = new Intent(this, PopupActivity_Logout.class);
         intent = new Intent(this, MainActivity.class);
         classify = intent.getStringExtra("classify");
 
+        setLayout();
+
         mPager = (ViewPager)findViewById(R.id.pager_mypage);
         mPager.setAdapter(new PagerAdapterClass(getApplicationContext()));
-
+/*
         favor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +92,7 @@ public class Select_MyPage_Activity extends Activity {
 
             }
         });
+        */
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -252,12 +255,47 @@ public class Select_MyPage_Activity extends Activity {
         requestQueue.add(getReviewRequest);
 
 }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.Review:
+                setCurrentInflateItem(0);
+                break;
+            case R.id.Favorite:
+                setCurrentInflateItem(1);
+                break;
+        }
+    }
+
     private void setCurrentInflateItem(int type){
         if(type==0){
             mPager.setCurrentItem(0);
         }else
             mPager.setCurrentItem(1);
     }
+
+    private void setLayout(){
+
+        favor.setOnClickListener(this);
+        review.setOnClickListener(this);
+    }
+
+
+    private View.OnClickListener mPagerListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.Favorite:
+                    favor.setImageResource(R.drawable.star_click);
+                    review.setImageResource(R.drawable.mypage_review);
+                    break;
+                case R.id.Review:
+                    favor.setImageResource(R.drawable.star);
+                    review.setImageResource(R.drawable.mypage_review_click);
+                    break;
+            }
+        }
+    };
 
     /**
      * PagerAdapter
@@ -271,6 +309,8 @@ public class Select_MyPage_Activity extends Activity {
             mInflater = LayoutInflater.from(c);
         }
 
+
+
         @Override
         public int getCount() {
             return 2;
@@ -281,13 +321,17 @@ public class Select_MyPage_Activity extends Activity {
             View v = null;
             if(position==0){
                 v = mInflater.inflate(R.layout.inflate_review, null);
+                review.setOnClickListener(mPagerListener);
             }
-            else
+            else {
                 v = mInflater.inflate(R.layout.activity_location, null);
-            ((ViewPager)pager).addView(v, 0);
+                favor.setOnClickListener(mPagerListener);
+            }
+                ((ViewPager)pager).addView(v, 0);
 
             return v;
         }
+
 
         @Override
         public void destroyItem(View pager, int position, Object view) {
