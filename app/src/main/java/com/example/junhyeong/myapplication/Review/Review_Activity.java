@@ -15,12 +15,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-<<<<<<< HEAD
-import com.example.junhyeong.myapplication.Adapter.ListViewAdapter2;
-import com.example.junhyeong.myapplication.Data.Store4;
-import com.example.junhyeong.myapplication.Popup.PopupActivity_Login;
-import com.example.junhyeong.myapplication.R;
-=======
 import com.example.junhyeong.myapplication.Adapter.ListViewAdapter;
 import com.example.junhyeong.myapplication.Adapter.ListViewAdapter2;
 import com.example.junhyeong.myapplication.Data.Store4;
@@ -28,16 +22,12 @@ import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Login;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.widget.IndexableListView;
->>>>>>> origin/수정중_-_준형
 import com.example.junhyeong.myapplication.widget.IndexableListView2;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-<<<<<<< HEAD
-=======
 import java.util.Collections;
->>>>>>> origin/수정중_-_준형
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,10 +81,7 @@ public class Review_Activity extends Activity {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("reviewResponse", ""+response);
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/수정중_-_준형
                 arrayList = new ArrayList<Store4>();
 
                 final ArrayList<JSONObject> ArrData = new ArrayList<JSONObject>();
@@ -102,12 +89,7 @@ public class Review_Activity extends Activity {
                 ArrayList<String> ArrText= new ArrayList<String>();
                 ArrayList<String> ArrImage= new ArrayList<String>();
                 ArrayList<String> ArrCreated= new ArrayList<String>();
-<<<<<<< HEAD
-                ArrayList<String> ArrStoreName= new ArrayList<String>();
-=======
                 ArrayList<Integer> ArrScore= new ArrayList<Integer>();
-
->>>>>>> origin/수정중_-_준형
 
                 // 리스트뷰랑 어댑터..
                 listview = (IndexableListView2) findViewById(R.id.listview_review);
@@ -115,10 +97,7 @@ public class Review_Activity extends Activity {
                 listview.setAdapter(adapter);
                 listview.setFastScrollEnabled(true);
 
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/수정중_-_준형
                 total = response.optInt("total", 0);
 
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
@@ -128,11 +107,7 @@ public class Review_Activity extends Activity {
                     ArrText.add(ArrData.get(i).optString("text", "No Value"));
                     ArrImage.add(ArrData.get(i).optString("image", "No Value"));
                     ArrCreated.add(ArrData.get(i).optString("created", "No Value"));
-<<<<<<< HEAD
-                    ArrStoreName.add(ArrData.get(i).optString("name", "No Value"));
-=======
                     ArrScore.add(ArrData.get(i).optInt("score", 0));
->>>>>>> origin/수정중_-_준형
 
                     Store4 s = new Store4();
 
@@ -141,21 +116,13 @@ public class Review_Activity extends Activity {
                     s.setText(ArrData.get(i).optString("text", "No Value"));
                     s.setImage(ArrData.get(i).optString("image", "No Value"));
                     s.setCreated(ArrData.get(i).optString("created", "No Value"));
-<<<<<<< HEAD
-                    s.setStoreName(ArrData.get(i).optString("name", "No Value"));
-=======
                     s.setScore(ArrData.get(i).optInt("score", 0));
->>>>>>> origin/수정중_-_준형
 
                     arrayList.add(s);
                 }
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
-<<<<<<< HEAD
-                    adapter.addItem(ContextCompat.getDrawable(Review_Activity.this,R.drawable.b6), arrayList.get(i).getStoreName());
-=======
                     adapter.addItem(ContextCompat.getDrawable(Review_Activity.this,R.drawable.b6), arrayList.get(i).getTitle());
->>>>>>> origin/수정중_-_준형
                 }
             }
         }, new Response.ErrorListener() {
