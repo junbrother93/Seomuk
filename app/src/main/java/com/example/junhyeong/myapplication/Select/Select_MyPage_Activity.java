@@ -25,10 +25,13 @@ import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.Adapter.ListViewAdapter2;
 import com.example.junhyeong.myapplication.Data.Review;
 import com.example.junhyeong.myapplication.Data.Store3;
+import com.example.junhyeong.myapplication.Data.Store4;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
+import com.example.junhyeong.myapplication.Google.MapsActivity;
 import com.example.junhyeong.myapplication.Main.MainActivity;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Logout;
 import com.example.junhyeong.myapplication.R;
+import com.example.junhyeong.myapplication.Review.Review_Activity;
 import com.example.junhyeong.myapplication.Review.Review_modification_Activity;
 import com.example.junhyeong.myapplication.widget.IndexableListView2;
 
@@ -71,37 +74,6 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
 
         mPager = (ViewPager)findViewById(R.id.pager_mypage);
         mPager.setAdapter(new PagerAdapterClass(getApplicationContext()));
-/*
-        favor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               if(num_favor==0) {
-                   favor.setImageResource(R.drawable.star_click);
-                   review.setImageResource(R.drawable.mypage_review);
-                   num_favor=0;
-               }
-                if (num_favor == 0) {
-                    favor.setImageResource(R.drawable.star_click);
-                    review.setImageResource(R.drawable.mypage_review);
-                    num_favor = 0;
-                }
-
-            }
-        });
-        review.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(num_review==0) {
-                if (num_review == 0) {
-                    favor.setImageResource(R.drawable.star);
-                    review.setImageResource(R.drawable.mypage_review_click);
-                    num_favor=0;
-                    num_favor = 0;
-                }
-
-            }
-        });
-        */
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +96,7 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                 final ArrayList<JSONObject> ArrData = new ArrayList<JSONObject>();
                 ArrayList<String> name = new ArrayList<String>();
                 ArrayList<String> image = new ArrayList<String>();
-                ArrayList<String> classify = new ArrayList<String>();
+                final ArrayList<String> classify = new ArrayList<String>();
                 ArrayList<Integer> StoreId = new ArrayList<Integer>();
 
                 // 리스트뷰랑 어댑터..
@@ -163,12 +135,33 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                     {
                         adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.mipmap.ic_launcher), StoreArrayList.get(i).getName());
                     }
-                    /*
+
                     listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getApplicationContext(), Review_modification_Activity.class);
+                            Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
 
+                            String classify = StoreArrayList.get((int) id).getClassify();
+                            String storeid = Integer.toString(StoreArrayList.get((int) id).getStoreId());
+                            if(classify.equals("safe"))
+                            {
+                                classify = "food";
+                            }
+                            String url = "http://13.124.127.124:3000/" + classify + "/" + storeid;
+
+                            JsonObjectRequest reviewStoreRequest = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    Log.d("reviewResponse", ""+response);
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.e("reviewError", ""+error);
+                                }
+                            });
+                            requestQueue.add(reviewStoreRequest);
+                            /*
                             Toast.makeText(Select_MyPage_Activity.this, "" + id, Toast.LENGTH_LONG).show();
                             intent.putExtra("review_title", ReviewArrayList.get((int) id).getTitle());
                             intent.putExtra("review_body", ReviewArrayList.get((int) id).getBody());
@@ -176,9 +169,10 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                             intent.putExtra("review_index", ReviewArrayList.get((int) id).getReview_id());
                             intent.putExtra("review_user_id", ReviewArrayList.get((int) id).getUser_id());
                             intent.putExtra("review_store_id", ReviewArrayList.get((int) id).getStore_id());
-                            startActivityForResult(intent, 0);
+                            */
+                            //startActivityForResult(intent, 0);
                         }
-                    });*/
+                    });
                 }
             }
         }, new Response.ErrorListener() {

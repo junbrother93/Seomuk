@@ -65,9 +65,8 @@ public class Review_modification_Activity extends Activity {
         btnDelete = (Button) findViewById(R.id.btnDelete);
         btnClose = (Button) findViewById(R.id.btnClose);
         rating = (RatingBar) findViewById(R.id.ratingBar2);
-        Value = (TextView)findViewById(R.id.Value);
-        rating = (RatingBar) findViewById(R.id.ratingBar);
-        Value = (TextView) findViewById(R.id.Value);
+        Value = (TextView)findViewById(R.id.Value2);
+
 
         // 받아온 데이터로 내용 수정
         if (score == 1)
@@ -83,26 +82,6 @@ public class Review_modification_Activity extends Activity {
         ReviewTitle.setText(title);
         ReviewBody.setText(body);
 
-        if(score==1) {
-            Value.setText("1.0 ");
-            rating.setRating(1);
-        }
-        else if(score==2) {
-            Value.setText("2.0 ");
-            rating.setRating(2);
-        }
-        else if(score==3) {
-            Value.setText("3.0 ");
-            rating.setRating(3);
-        }
-        else if(score==4) {
-            Value.setText("4.0 ");
-            rating.setRating(4);
-        }
-        else {
-            Value.setText("5.0 ");
-            rating.setRating(5);
-        }
 
         rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -128,7 +107,6 @@ public class Review_modification_Activity extends Activity {
         });
         ReviewTitle.setText(title);
         ReviewBody.setText(body);
-        rating.setRating(score);
 
 
         // 수정 클릭하면 수정 되도록 (수정 버튼 누르면 수정버튼은 확인 버튼으로, 닫기 버튼은 취소 버튼으로)

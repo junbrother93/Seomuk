@@ -36,7 +36,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/Value"
+                android:id="@+id/Value2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="7dp"
@@ -56,7 +56,6 @@
                 android:textStyle="bold" />
             <RatingBar
                 android:id="@+id/ratingBar2"
-                style="@style/starRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
