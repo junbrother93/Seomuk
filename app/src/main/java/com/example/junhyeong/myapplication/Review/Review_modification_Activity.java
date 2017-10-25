@@ -52,7 +52,12 @@ public class Review_modification_Activity extends Activity {
         user_id = intent.getIntExtra("review_user_id", 0);
         store_id = intent.getIntExtra("review_store_id", 0);
 
-        Log.d("modification_activity", title + " " + body + " " + score + " " + index + " " + user_id + " " + store_id);
+        Log.d("title", title);
+        Log.d("body", body);
+        Log.d("score", "" + score);
+        Log.d("index", "" + index);
+        Log.d("user_id", "" + user_id);
+        Log.d("store_id", "" + store_id);
 
         ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
         ReviewBody = (EditText) findViewById(R.id.ReviewBody);
@@ -61,7 +66,22 @@ public class Review_modification_Activity extends Activity {
         btnClose = (Button) findViewById(R.id.btnClose);
         rating = (RatingBar) findViewById(R.id.ratingBar2);
         Value = (TextView)findViewById(R.id.Value);
+        rating = (RatingBar) findViewById(R.id.ratingBar);
+        Value = (TextView) findViewById(R.id.Value);
 
+        // 받아온 데이터로 내용 수정
+        if (score == 1)
+            Value.setText("1.0 ");
+        else if (score == 2)
+            Value.setText("2.0 ");
+        else if (score == 3)
+            Value.setText("3.0 ");
+        else if (score == 4)
+            Value.setText("4.0 ");
+        else
+            Value.setText("5.0 ");
+        ReviewTitle.setText(title);
+        ReviewBody.setText(body);
 
         if(score==1) {
             Value.setText("1.0 ");
@@ -108,10 +128,14 @@ public class Review_modification_Activity extends Activity {
         });
         ReviewTitle.setText(title);
         ReviewBody.setText(body);
+        rating.setRating(score);
+
 
         // 수정 클릭하면 수정 되도록 (수정 버튼 누르면 수정버튼은 확인 버튼으로, 닫기 버튼은 취소 버튼으로)
         // 닫기 클릭하면 닫도록
         btnModification.setOnClickListener(new View.OnClickListener(){
+        // 수정 (삭제 후 추가)
+        btnModification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -123,7 +147,7 @@ public class Review_modification_Activity extends Activity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("reviewDeleteResponse", ""+error);
+                        Log.e("reviewDeleteResponse", "" + error);
                     }
 
                 }) {
@@ -168,7 +192,6 @@ public class Review_modification_Activity extends Activity {
 
                         return params;
                     }
-
                 };
                 requestQueue.add(reviewWriteRequest);
 
@@ -177,6 +200,7 @@ public class Review_modification_Activity extends Activity {
             }
         });
 
+        // 삭제
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,7 +213,7 @@ public class Review_modification_Activity extends Activity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("reviewDeleteResponse", ""+error);
+                        Log.e("reviewDeleteResponse", "" + error);
                     }
 
                 }) {
@@ -208,9 +232,8 @@ public class Review_modification_Activity extends Activity {
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               finish();
+                finish();
             }
         });
-
     }
 }

@@ -40,7 +40,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private double x, y;
-    private String store_name;
+    private String store_name, image;
     private Typeface BMJUA;
     private Typeface BMDOHYEON;
     private static final int MY_LOCATION_REQUEST_CODE = 1;
@@ -71,7 +71,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         store_name = intent.getStringExtra("store_name");
         store_grade = intent.getStringExtra("store_grade");
         classify = intent.getStringExtra("classify");
-
+        image = intent.getStringExtra("store_grade");
         //store_address = intent.getStringExtra("store_address");
 
         store_call = intent.getStringExtra("store_call"); //전화번호아이콘 만들어지면 사용
@@ -137,6 +137,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 review.putExtra("mypage", unlogin_value);
                 review.putExtra("classify", classify);
+                review.putExtra("store_grade", image);
                 setResult(RESULT_OK, review);
                 startActivity(review);
             }
@@ -176,8 +177,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
                                 params.put("store_id", Integer.toString(store_id));
                                 params.put("classify", classify);
+                                params.put("name", store_name);
+                                params.put("image", image);
 
-                                Log.d("params", ""+params);
+                                Log.d("Addparams", ""+params);
                                 return params;
                             }
                         };
@@ -208,8 +211,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
                                 params.put("store_id", Integer.toString(store_id));
                                 params.put("classify", classify);
+                                params.put("name", store_name);
+                                params.put("image", image);
 
-                                Log.d("params", ""+params);
+                                Log.d("Deleteparams", ""+params);
                                 return params;
                             }
                         };
@@ -275,7 +280,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onResponse(JSONObject response) {
                 Log.d("checkBookmark : ", "checkbookmarkResponse : " + response);
 
-
                 if (response.optInt("msg", 100) == 1) {
                     FavorBtn.setImageResource(R.drawable.favor_btn);
                     num++;
@@ -297,13 +301,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }) {
             @Override
             public Map getHeaders() throws AuthFailureError {
+
                 Map params = new HashMap();
                 GlobalApplication GUserID = (GlobalApplication) getApplication();
                 params.put("store_id", Integer.toString(store_id));
                 params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
                 params.put("classify", classify);
 
-                Log.d("params", ""+params);
+                Log.d("Checkparams", ""+params);
                 return params;
             }
         };
