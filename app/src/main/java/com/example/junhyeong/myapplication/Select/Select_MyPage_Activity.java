@@ -22,17 +22,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.junhyeong.myapplication.Adapter.ListViewAdapter;
 import com.example.junhyeong.myapplication.Adapter.ListViewAdapter2;
 import com.example.junhyeong.myapplication.Data.Review;
-import com.example.junhyeong.myapplication.Data.Store;
 import com.example.junhyeong.myapplication.Data.Store3;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.Main.MainActivity;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Logout;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Review.Review_modification_Activity;
-import com.example.junhyeong.myapplication.widget.IndexableListView;
 import com.example.junhyeong.myapplication.widget.IndexableListView2;
 
 import org.json.JSONObject;
@@ -70,7 +67,7 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
         intent = new Intent(this, MainActivity.class);
         classify = intent.getStringExtra("classify");
 
-        setLayout();
+
 
         mPager = (ViewPager)findViewById(R.id.pager_mypage);
         mPager.setAdapter(new PagerAdapterClass(getApplicationContext()));
@@ -114,31 +111,9 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
         });
 
     final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-    // 즐겨찾기
         // 즐겨찾기
 
-    JsonObjectRequest checkBookmarkRequest = new JsonObjectRequest(Request.Method.POST, "http://13.124.127.124:3000/user/checkbm", new Response.Listener<JSONObject>() {
-        @Override
-        public void onResponse(JSONObject response) {
-            Log.d("checkBookmark", response.toString());
-            //total = 1;
-            //store_id = 8888;
-            // response.optInt("total", 0);
-            // for() 문을 이용해 total 값만큼 수행
-
-            for (int i = 0; i < total; i++) {
-                JsonObjectRequest addStoreInfoRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/auth/" + store_id, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("addStoreInfoResponse", response.toString());
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("addStoreInfoError", error.toString());
-                    }
         JsonObjectRequest checkBookmarkRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/user/like", new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -146,41 +121,18 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                 total = response.optInt("total");
                 StoreArrayList = new ArrayList<Store3>();
 
-                }) {
-                    @Override
-                    public Map getHeaders() throws AuthFailureError {
-                        Map params = new HashMap();
-                        GlobalApplication GUserID = (GlobalApplication) getApplication();
-                        params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
-                        return params;
-                    }
-                };
-                requestQueue.add(addStoreInfoRequest);
-            }
                 final ArrayList<JSONObject> ArrData = new ArrayList<JSONObject>();
                 ArrayList<String> name = new ArrayList<String>();
                 ArrayList<String> image = new ArrayList<String>();
                 ArrayList<String> classify = new ArrayList<String>();
                 ArrayList<Integer> StoreId = new ArrayList<Integer>();
 
-        }
-    }, new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            Log.e("checkBookmarkError", error.toString());
-        }
                 // 리스트뷰랑 어댑터..
-                listview = (IndexableListView2) findViewById(R.id.listview2);
+                listview = (IndexableListView2) findViewById(R.id.listview_favor);
                 ListViewAdapter2 adapter = new ListViewAdapter2();
                 listview.setAdapter(adapter);
                 listview.setFastScrollEnabled(true);
 
-    }) {
-        @Override
-        protected Map<String, String> getParams() {
-            GlobalApplication GUserID = (GlobalApplication) getApplication();
-            Map<String, String> params = new HashMap<>();
-            params.put("user_id", Integer.toString(GUserID.getGlobalUserID()));
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
                     // 아이템 불러와..
@@ -201,6 +153,33 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                 }
                 // 정렬
                 //Collections.sort(StoreArrayList);
+                if (total == 0) {
+                    warn.setVisibility(View.VISIBLE);
+                    listview.setVisibility(View.GONE);
+                } else {
+                    warn.setVisibility(View.INVISIBLE);
+                    listview.setVisibility(View.VISIBLE);
+                    for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
+                    {
+                        adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.mipmap.ic_launcher), StoreArrayList.get(i).getName());
+                    }
+                    /*
+                    listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(getApplicationContext(), Review_modification_Activity.class);
+
+                            Toast.makeText(Select_MyPage_Activity.this, "" + id, Toast.LENGTH_LONG).show();
+                            intent.putExtra("review_title", ReviewArrayList.get((int) id).getTitle());
+                            intent.putExtra("review_body", ReviewArrayList.get((int) id).getBody());
+                            intent.putExtra("review_score", ReviewArrayList.get((int) id).getScore());
+                            intent.putExtra("review_index", ReviewArrayList.get((int) id).getReview_id());
+                            intent.putExtra("review_user_id", ReviewArrayList.get((int) id).getUser_id());
+                            intent.putExtra("review_store_id", ReviewArrayList.get((int) id).getStore_id());
+                            startActivityForResult(intent, 0);
+                        }
+                    });*/
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -208,9 +187,6 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                 Log.e("checkBookmarkError", error.toString());
             }
 
-            return params;
-        }
-    };
         }) {
             @Override
             public Map getHeaders() throws AuthFailureError {
@@ -390,7 +366,7 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                 review.setOnClickListener(mPagerListener);
             }
             else {
-                v = mInflater.inflate(R.layout.activity_location, null);
+                v = mInflater.inflate(R.layout.inflate_favor, null);
                 favor.setOnClickListener(mPagerListener);
             }
                 ((ViewPager)pager).addView(v, 0);

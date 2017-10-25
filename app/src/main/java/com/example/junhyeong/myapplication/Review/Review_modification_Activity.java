@@ -133,8 +133,7 @@ public class Review_modification_Activity extends Activity {
 
         // 수정 클릭하면 수정 되도록 (수정 버튼 누르면 수정버튼은 확인 버튼으로, 닫기 버튼은 취소 버튼으로)
         // 닫기 클릭하면 닫도록
-        btnModification.setOnClickListener(new View.OnClickListener(){
-        // 수정 (삭제 후 추가)
+
         btnModification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
