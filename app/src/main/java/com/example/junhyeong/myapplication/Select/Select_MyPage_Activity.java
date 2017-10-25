@@ -1,11 +1,15 @@
 package com.example.junhyeong.myapplication.Select;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -60,6 +64,9 @@ public class Select_MyPage_Activity extends Activity {
         PopLogout = new Intent(this, PopupActivity_Logout.class);
         intent = new Intent(this, MainActivity.class);
         classify = intent.getStringExtra("classify");
+
+        mPager = (ViewPager)findViewById(R.id.pager_mypage);
+        mPager.setAdapter(new PagerAdapterClass(getApplicationContext()));
 
         favor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,7 +171,7 @@ public class Select_MyPage_Activity extends Activity {
 
 
                 // 리스트뷰랑 어댑터..
-                listview = (IndexableListView2) findViewById(R.id.listview2);
+                listview = (IndexableListView2) findViewById(R.id.listview_review);
                 ListViewAdapter2 adapter = new ListViewAdapter2();
                 listview.setAdapter(adapter);
                 listview.setFastScrollEnabled(true);
@@ -245,5 +252,57 @@ public class Select_MyPage_Activity extends Activity {
         requestQueue.add(getReviewRequest);
 
 }
+    private void setCurrentInflateItem(int type){
+        if(type==0){
+            mPager.setCurrentItem(0);
+        }else
+            mPager.setCurrentItem(1);
+    }
+
+    /**
+     * PagerAdapter
+     */
+    public class PagerAdapterClass extends PagerAdapter {
+
+        private LayoutInflater mInflater;
+
+        public PagerAdapterClass(Context c){
+            super();
+            mInflater = LayoutInflater.from(c);
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public Object instantiateItem(View pager, int position) {
+            View v = null;
+            if(position==0){
+                v = mInflater.inflate(R.layout.inflate_review, null);
+            }
+            else
+                v = mInflater.inflate(R.layout.activity_location, null);
+            ((ViewPager)pager).addView(v, 0);
+
+            return v;
+        }
+
+        @Override
+        public void destroyItem(View pager, int position, Object view) {
+            ((ViewPager)pager).removeView((View)view);
+        }
+
+        @Override
+        public boolean isViewFromObject(View pager, Object obj) {
+            return pager == obj;
+        }
+
+        @Override public void restoreState(Parcelable arg0, ClassLoader arg1) {}
+        @Override public Parcelable saveState() { return null; }
+        @Override public void startUpdate(View arg0) {}
+        @Override public void finishUpdate(View arg0) {}
+    }
 }
 

@@ -33,11 +33,10 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:background="@drawable/border">
+        android:layout_gravity="center">
 
         <TextView
             android:id="@+id/Value"
@@ -62,8 +61,9 @@
 
         <RatingBar
             android:id="@+id/ratingBar"
+            style="@style/starRatingBar"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingTop="3dp"
             android:isIndicator="false"
@@ -82,21 +82,19 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_weight="1"
-
+            android:layout_margin="7dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/round2"
             android:inputType="textPersonName"
             android:hint="제목"/>
-
-        <TextView
-            android:id="@+id/NULL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="" />
 
         <EditText
             android:id="@+id/ReviewBody"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="130dp"
+            android:layout_margin="7dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/round2"
             android:ems="10"
             android:inputType="textPersonName"
             android:hint="내용" />

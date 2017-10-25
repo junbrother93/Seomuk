@@ -16,15 +16,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.R;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,6 +54,7 @@ public class Review_write_Activity extends Activity {
         ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
         ReviewBody = (EditText) findViewById(R.id.ReviewBody);
         Value = (TextView) findViewById(R.id.Value);
+
         rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {

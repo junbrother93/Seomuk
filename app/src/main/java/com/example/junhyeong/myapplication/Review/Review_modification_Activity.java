@@ -59,52 +59,53 @@ public class Review_modification_Activity extends Activity {
         btnModification = (Button) findViewById(R.id.btnModification);
         btnDelete = (Button) findViewById(R.id.btnDelete);
         btnClose = (Button) findViewById(R.id.btnClose);
-        rating = (RatingBar) findViewById(R.id.ratingBar);
+        rating = (RatingBar) findViewById(R.id.ratingBar2);
         Value = (TextView)findViewById(R.id.Value);
 
 
-        /*
+        if(score==1) {
+            Value.setText("1.0 ");
+            rating.setRating(1);
+        }
+        else if(score==2) {
+            Value.setText("2.0 ");
+            rating.setRating(2);
+        }
+        else if(score==3) {
+            Value.setText("3.0 ");
+            rating.setRating(3);
+        }
+        else if(score==4) {
+            Value.setText("4.0 ");
+            rating.setRating(4);
+        }
+        else {
+            Value.setText("5.0 ");
+            rating.setRating(5);
+        }
+
         rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 // 강제로 1넣기
                 if (ratingBar.getRating() <= 1.0) {
                     ratingBar.setRating(1);
-                    Value.setText("1.0");
-                    score = 1;
+                    Value.setText("1.0 ");
                 } else if (ratingBar.getRating() > 1.0 && ratingBar.getRating() <= 2.0) {
                     ratingBar.setRating(2);
-                    Value.setText("2.0");
-                    score = 2;
+                    Value.setText("2.0 ");
                 } else if (ratingBar.getRating() > 2.0 && ratingBar.getRating() <= 3.0) {
                     ratingBar.setRating(3);
-                    Value.setText("3.0");
-                    score = 3;
+                    Value.setText("3.0 ");
                 } else if (ratingBar.getRating() > 3.0 && ratingBar.getRating() <= 4.0) {
                     ratingBar.setRating(4);
-                    Value.setText("4.0");
-                    score = 4;
+                    Value.setText("4.0 ");
                 } else if (ratingBar.getRating() > 4.0 && ratingBar.getRating() <= 5.0) {
                     ratingBar.setRating(5);
-                    Value.setText("5.0");
-                    score = 5;
+                    Value.setText("5.0 ");
                 }
             }
         });
-        */
-        rating.setRating(score);
-
-        if(score==1)
-            Value.setText("1.0 ");
-        else if(score==2)
-            Value.setText("2.0 ");
-        else if(score==3)
-            Value.setText("3.0 ");
-        else if(score==4)
-            Value.setText("4.0 ");
-        else
-            Value.setText("5.0 ");
-
         ReviewTitle.setText(title);
         ReviewBody.setText(body);
 
