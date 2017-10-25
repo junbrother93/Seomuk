@@ -42,6 +42,7 @@ public class Review_write_Activity extends Activity {
     String strReviewTitle;
     String strReviewBody;
     String classify;
+    String image;
     Intent intent;
     int width;
     Display display;
@@ -96,6 +97,7 @@ public class Review_write_Activity extends Activity {
                 store_id = intent.getIntExtra("store_id", 0);
                 strReviewTitle = ReviewTitle.getText().toString();
                 strReviewBody = ReviewBody.getText().toString();
+                image = intent.getStringExtra("store_grade");
 
                 if(strReviewTitle.equals("") || strReviewBody.equals(""))
                 {
@@ -124,6 +126,7 @@ public class Review_write_Activity extends Activity {
                         params.put("user_id", String.valueOf(GUserID.getGlobalUserID()));
                         params.put("store_id", String.valueOf(store_id));
                         params.put("score", String.valueOf(score));
+                        params.put("image", image);
                         Log.e("body", "body" + params);
 
                         return params;
