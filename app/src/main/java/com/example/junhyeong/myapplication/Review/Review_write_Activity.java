@@ -20,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.R;
+import com.example.junhyeong.myapplication.Select.Select_MyPage_Activity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -94,8 +95,7 @@ public class Review_write_Activity extends Activity {
                 strReviewBody = ReviewBody.getText().toString();
                 image = intent.getStringExtra("store_grade");
 
-                if(strReviewTitle.equals("") || strReviewBody.equals(""))
-                {
+                if (strReviewTitle.equals("") || strReviewBody.equals("")) {
 
                 }
 
@@ -129,13 +129,29 @@ public class Review_write_Activity extends Activity {
 
                 };
                 requestQueue.add(reviewWriteRequest);
-                finish();
+                redirectReview_Activity();
                 break;
             case R.id.NoBtn:
-                finish();
+                redirectReview_Activity();
                 break;
         }
     }
+
+
+    protected void redirectReview_Activity() {
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        final Intent intent = new Intent(this, Review_Activity.class);
+        intent.putExtra("store_id", store_id);
+        intent.putExtra("classify", classify);
+        intent.putExtra("store_grade", image);
+        startActivity(intent);
+        finish();
+    }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {

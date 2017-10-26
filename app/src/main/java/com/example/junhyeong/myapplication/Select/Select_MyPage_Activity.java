@@ -78,7 +78,6 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
             @Override
             public void onClick(View v) {
               startActivity(PopLogout);
-                startActivity(PopLogout);
             }
         });
 
@@ -203,6 +202,9 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                 final ArrayList<String> ArrTitle = new ArrayList<String>();
                 final ArrayList<String> ArrBody = new ArrayList<String>();
                 final ArrayList<String> ArrStoreName = new ArrayList<String>();
+                final ArrayList<String> ArrCreated = new ArrayList<String>();
+                final ArrayList<String> ArrClassify = new ArrayList<String>();
+                final ArrayList<String> ArrImage = new ArrayList<String>();
                 final ArrayList<Integer> ArrScore = new ArrayList<Integer>();
                 final ArrayList<Integer> ArrIndex = new ArrayList<Integer>();
                 final ArrayList<Integer> ArrUser_id = new ArrayList<Integer>();
@@ -224,6 +226,9 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                     ArrTitle.add(ArrReviewData.get(i).optString("title", "No Value"));
                     ArrBody.add(ArrReviewData.get(i).optString("text", "No Value"));
                     ArrStoreName.add(ArrReviewData.get(i).optString("storename", "No Value"));
+                    ArrCreated.add(ArrReviewData.get(i).optString("created", "No Value"));
+                    ArrClassify.add(ArrReviewData.get(i).optString("classify", "No Value"));
+                    ArrImage.add(ArrReviewData.get(i).optString("image", "No Value"));
                     ArrScore.add(ArrReviewData.get(i).optInt("score", 0));
                     ArrIndex.add(ArrReviewData.get(i).optInt("id", 0));
                     ArrUser_id.add(ArrReviewData.get(i).optInt("UserId", 0));
@@ -235,6 +240,9 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                     s.setTitle(ArrReviewData.get(i).optString("title", "No value"));
                     s.setBody(ArrReviewData.get(i).optString("text", "No value"));
                     s.setStore_name(ArrReviewData.get(i).optString("storename", "No value"));
+                    s.setCreated(ArrReviewData.get(i).optString("created", "No Value"));
+                    s.setClassify(ArrReviewData.get(i).optString("classify", "No Value"));
+                    s.setImage(ArrReviewData.get(i).optString("image", "No Value"));
                     s.setScore(ArrReviewData.get(i).optInt("score", 0));
                     s.setReview_id(ArrReviewData.get(i).optInt("id", 0));
                     s.setUser_id(ArrReviewData.get(i).optInt("UserId", 0));
@@ -264,11 +272,16 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                             Toast.makeText(Select_MyPage_Activity.this, "" + id, Toast.LENGTH_LONG).show();
                             intent.putExtra("review_title", ReviewArrayList.get((int) id).getTitle());
                             intent.putExtra("review_body", ReviewArrayList.get((int) id).getBody());
+                            intent.putExtra("review_created", ReviewArrayList.get((int) id). getCreated());
+                            intent.putExtra("review_classify", ReviewArrayList.get((int) id).getClassify());
+                            intent.putExtra("review_image", ReviewArrayList.get((int) id).getImage());
                             intent.putExtra("review_score", ReviewArrayList.get((int) id).getScore());
                             intent.putExtra("review_index", ReviewArrayList.get((int) id).getReview_id());
                             intent.putExtra("review_user_id", ReviewArrayList.get((int) id).getUser_id());
                             intent.putExtra("review_store_id", ReviewArrayList.get((int) id).getStore_id());
-                            startActivityForResult(intent, 0);
+
+                            startActivity(intent);
+                            finish();
                         }
                     });
                 }

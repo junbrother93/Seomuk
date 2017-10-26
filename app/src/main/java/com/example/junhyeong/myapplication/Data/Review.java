@@ -8,16 +8,18 @@ import org.json.JSONObject;
 
 public class Review implements Comparable<Review> {
     JSONObject ArrReviewData;
-    String title, body, store_name, created;
+    String title, body, store_name, created, classify, image;
     int review_id, user_id, store_id;
     int score;
 
-    public void setData(JSONObject DATA, String Title, String Body, String Storename, String Created, int Score, int Index, int User_id, int Store_id) {
+    public void setData(JSONObject DATA, String Title, String Body, String Storename, String Created, String Classify, String Image, int Score, int Index, int User_id, int Store_id) {
         setArrReviewData(DATA);
         setTitle(Title);
         setBody(Body);
         setStore_name(Storename);
         setCreated(Created);
+        setClassify(Classify);
+        setImage(Image);
         setScore(Score);
         setReview_id(Index);
         setUser_id(User_id);
@@ -35,6 +37,8 @@ public class Review implements Comparable<Review> {
     }
     public void setStore_name(String Storename) {store_name = Storename;}
     public void setCreated(String Created) {created = Created;}
+    public void setClassify(String Classify) { classify = Classify; }
+    public void setImage(String Image) { image = Image; }
     public void setScore(int Score){
         score = Score;
     }
@@ -58,6 +62,8 @@ public class Review implements Comparable<Review> {
     public String getBody() {return body;}
     public String getStore_name() {return store_name;}
     public String getCreated() {return created;}
+    public String getClassify() {return classify;}
+    public String getImage() {return image;}
     public int getScore() {return score;}
     public int getReview_id() {return review_id;}
     public int getUser_id() {return user_id;}

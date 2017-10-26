@@ -37,7 +37,7 @@ import java.util.Map;
 
 public class Review_Activity extends Activity {
     private ImageView ReviewBtn2;
-    private Intent intent,Review_Write, Popup_login;
+    private Intent intent, Review_Write, Popup_login;
     private int store_id, unlogin_value;
     private String classify, image;
     private ArrayList<Store4> arrayList;
@@ -58,6 +58,7 @@ public class Review_Activity extends Activity {
         ReviewBtn2 = (ImageView)findViewById(R.id.ReviewBtn2);
         Review_Write = new Intent(this,Review_write_Activity.class);
         Popup_login = new Intent(this, PopupActivity_Login.class);
+
         Review_Write.putExtra("store_id", store_id);
         Review_Write.putExtra("classify", classify);
         Review_Write.putExtra("store_grade", image);
@@ -71,6 +72,7 @@ public class Review_Activity extends Activity {
                 }
                 else
                 startActivity(Review_Write);
+                finish();
             }
         });
 

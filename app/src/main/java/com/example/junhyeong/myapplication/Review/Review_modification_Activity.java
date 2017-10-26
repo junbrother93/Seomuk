@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
+import com.example.junhyeong.myapplication.Login.LoginActivity;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Select.Select_MyPage_Activity;
 
@@ -34,7 +35,7 @@ public class Review_modification_Activity extends Activity {
     EditText ReviewTitle, ReviewBody;
     Button btnModification, btnDelete, btnClose;
     Intent intent, ActMypage;
-    String title, body, s;
+    String title, body, classify, created, image;
     int index, user_id, width, height, score, store_id;
     RatingBar rating;
     TextView Value;
@@ -47,6 +48,9 @@ public class Review_modification_Activity extends Activity {
         ActMypage = new Intent(this, Select_MyPage_Activity.class);
         title = intent.getStringExtra("review_title");
         body = intent.getStringExtra("review_body");
+        created = intent.getStringExtra("review_created");
+        classify = intent.getStringExtra("review_classify");
+        image = intent.getStringExtra("review_image");
         score = intent.getIntExtra("review_score", 0);
         index = intent.getIntExtra("review_index", 0);
         user_id = intent.getIntExtra("review_user_id", 0);
@@ -58,6 +62,8 @@ public class Review_modification_Activity extends Activity {
         Log.d("index", "" + index);
         Log.d("user_id", "" + user_id);
         Log.d("store_id", "" + store_id);
+        Log.d("classify", classify);
+        Log.d("image", image);
 
         ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
         ReviewBody = (EditText) findViewById(R.id.ReviewBody);
@@ -65,7 +71,7 @@ public class Review_modification_Activity extends Activity {
         btnDelete = (Button) findViewById(R.id.btnDelete);
         btnClose = (Button) findViewById(R.id.btnClose);
         rating = (RatingBar) findViewById(R.id.ratingBar2);
-        Value = (TextView)findViewById(R.id.Value2);
+        Value = (TextView) findViewById(R.id.Value2);
 
 
         // 받아온 데이터로 내용 수정
@@ -90,18 +96,23 @@ public class Review_modification_Activity extends Activity {
                 if (ratingBar.getRating() <= 1.0) {
                     ratingBar.setRating(1);
                     Value.setText("1.0 ");
+                    score = 1;
                 } else if (ratingBar.getRating() > 1.0 && ratingBar.getRating() <= 2.0) {
                     ratingBar.setRating(2);
                     Value.setText("2.0 ");
+                    score = 2;
                 } else if (ratingBar.getRating() > 2.0 && ratingBar.getRating() <= 3.0) {
                     ratingBar.setRating(3);
                     Value.setText("3.0 ");
+                    score = 3;
                 } else if (ratingBar.getRating() > 3.0 && ratingBar.getRating() <= 4.0) {
                     ratingBar.setRating(4);
                     Value.setText("4.0 ");
+                    score = 4;
                 } else if (ratingBar.getRating() > 4.0 && ratingBar.getRating() <= 5.0) {
                     ratingBar.setRating(5);
                     Value.setText("5.0 ");
+                    score = 5;
                 }
             }
         });
@@ -161,19 +172,18 @@ public class Review_modification_Activity extends Activity {
                         Map<String, String> params = new HashMap<>();
                         params.put("title", ReviewTitle.getText().toString());
                         params.put("text", ReviewBody.getText().toString());
-                        params.put("classify", "인증");
+                        params.put("classify", classify);
                         params.put("user_id", String.valueOf(GUserID.getGlobalUserID()));
                         params.put("store_id", String.valueOf(store_id));
                         params.put("score", String.valueOf(score));
+                        params.put("image", image);
                         Log.e("body", "body" + params);
 
                         return params;
                     }
                 };
                 requestQueue.add(reviewWriteRequest);
-
-                setResult(RESULT_OK, ActMypage);
-                finish();
+                redirectSelect_MyPage_Activity();
             }
         });
 
@@ -209,8 +219,20 @@ public class Review_modification_Activity extends Activity {
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                redirectSelect_MyPage_Activity();
                 finish();
             }
         });
+    }
+
+    protected void redirectSelect_MyPage_Activity() {
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        final Intent intent = new Intent(this, Select_MyPage_Activity.class);
+        startActivity(intent);
+        finish();
     }
 }

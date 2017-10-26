@@ -47,10 +47,8 @@
         <activity android:name=".Google.MapsActivity"/>
         <activity android:name=".Select.Select_MyPage_Activity"/>
         <activity android:name=".Review.Review_Activity"/>
-        <activity android:name=".Review.Review_write_Activity"
-            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
-        <activity android:name=".Review.Review_modification_Activity"
-            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
+        <activity android:name=".Review.Review_write_Activity"/>
+        <activity android:name=".Review.Review_modification_Activity"/>
         <activity android:name=".Popup.PopupActivity_Login"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
         <activity android:name=".Popup.PopupActivity_Description"
