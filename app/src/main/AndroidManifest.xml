@@ -57,6 +57,7 @@
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
         <activity android:name=".Popup.PopupActivity_Explain"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
+        <activity android:name=".Review.Review_view_Activity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
