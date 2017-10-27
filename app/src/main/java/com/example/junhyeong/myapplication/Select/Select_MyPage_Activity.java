@@ -33,6 +33,7 @@ import com.example.junhyeong.myapplication.Popup.PopupActivity_Logout;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Review.Review_modification_Activity;
 import com.example.junhyeong.myapplication.widget.IndexableListView2;
+import com.facebook.login.Login;
 
 import org.json.JSONObject;
 
@@ -45,15 +46,15 @@ import java.util.Map;
  * Created by yeonjin on 2017-09-26.
  */
 
-public class Select_MyPage_Activity extends Activity implements View.OnClickListener{
+public class Select_MyPage_Activity extends Activity implements View.OnClickListener {
     private IndexableListView2 listview;
     private ArrayList<Review> ReviewArrayList;
     private ArrayList<Store3> StoreArrayList;
     private ImageView warn;
     private ImageView favor, review, logout;
-    private Intent PopLogout, intent;
+    private Intent PopLogout, intent, MapsActivity;
     int num_favor, num_review, total, store_id;
-    String classify;
+    private String classify;
     private ViewPager mPager;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,23 +68,22 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
         logout = (ImageView) findViewById(R.id.logout);
         PopLogout = new Intent(this, PopupActivity_Logout.class);
         intent = new Intent(this, MainActivity.class);
+        MapsActivity = new Intent(this, MapsActivity.class);
         classify = intent.getStringExtra("classify");
 
 
-
-        mPager = (ViewPager)findViewById(R.id.pager_mypage);
+        mPager = (ViewPager) findViewById(R.id.pager_mypage);
         mPager.setAdapter(new PagerAdapterClass(getApplicationContext()));
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              startActivity(PopLogout);
+                startActivity(PopLogout);
             }
         });
 
-    final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         // 즐겨찾기
-
         JsonObjectRequest checkBookmarkRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/user/like", new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -92,10 +92,10 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                 StoreArrayList = new ArrayList<Store3>();
 
                 final ArrayList<JSONObject> ArrData = new ArrayList<JSONObject>();
-                ArrayList<String> name = new ArrayList<String>();
-                ArrayList<String> image = new ArrayList<String>();
-                final ArrayList<String> classify = new ArrayList<String>();
-                ArrayList<Integer> StoreId = new ArrayList<Integer>();
+                ArrayList<String> ArrName = new ArrayList<String>();
+                ArrayList<String> ArrImage = new ArrayList<String>();
+                final ArrayList<String> ArrClassify = new ArrayList<String>();
+                ArrayList<Integer> ArrStoreId = new ArrayList<Integer>();
 
                 // 리스트뷰랑 어댑터..
                 listview = (IndexableListView2) findViewById(R.id.listview_favor);
@@ -107,10 +107,10 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                 {
                     // 아이템 불러와..
                     ArrData.add(response.optJSONArray("data").optJSONObject(i));
-                    name.add(ArrData.get(i).optString("name", "No Value"));
-                    image.add(ArrData.get(i).optString("image", "No Value"));
-                    classify.add(ArrData.get(i).optString("classify", "No Value"));
-                    StoreId.add(ArrData.get(i).optInt("StoreId", 0));
+                    ArrName.add(ArrData.get(i).optString("name", "No Value"));
+                    ArrImage.add(ArrData.get(i).optString("image", "No Value"));
+                    ArrClassify.add(ArrData.get(i).optString("classify", "No Value"));
+                    ArrStoreId.add(ArrData.get(i).optInt("StoreId", 0));
 
                     // 객체 추가
                     Store3 s = new Store3();
@@ -121,9 +121,14 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                     s.setClassify(ArrData.get(i).optString("classify", "No Value"));
                     StoreArrayList.add(s);
                 }
+<<<<<<< HEAD
                 // 정렬
                 //Collections.sort(StoreArrayList);
                 /*if (total == 0) {
+=======
+
+                if (total == 0) {
+>>>>>>> origin/병합2
                     warn.setVisibility(View.VISIBLE);
                     listview.setVisibility(View.GONE);
                 } else {
@@ -158,36 +163,53 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
 
-                            String classify = StoreArrayList.get((int) id).getClassify();
+                            classify = StoreArrayList.get((int) id).getClassify();
                             String storeid = Integer.toString(StoreArrayList.get((int) id).getStoreId());
-                            if(classify.equals("safe"))
-                            {
+                            if (classify.equals("safe")) {
                                 classify = "food";
                             }
                             String url = "http://13.124.127.124:3000/" + classify + "/" + storeid;
 
+
                             JsonObjectRequest reviewStoreRequest = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
-                                    Log.d("reviewResponse", ""+response);
+                                    Log.d("reviewResponse", "" + response);
+                                    if (classify.equals("food"))
+                                    {
+                                        classify = "safe";
+                                        MapsActivity.putExtra("store_id", response.optJSONArray("data").optJSONObject(0).optInt("CTF_CODE", 0));
+                                        MapsActivity.putExtra("store_name", response.optJSONArray("data").optJSONObject(0).optString("CTF_NAME", "No Value"));
+                                        MapsActivity.putExtra("store_grade", response.optJSONArray("data").optJSONObject(0).optString("CTF_TYPE_NAME", "No Value"));
+                                        MapsActivity.putExtra("store_call", response.optJSONArray("data").optJSONObject(0).optString("CTF_TEL", "No Value"));
+                                        MapsActivity.putExtra("CRTFC_CLASS", response.optJSONArray("data").optJSONObject(0).optString("CRTFC_CLASS", "No Value"));
+                                        MapsActivity.putExtra("X", response.optJSONArray("data").optJSONObject(0).optDouble("CTF_X", 37.5652894));
+                                        MapsActivity.putExtra("Y", response.optJSONArray("data").optJSONObject(0).optDouble("CTF_Y", 126.8494668));
+                                        MapsActivity.putExtra("classify", classify);
+                                        MapsActivity.putExtra("mypage", 0);
+                                    }
+
+                                    else if(classify.equals("auth"))
+                                    {
+                                        MapsActivity.putExtra("store_id", response.optJSONArray("data").optJSONObject(0).optInt("CRTFC_UPSO_MGT_SNO", 0));
+                                        MapsActivity.putExtra("store_name", response.optJSONArray("data").optJSONObject(0).optString("UPSO_NM", "No Value"));
+                                        MapsActivity.putExtra("store_grade", response.optJSONArray("data").optJSONObject(0).optString("CRTFC_GBN_NM", "No Value"));
+                                        MapsActivity.putExtra("store_call", response.optJSONArray("data").optJSONObject(0).optString("TEL_NO", "No Value"));
+                                        MapsActivity.putExtra("CRTFC_CLASS", response.optJSONArray("data").optJSONObject(0).optString("CRTFC_CLASS", "No Value"));
+                                        MapsActivity.putExtra("X", response.optJSONArray("data").optJSONObject(0).optDouble("Y_DNTS", 37.5652894));
+                                        MapsActivity.putExtra("Y", response.optJSONArray("data").optJSONObject(0).optDouble("X_CNTS", 126.8494668));
+                                        MapsActivity.putExtra("classify", classify);
+                                        MapsActivity.putExtra("mypage", 0);
+                                    }
+                                    startActivity(MapsActivity);
                                 }
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Log.e("reviewError", ""+error);
+                                    Log.e("reviewError", "" + error);
                                 }
                             });
                             requestQueue.add(reviewStoreRequest);
-                            /*
-                            Toast.makeText(Select_MyPage_Activity.this, "" + id, Toast.LENGTH_LONG).show();
-                            intent.putExtra("review_title", ReviewArrayList.get((int) id).getTitle());
-                            intent.putExtra("review_body", ReviewArrayList.get((int) id).getBody());
-                            intent.putExtra("review_score", ReviewArrayList.get((int) id).getScore());
-                            intent.putExtra("review_index", ReviewArrayList.get((int) id).getReview_id());
-                            intent.putExtra("review_user_id", ReviewArrayList.get((int) id).getUser_id());
-                            intent.putExtra("review_store_id", ReviewArrayList.get((int) id).getStore_id());
-                            */
-                            //startActivityForResult(intent, 0);
                         }
                     });
                 }
@@ -309,7 +331,7 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                             Toast.makeText(Select_MyPage_Activity.this, "" + id, Toast.LENGTH_LONG).show();
                             intent.putExtra("review_title", ReviewArrayList.get((int) id).getTitle());
                             intent.putExtra("review_body", ReviewArrayList.get((int) id).getBody());
-                            intent.putExtra("review_created", ReviewArrayList.get((int) id). getCreated());
+                            intent.putExtra("review_created", ReviewArrayList.get((int) id).getCreated());
                             intent.putExtra("review_classify", ReviewArrayList.get((int) id).getClassify());
                             intent.putExtra("review_image", ReviewArrayList.get((int) id).getImage());
                             intent.putExtra("review_score", ReviewArrayList.get((int) id).getScore());
@@ -340,7 +362,8 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
         };
         requestQueue.add(getReviewRequest);
 
-}
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -353,14 +376,14 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
         }
     }
 
-    private void setCurrentInflateItem(int type){
-        if(type==0){
+    private void setCurrentInflateItem(int type) {
+        if (type == 0) {
             mPager.setCurrentItem(0);
-        }else
+        } else
             mPager.setCurrentItem(1);
     }
 
-    private void setLayout(){
+    private void setLayout() {
 
         favor.setOnClickListener(this);
         review.setOnClickListener(this);
@@ -390,11 +413,10 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
 
         private LayoutInflater mInflater;
 
-        public PagerAdapterClass(Context c){
+        public PagerAdapterClass(Context c) {
             super();
             mInflater = LayoutInflater.from(c);
         }
-
 
 
         @Override
@@ -405,15 +427,23 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
         @Override
         public Object instantiateItem(View pager, int position) {
             View v = null;
+<<<<<<< HEAD
             if(position==0){
                 v = mInflater.inflate(R.layout.inflate_favor, null);
                 review.setOnClickListener(mPagerListener);
             }
             else {
                 v = mInflater.inflate(R.layout.inflate_review, null);
+=======
+            if (position == 0) {
+                v = mInflater.inflate(R.layout.inflate_review, null);
+                review.setOnClickListener(mPagerListener);
+            } else {
+                v = mInflater.inflate(R.layout.inflate_favor, null);
+>>>>>>> origin/병합2
                 favor.setOnClickListener(mPagerListener);
             }
-                ((ViewPager)pager).addView(v, 0);
+            ((ViewPager) pager).addView(v, 0);
 
             return v;
         }
@@ -421,7 +451,7 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
 
         @Override
         public void destroyItem(View pager, int position, Object view) {
-            ((ViewPager)pager).removeView((View)view);
+            ((ViewPager) pager).removeView((View) view);
         }
 
         @Override
@@ -429,10 +459,22 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
             return pager == obj;
         }
 
-        @Override public void restoreState(Parcelable arg0, ClassLoader arg1) {}
-        @Override public Parcelable saveState() { return null; }
-        @Override public void startUpdate(View arg0) {}
-        @Override public void finishUpdate(View arg0) {}
+        @Override
+        public void restoreState(Parcelable arg0, ClassLoader arg1) {
+        }
+
+        @Override
+        public Parcelable saveState() {
+            return null;
+        }
+
+        @Override
+        public void startUpdate(View arg0) {
+        }
+
+        @Override
+        public void finishUpdate(View arg0) {
+        }
     }
 }
 

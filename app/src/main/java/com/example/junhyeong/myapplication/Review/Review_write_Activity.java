@@ -48,6 +48,8 @@ public class Review_write_Activity extends Activity {
         super.onCreate(savedInstanceState);
         intent = getIntent();
         classify = intent.getStringExtra("classify");
+        store_id = intent.getIntExtra("store_id", 0);
+        image = intent.getStringExtra("store_grade");
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup_review);
@@ -90,10 +92,8 @@ public class Review_write_Activity extends Activity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.YesBtn:
-                store_id = intent.getIntExtra("store_id", 0);
                 strReviewTitle = ReviewTitle.getText().toString();
                 strReviewBody = ReviewBody.getText().toString();
-                image = intent.getStringExtra("store_grade");
 
                 if (strReviewTitle.equals("") || strReviewBody.equals("")) {
 
@@ -152,19 +152,9 @@ public class Review_write_Activity extends Activity {
         finish();
     }
 
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        //바깥레이어 클릭시 안닫히게
-        if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public void onBackPressed() {
-        return;
+        redirectReview_Activity();
     }
 }
 

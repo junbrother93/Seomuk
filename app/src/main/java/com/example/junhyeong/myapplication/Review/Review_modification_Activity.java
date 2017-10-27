@@ -234,4 +234,9 @@ public class Review_modification_Activity extends Activity {
         startActivity(intent);
         finish();
     }
+
+    @Override
+    public void onBackPressed() {
+        redirectSelect_MyPage_Activity();
+    }
 }

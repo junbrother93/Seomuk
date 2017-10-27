@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import com.android.volley.AuthFailureError;
@@ -46,6 +47,7 @@ public class Review_Activity extends Activity {
 
         intent = getIntent();
         unlogin_value = intent.getIntExtra("mypage",0);
+        unlogin_value = intent.getIntExtra("mypage", 0);
         store_id = intent.getIntExtra("store_id", 0);
         classify = intent.getStringExtra("classify");
         image = intent.getStringExtra("store_grade");
@@ -54,6 +56,10 @@ public class Review_Activity extends Activity {
         ReviewBtn2 = (ImageView)findViewById(R.id.ReviewBtn2);
         Warn = (ImageView)findViewById(R.id.warn_review);
         Review_Write = new Intent(this,Review_write_Activity.class);
+=======
+        ReviewBtn2 = (ImageView) findViewById(R.id.ReviewBtn2);
+        Review_Write = new Intent(this, Review_write_Activity.class);
+>>>>>>> origin/병합2
         Popup_login = new Intent(this, PopupActivity_Login.class);
 
         Review_Write.putExtra("store_id", store_id);
@@ -63,32 +69,28 @@ public class Review_Activity extends Activity {
         ReviewBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(unlogin_value==1)
-                {
+                if (unlogin_value == 1) {
                     startActivity(Popup_login);
-                }
-                else
-                startActivity(Review_Write);
+                } else
+                    startActivity(Review_Write);
                 finish();
             }
         });
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
-
         JsonObjectRequest reviewStoreRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/review/store", new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("reviewResponse", ""+response);
+                Log.d("reviewResponse", "" + response);
 
                 arrayList = new ArrayList<Store4>();
 
                 final ArrayList<JSONObject> ArrData = new ArrayList<JSONObject>();
-                ArrayList<String> ArrTitle= new ArrayList<String>();
-                ArrayList<String> ArrText= new ArrayList<String>();
-                ArrayList<String> ArrImage= new ArrayList<String>();
-                ArrayList<String> ArrCreated= new ArrayList<String>();
-                ArrayList<Integer> ArrScore= new ArrayList<Integer>();
+                ArrayList<String> ArrTitle = new ArrayList<String>();
+                ArrayList<String> ArrText = new ArrayList<String>();
+                ArrayList<String> ArrImage = new ArrayList<String>();
+                ArrayList<String> ArrCreated = new ArrayList<String>();
+                ArrayList<Integer> ArrScore = new ArrayList<Integer>();
 
                 // 리스트뷰랑 어댑터..
                 listview = (IndexableListView2) findViewById(R.id.listview_review);
@@ -120,6 +122,7 @@ public class Review_Activity extends Activity {
                     arrayList.add(s);
 
                 }
+<<<<<<< HEAD
                 if (total == 0) {
                     Warn.setVisibility(View.VISIBLE);
                     listview.setVisibility(View.GONE);
@@ -148,12 +151,29 @@ public class Review_Activity extends Activity {
                         else
                             adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b3), arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
                     }
+=======
+                for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
+                {
+                    adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b6), arrayList.get(i).getTitle());
+>>>>>>> origin/병합2
                 }
+
+                listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(getApplicationContext(), Review_view_Activity.class);
+                        intent.putExtra("review_title", arrayList.get((int) id).getTitle());
+                        intent.putExtra("review_body", arrayList.get((int) id).getText());
+                        intent.putExtra("review_created", arrayList.get((int) id).getCreated());
+                        intent.putExtra("review_score", arrayList.get((int) id).getScore());
+                        startActivity(intent);
+                    }
+                });
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("reviewError", ""+error);
+                Log.e("reviewError", "" + error);
             }
 
         }) {
@@ -163,7 +183,7 @@ public class Review_Activity extends Activity {
                 params.put("store_id", Integer.toString(store_id));
                 params.put("classify", classify);
 
-                Log.d("storeReviewParams", ""+params);
+                Log.d("storeReviewParams", "" + params);
                 return params;
             }
         };
