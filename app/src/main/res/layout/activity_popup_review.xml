@@ -2,21 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center">
-
-<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="#CCF5F5DC"
-   >
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:weightSum="1"
+    android:background="#E8E8E8">
+
+
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#787878">
+        android:background="#787878"
+        android:layout_weight="0.2">
 
         <TextView
             android:id="@+id/textView2"
@@ -36,7 +34,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        >
 
         <TextView
             android:id="@+id/Value"
@@ -74,7 +73,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_weight="0.6">
 
         <EditText
             android:id="@+id/ReviewTitle"
@@ -90,36 +90,39 @@
         <EditText
             android:id="@+id/ReviewBody"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="261dp"
             android:layout_margin="7dp"
-            android:paddingLeft="10dp"
             android:background="@drawable/round2"
             android:ems="10"
+            android:hint="내용"
             android:inputType="textPersonName"
-            android:hint="내용" />
+            android:paddingLeft="10dp" />
     </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:gravity="bottom">
+        android:gravity="bottom"
+        android:layout_weight="0.2">
 
-        <Button
+        <ImageView
             android:id="@+id/YesBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:src="@drawable/ok"
+            android:layout_width="110dp"
+            android:layout_height="38dp"
             android:layout_gravity="center"
             android:layout_marginRight="60dp"
             android:text="확인"
             android:onClick="onClick">
 
-        </Button>
+        </ImageView>
 
-        <Button
+        <ImageView
             android:id="@+id/NoBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:src="@drawable/cancel"
+            android:layout_width="110dp"
+            android:layout_height="38dp"
             android:layout_gravity="center"
             android:layout_marginLeft="60dp"
             android:text="취소"
@@ -128,6 +131,5 @@
 
     </FrameLayout>
 
-</LinearLayout>
 
 </LinearLayout>

@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -19,7 +19,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
-import com.example.junhyeong.myapplication.Login.LoginActivity;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Select.Select_MyPage_Activity;
 
@@ -33,7 +32,7 @@ import java.util.Map;
 public class Review_modification_Activity extends Activity {
 
     EditText ReviewTitle, ReviewBody;
-    Button btnModification, btnDelete, btnClose;
+    ImageView btnModification, btnDelete, btnClose;
     Intent intent, ActMypage;
     String title, body, classify, created, image;
     int index, user_id, width, height, score, store_id;
@@ -67,9 +66,9 @@ public class Review_modification_Activity extends Activity {
 
         ReviewTitle = (EditText) findViewById(R.id.ReviewTitle);
         ReviewBody = (EditText) findViewById(R.id.ReviewBody);
-        btnModification = (Button) findViewById(R.id.btnModification);
-        btnDelete = (Button) findViewById(R.id.btnDelete);
-        btnClose = (Button) findViewById(R.id.btnClose);
+        btnModification = (ImageView) findViewById(R.id.btnModification);
+        btnDelete = (ImageView) findViewById(R.id.btnDelete);
+        btnClose = (ImageView) findViewById(R.id.btnClose);
         rating = (RatingBar) findViewById(R.id.ratingBar2);
         Value = (TextView) findViewById(R.id.Value2);
 

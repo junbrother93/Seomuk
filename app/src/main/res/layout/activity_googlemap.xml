@@ -42,8 +42,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:textColor="#0099FF"
             android:layout_gravity="center_vertical"
+            android:textColor="#000000"
             android:text="상세내용"
             android:textSize="8pt" />
 
@@ -96,11 +96,12 @@
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:layout_column="0"
-                android:layout_gravity="center_vertical"
+                android:gravity="center|center_vertical"
                 android:layout_marginTop="15dp"
+                android:background="@drawable/round2"
                 android:layout_row="0"
                 android:layout_weight="1"
-                android:text="업체 명 : "
+                android:text="업체 명"
                 android:textSize="8pt"
                 android:textStyle="bold" />
 
@@ -109,11 +110,12 @@
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:layout_column="0"
-                android:layout_gravity="center_vertical"
+                android:gravity="center|center_vertical"
                 android:layout_marginTop="15dp"
+                android:background="@drawable/round2"
                 android:layout_row="1"
                 android:layout_weight="1"
-                android:text="주소 : "
+                android:text="주소"
                 android:textSize="8pt"
                 android:textStyle="bold" />
 
@@ -123,23 +125,14 @@
                 android:layout_height="40dp"
                 android:layout_column="0"
                 android:layout_marginTop="15dp"
+                android:background="@drawable/round2"
                 android:layout_row="2"
                 android:layout_weight="1"
-                android:text="인증 구분 :  "
+                android:text="인증 구분"
                 android:textSize="8pt"
+                android:gravity="center|center_vertical"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:layout_column="0"
-                android:layout_marginTop="15dp"
-                android:layout_row="3"
-                android:layout_weight="1"
-                android:text="평점 : "
-                android:textSize="8pt"
-                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -147,10 +140,12 @@
                 android:layout_height="40dp"
                 android:layout_column="0"
                 android:layout_marginTop="15dp"
-                android:layout_row="4"
+                android:background="@drawable/round2"
+                android:layout_row="3"
                 android:layout_weight="1"
-                android:text="위생 등급 : "
+                android:text="위생 등급"
                 android:textSize="8pt"
+                android:gravity="center|center_vertical"
                 android:textStyle="bold" />
 
             <TextView
@@ -159,6 +154,7 @@
                 android:layout_height="40dp"
                 android:layout_column="1"
                 android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
                 android:layout_row="0"
                 android:layout_weight="1"
                 android:text="업체명"
@@ -170,6 +166,7 @@
                 android:layout_height="40dp"
                 android:layout_column="1"
                 android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
                 android:layout_row="1"
                 android:layout_weight="1"
                 android:text="주소"
@@ -181,21 +178,12 @@
                 android:layout_height="40dp"
                 android:layout_column="1"
                 android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
                 android:layout_row="2"
                 android:layout_weight="1"
                 android:text="인증구분"
                 android:textSize="8pt" />
 
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_column="1"
-                android:layout_marginTop="15dp"
-                android:layout_row="3"
-                android:layout_weight="1"
-                android:text="5.0/5.0"
-                android:textSize="8pt" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -203,11 +191,11 @@
                 android:layout_height="40dp"
                 android:layout_column="1"
                 android:layout_marginTop="15dp"
-                android:layout_row="4"
+                android:layout_marginLeft="15dp"
+                android:layout_row="3"
                 android:layout_weight="1"
                 android:text=" 해당사항 없음"
-                android:textSize="8pt"
-                android:textStyle="bold" />
+                android:textSize="8pt" />
 
         </GridLayout>
     </ScrollView>

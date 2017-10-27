@@ -15,19 +15,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.junhyeong.myapplication.Adapter.ListViewAdapter;
-import com.example.junhyeong.myapplication.Adapter.ListViewAdapter2;
+import com.example.junhyeong.myapplication.Adapter.ListViewAdapter3;
 import com.example.junhyeong.myapplication.Data.Store4;
-import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Login;
 import com.example.junhyeong.myapplication.R;
-import com.example.junhyeong.myapplication.widget.IndexableListView;
 import com.example.junhyeong.myapplication.widget.IndexableListView2;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +32,7 @@ import java.util.Map;
  */
 
 public class Review_Activity extends Activity {
-    private ImageView ReviewBtn2;
+    private ImageView ReviewBtn2, Warn;
     private Intent intent, Review_Write, Popup_login;
     private int store_id, unlogin_value;
     private String classify, image;
@@ -56,6 +52,7 @@ public class Review_Activity extends Activity {
 
 
         ReviewBtn2 = (ImageView)findViewById(R.id.ReviewBtn2);
+        Warn = (ImageView)findViewById(R.id.warn_review);
         Review_Write = new Intent(this,Review_write_Activity.class);
         Popup_login = new Intent(this, PopupActivity_Login.class);
 
@@ -95,7 +92,7 @@ public class Review_Activity extends Activity {
 
                 // 리스트뷰랑 어댑터..
                 listview = (IndexableListView2) findViewById(R.id.listview_review);
-                ListViewAdapter2 adapter = new ListViewAdapter2();
+                ListViewAdapter3 adapter = new ListViewAdapter3();
                 listview.setAdapter(adapter);
                 listview.setFastScrollEnabled(true);
 
@@ -121,10 +118,36 @@ public class Review_Activity extends Activity {
                     s.setScore(ArrData.get(i).optInt("score", 0));
 
                     arrayList.add(s);
+
                 }
-                for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
-                {
-                    adapter.addItem(ContextCompat.getDrawable(Review_Activity.this,R.drawable.b6), arrayList.get(i).getTitle());
+                if (total == 0) {
+                    Warn.setVisibility(View.VISIBLE);
+                    listview.setVisibility(View.GONE);
+                } else {
+                    Warn.setVisibility(View.INVISIBLE);
+                    listview.setVisibility(View.VISIBLE);
+                    for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
+                    {
+
+                        if (arrayList.get(i).getImage().toString().equals("저염실천음식점".toString()) || arrayList.get(i).getImage().toString().equals("저염참여음식점".toString()))
+                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b7), arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
+                        else if (arrayList.get(i).getImage().toString().equals("먹을만큼적당히".toString()))
+                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b2), arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
+                        else if (arrayList.get(i).getImage().toString().equals("건강음식점".toString()))
+                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b1), arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
+                        else if (arrayList.get(i).getImage().toString().equals("위생등급제".toString()))
+                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b5), arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
+                        else if (arrayList.get(i).getImage().toString().equals("자랑스러운 한국음식점".toString()))
+                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b6), arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
+                        else if (arrayList.get(i).getImage().toString().equals("원산지표시 우수음식점".toString()))
+                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b4), arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
+                        else if (arrayList.get(i).getImage().toString().equals("채식메뉴음식점".toString()) || arrayList.get(i).getImage().toString().equals("채식전문음식점".toString()))
+                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b8), arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
+                        else if (arrayList.get(i).getImage().toString().equals("자랑스러운 한국음식점".toString()))
+                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b6), arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
+                        else
+                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b3), arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
+                    }
                 }
             }
         }, new Response.ErrorListener() {

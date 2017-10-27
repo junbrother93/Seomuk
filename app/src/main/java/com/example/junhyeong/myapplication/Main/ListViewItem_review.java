@@ -6,10 +6,10 @@ import android.graphics.drawable.Drawable;
  * Created by jin on 2017-08-15.
  */
 
-public class ListViewItem {
+public class ListViewItem_review {
     private Drawable iconDrawable ;
     private String titleStr ;
-    private Drawable Bow;
+    private String Date;
 
 
     public void setIcon(Drawable icon) {
@@ -18,20 +18,15 @@ public class ListViewItem {
     public void setTitle(String title) {
         titleStr = title ;
     }
-    public void setIv(Drawable bow) {
-        Bow = bow ;
+    public void setDate(String date) {
+        Date = date ;
     }
 
 
     public Drawable getIcon() {
         return this.iconDrawable ;
     }
-    public String getTitle() {
-        return this.titleStr ;
-    }
-    public Drawable getBow() {
-        return this.Bow ;
-    }
-
+    public String getTitle() {return this.titleStr ;   }
+    public String getDate() {return this.Date ;   }
 
 }

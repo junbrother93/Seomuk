@@ -271,11 +271,11 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
                     if (arrayList.get(i).getCTF_TYPE_NAME().toString().equals("자랑스러운 한국음식점".toString()))
-                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b6), arrayList.get(i).getCTF_NAME());
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b6), arrayList.get(i).getCTF_NAME(),ContextCompat.getDrawable(this, R.drawable.bow));
                     else if (arrayList.get(i).getCTF_TYPE_NAME().toString().equals("원산지표시 우수음식점".toString()))
-                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b4), arrayList.get(i).getCTF_NAME());
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b4), arrayList.get(i).getCTF_NAME(),ContextCompat.getDrawable(this, R.drawable.bow));
                     else
-                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b3), arrayList.get(i).getCTF_NAME());
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b3), arrayList.get(i).getCTF_NAME(),ContextCompat.getDrawable(this, R.drawable.bow));
                 }
             }
 
@@ -380,21 +380,21 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                 {
 
                     if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("저염실천음식점".toString()) || arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("저염참여음식점".toString()))
-                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b7), arrayList2.get(i).getUPSO_NM());
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b7), arrayList2.get(i).getUPSO_NM(),ContextCompat.getDrawable(this, R.drawable.bow));
                     else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("먹을만큼적당히".toString()))
-                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b2), arrayList2.get(i).getUPSO_NM());
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b2), arrayList2.get(i).getUPSO_NM(),ContextCompat.getDrawable(this, R.drawable.bow));
                     else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("건강음식점".toString()))
-                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b1), arrayList2.get(i).getUPSO_NM());
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b1), arrayList2.get(i).getUPSO_NM(),ContextCompat.getDrawable(this, R.drawable.bow));
                     else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("위생등급제".toString()))
-                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b5), arrayList2.get(i).getUPSO_NM());
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b5), arrayList2.get(i).getUPSO_NM(),ContextCompat.getDrawable(this, R.drawable.bow));
                     else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("자랑스러운 한국음식점".toString()))
-                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b6), arrayList2.get(i).getUPSO_NM());
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b6), arrayList2.get(i).getUPSO_NM(),ContextCompat.getDrawable(this, R.drawable.bow));
                     else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("원산지표시 우수음식점".toString()))
-                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b4), arrayList2.get(i).getUPSO_NM());
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b4), arrayList2.get(i).getUPSO_NM(),ContextCompat.getDrawable(this, R.drawable.bow));
                     else if (arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("채식메뉴음식점".toString()) || arrayList2.get(i).getCRTFC_GBN_NM().toString().equals("채식전문음식점".toString()))
-                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b8), arrayList2.get(i).getUPSO_NM());
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b8), arrayList2.get(i).getUPSO_NM(),ContextCompat.getDrawable(this, R.drawable.bow));
                     else
-                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b3), arrayList2.get(i).getUPSO_NM());
+                        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.b3), arrayList2.get(i).getUPSO_NM(),ContextCompat.getDrawable(this, R.drawable.bow));
                 }
 
 

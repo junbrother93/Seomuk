@@ -10,18 +10,18 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.junhyeong.myapplication.Main.ListViewItem;
+import com.example.junhyeong.myapplication.Main.ListViewItem_review;
 import com.example.junhyeong.myapplication.R;
 
 import java.util.ArrayList;
 
-public class ListViewAdapter2 extends BaseAdapter{
+public class ListViewAdapter3 extends BaseAdapter{
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
-    private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>() ;
+    private ArrayList<ListViewItem_review> listViewItemList = new ArrayList<ListViewItem_review>() ;
 
     private Typeface Tmon;
     // ListViewAdapter의 생성자
-    public ListViewAdapter2() {
+    public ListViewAdapter3() {
 
 
 
@@ -42,23 +42,23 @@ public class ListViewAdapter2 extends BaseAdapter{
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.listview_item, parent, false);
+            convertView = inflater.inflate(R.layout.review_item, parent, false);
         }
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
-        ImageView iconImageView = (ImageView) convertView.findViewById(R.id.imageView1) ;
-        TextView titleTextView = (TextView) convertView.findViewById(R.id.textView1) ;
-        ImageView BowImageView = (ImageView) convertView.findViewById(R.id.Bow) ;
+        ImageView iconImageView = (ImageView) convertView.findViewById(R.id.review_Image) ;
+        TextView titleTextView = (TextView) convertView.findViewById(R.id.review_title) ;
+        TextView dateTextView = (TextView) convertView.findViewById(R.id.review_date);
         Tmon = Typeface.createFromAsset(context.getAssets(), "fonts/TmonTium.ttf");
 
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        ListViewItem listViewItem = listViewItemList.get(position);
+        ListViewItem_review listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
         iconImageView.setImageDrawable(listViewItem.getIcon());
         titleTextView.setText(listViewItem.getTitle());
-        BowImageView.setImageDrawable(listViewItem.getBow());
+        dateTextView.setText(listViewItem.getDate());
         titleTextView.setTypeface(Tmon);
 
 
@@ -78,13 +78,12 @@ public class ListViewAdapter2 extends BaseAdapter{
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(Drawable icon, String title, Drawable bow) {
-        ListViewItem item = new ListViewItem();
+    public void addItem(Drawable icon, String title, String date) {
+        ListViewItem_review item = new ListViewItem_review();
 
         item.setIcon(icon);
         item.setTitle(title);
-        item.setIv(bow);
-
+        item.setDate(date);
 
         listViewItemList.add(item);
     }

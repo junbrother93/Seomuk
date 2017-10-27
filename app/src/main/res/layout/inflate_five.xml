@@ -1,42 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_gravity="center"
-    android:weightSum="1"
-    >
-    <FrameLayout
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_weight="0.7"
-        android:background="#dcdcdc">
+    android:layout_gravity="center">
 
+    <ImageView
+        android:id="@+id/iv_five"
+        android:layout_width="270dp"
+        android:layout_height="120dp"
+        android:paddingTop="15dp"
+        android:layout_gravity="center"
+        android:src="@drawable/b5" />
+
+
+    <ImageView
+        android:layout_width="270dp"
+        android:layout_height="150dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:src="@drawable/c5" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="15dp">
 
         <ImageView
-            android:id="@+id/iv_five"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:src="@drawable/b5"
-            />
+            android:id="@+id/imageView2"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/bow_left" />
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/bow" />
     </FrameLayout>
 
-    <FrameLayout
-        android:layout_width="250dp"
-        android:layout_height="150dp"
-        android:layout_weight="0.3">
-
-        <TextView
-            android:id="@+id/txt5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="7pt"
-            android:padding="10dp"
-            android:textAlignment="center"
-            android:text="식약처가 소비자들이 마음 놓고 이용할 수 있는 우수한 음식점을 선정하고, 일반음식점 위생 수준을 객관적으로 평가하는 음식점 위생등급제의 도입. 위생 등급은 1,2,3 단계로 나뉘며 단계가 높을수록 위생수준이 우수한 업소" />
-    </FrameLayout>
 
 </LinearLayout>

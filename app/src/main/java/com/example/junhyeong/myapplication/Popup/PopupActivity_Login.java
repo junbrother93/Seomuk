@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.junhyeong.myapplication.Login.LoginActivity;
 import com.example.junhyeong.myapplication.R;
@@ -15,7 +15,7 @@ import com.example.junhyeong.myapplication.R;
  */
 
 public class PopupActivity_Login extends Activity{
-    private Button Yes,No;
+    private ImageView Yes,No;
     private Intent login;
     private Intent clear;
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +24,8 @@ public class PopupActivity_Login extends Activity{
         setContentView(R.layout.activity_popup_login);
         login = new Intent(this, LoginActivity.class);
 
-        Yes = (Button)findViewById(R.id.pop_login);
-        No = (Button)findViewById(R.id.pop_login_cancel);
+        Yes = (ImageView)findViewById(R.id.pop_login);
+        No = (ImageView)findViewById(R.id.pop_login_cancel);
 
        Yes.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -45,7 +45,7 @@ public class LoginActivity extends Activity {
 
     private SessionCallback callback;      //콜백 선언 for kakao
     CallbackManager callbackManager;       //콜백 선언 for facebook
-    Button unlogin;
+    ImageView unlogin;
     ImageView copyright;
 
     @Override
@@ -53,7 +53,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        unlogin = (Button) findViewById(R.id.unlogin);
+        unlogin = (ImageView) findViewById(R.id.unlogin);
         copyright = (ImageView) findViewById(R.id.copyright);
 
         unlogin.setOnClickListener(new AccessListener());

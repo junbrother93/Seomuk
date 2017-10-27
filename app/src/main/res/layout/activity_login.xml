@@ -11,13 +11,14 @@
         android:layout_height="35dp">
 
         <ImageView
-            android:layout_margin="7dp"
+            android:layout_margin="3dp"
             android:id="@+id/copyright"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="right"
             android:onClick="onClick"
-            android:src="@drawable/info" />
+            android:src="@drawable/info"
+            tools:ignore="OnClick" />
     </FrameLayout>
 
     <FrameLayout
@@ -25,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:gravity="bottom"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         android:paddingTop="10dp"
         android:layout_centerInParent="true"
@@ -78,12 +80,12 @@
             </LinearLayout>
 
 
-            <Button
+            <ImageView
                 android:id="@+id/unlogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:background="@drawable/unlogin"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
                 android:textStyle="bold"
                 android:text="비회원으로 접속" />
         </LinearLayout>
