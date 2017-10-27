@@ -56,10 +56,7 @@ public class Review_Activity extends Activity {
         ReviewBtn2 = (ImageView)findViewById(R.id.ReviewBtn2);
         Warn = (ImageView)findViewById(R.id.warn_review);
         Review_Write = new Intent(this,Review_write_Activity.class);
-=======
-        ReviewBtn2 = (ImageView) findViewById(R.id.ReviewBtn2);
-        Review_Write = new Intent(this, Review_write_Activity.class);
->>>>>>> origin/병합2
+
         Popup_login = new Intent(this, PopupActivity_Login.class);
 
         Review_Write.putExtra("store_id", store_id);
@@ -122,7 +119,6 @@ public class Review_Activity extends Activity {
                     arrayList.add(s);
 
                 }
-<<<<<<< HEAD
                 if (total == 0) {
                     Warn.setVisibility(View.VISIBLE);
                     listview.setVisibility(View.GONE);
@@ -151,24 +147,19 @@ public class Review_Activity extends Activity {
                         else
                             adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b3), arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
                     }
-=======
-                for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
-                {
-                    adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b6), arrayList.get(i).getTitle());
->>>>>>> origin/병합2
-                }
 
-                listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(getApplicationContext(), Review_view_Activity.class);
-                        intent.putExtra("review_title", arrayList.get((int) id).getTitle());
-                        intent.putExtra("review_body", arrayList.get((int) id).getText());
-                        intent.putExtra("review_created", arrayList.get((int) id).getCreated());
-                        intent.putExtra("review_score", arrayList.get((int) id).getScore());
-                        startActivity(intent);
-                    }
-                });
+                    listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(getApplicationContext(), Review_view_Activity.class);
+                            intent.putExtra("review_title", arrayList.get((int) id).getTitle());
+                            intent.putExtra("review_body", arrayList.get((int) id).getText());
+                            intent.putExtra("review_created", arrayList.get((int) id).getCreated());
+                            intent.putExtra("review_score", arrayList.get((int) id).getScore());
+                            startActivity(intent);
+                        }
+                    });
+                }
             }
         }, new Response.ErrorListener() {
             @Override

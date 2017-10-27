@@ -33,7 +33,6 @@ import com.example.junhyeong.myapplication.Popup.PopupActivity_Logout;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Review.Review_modification_Activity;
 import com.example.junhyeong.myapplication.widget.IndexableListView2;
-import com.facebook.login.Login;
 
 import org.json.JSONObject;
 
@@ -121,14 +120,10 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                     s.setClassify(ArrData.get(i).optString("classify", "No Value"));
                     StoreArrayList.add(s);
                 }
-<<<<<<< HEAD
-                // 정렬
-                //Collections.sort(StoreArrayList);
-                /*if (total == 0) {
-=======
 
-                if (total == 0) {
->>>>>>> origin/병합2
+
+               /*일단 건들지 말기
+               if (total == 0) {
                     warn.setVisibility(View.VISIBLE);
                     listview.setVisibility(View.GONE);
                 } else {
@@ -427,20 +422,13 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
         @Override
         public Object instantiateItem(View pager, int position) {
             View v = null;
-<<<<<<< HEAD
+
             if(position==0){
                 v = mInflater.inflate(R.layout.inflate_favor, null);
                 review.setOnClickListener(mPagerListener);
             }
             else {
                 v = mInflater.inflate(R.layout.inflate_review, null);
-=======
-            if (position == 0) {
-                v = mInflater.inflate(R.layout.inflate_review, null);
-                review.setOnClickListener(mPagerListener);
-            } else {
-                v = mInflater.inflate(R.layout.inflate_favor, null);
->>>>>>> origin/병합2
                 favor.setOnClickListener(mPagerListener);
             }
             ((ViewPager) pager).addView(v, 0);
