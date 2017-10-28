@@ -86,6 +86,7 @@ public class Review_modification_Activity extends Activity {
             Value.setText("5.0 ");
         ReviewTitle.setText(title);
         ReviewBody.setText(body);
+        rating.setRating((float)score);
 
 
         rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {

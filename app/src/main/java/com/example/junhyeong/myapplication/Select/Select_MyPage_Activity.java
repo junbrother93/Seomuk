@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -322,8 +321,6 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Intent intent = new Intent(getApplicationContext(), Review_modification_Activity.class);
-
-                            Toast.makeText(Select_MyPage_Activity.this, "" + id, Toast.LENGTH_LONG).show();
                             intent.putExtra("review_title", ReviewArrayList.get((int) id).getTitle());
                             intent.putExtra("review_body", ReviewArrayList.get((int) id).getBody());
                             intent.putExtra("review_created", ReviewArrayList.get((int) id).getCreated());
