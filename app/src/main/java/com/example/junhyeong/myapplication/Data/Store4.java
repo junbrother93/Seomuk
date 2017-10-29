@@ -1,5 +1,7 @@
 package com.example.junhyeong.myapplication.Data;
 
+import com.kakao.usermgmt.response.model.User;
+
 import org.json.JSONObject;
 
 /**
@@ -9,15 +11,16 @@ import org.json.JSONObject;
 public class Store4 {
     JSONObject ArrData;
     String Title, Text, Image, Created;
-    int Score;
+    int Score, UserId;
 
-    public void setData(JSONObject Data, String Title, String Text, String Image, String Created, int Score) {
+    public void setData(JSONObject Data, String Title, String Text, String Image, String Created, int Score, int User_Id) {
         setArrData(Data);
         setTitle(Title);
         setText(Text);
         setImage(Image);
         setCreated(Created);
         setScore(Score);
+        setUserId(User_Id);
     }
 
     public void setArrData(JSONObject Data) {
@@ -28,6 +31,7 @@ public class Store4 {
     public void setImage(String image) {Image = image;}
     public void setCreated(String created) {Created = created;}
     public void setScore(int score) {Score = score;}
+    public void setUserId(int user_id) {UserId = user_id;}
 
     public Store4 getData4() {
         return this;
@@ -40,6 +44,7 @@ public class Store4 {
     public String getImage() { return Image;}
     public String getCreated() { return Created;}
     public int getScore() { return Score;}
+    public int getUserId() { return UserId;}
 
     public int compareTo(Store4 store)
     {

@@ -13,9 +13,9 @@ import com.example.junhyeong.myapplication.R;
 
 public class Review_view_Activity extends Activity{
     private Intent intent;
-    private TextView txtTitle, txtText, txtScore, txtCreated;
+    private TextView txtTitle, txtText, txtScore, txtCreated, txtUserId;
     private String Title, Text, Created;
-    private int Score;
+    private int Score, UserId;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,15 +26,18 @@ public class Review_view_Activity extends Activity{
         Text = intent.getStringExtra("review_body");
         Created = intent.getStringExtra("review_created");
         Score = intent.getIntExtra("review_score",0);
+        UserId = intent.getIntExtra("review_UserId", 0);
 
         txtTitle = (TextView) findViewById(R.id.reviewTitle);
         txtText = (TextView) findViewById(R.id.reviewText);
         txtScore = (TextView) findViewById(R.id.reviewScore);
         txtCreated = (TextView) findViewById(R.id.reviewCreated);
+        txtUserId = (TextView) findViewById(R.id.reviewUserId);
 
-        txtTitle.setText(Title);
-        txtText.setText(Text);
-        txtScore.setText(Integer.toString(Score));
-        txtCreated.setText(Created);
+        txtTitle.setText("Title : " + Title);
+        txtText.setText("Text : " + Text);
+        txtScore.setText("Score : " + Integer.toString(Score));
+        txtCreated.setText("Created : " + Created);
+        txtUserId.setText("UserId : " + Integer.toString(UserId));
     }
 }

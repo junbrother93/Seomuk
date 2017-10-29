@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -22,6 +23,7 @@ import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Login;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Review.Review_Activity;
+import com.example.junhyeong.myapplication.Select.Select_MyPage_Activity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -45,8 +47,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ImageView TelBtn, ReviewBtn, Nomap, FavorBtn;
     private String store_address, store_call, store_class, store_grade, classify;
     private int num, unlogin_value;
-    Intent review;
+    private Intent review;
     private Intent Popup_login;
+
+    private int check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +75,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         classify = intent.getStringExtra("classify");
         image = intent.getStringExtra("store_grade");
         //store_address = intent.getStringExtra("store_address");
-
         store_call = intent.getStringExtra("store_call"); //전화번호아이콘 만들어지면 사용
         store_class = intent.getStringExtra("CRTFC_CLASS");
         final int store_id = intent.getIntExtra("store_id", 0);
+
+        check = intent.getIntExtra("check",0);
+
         review.putExtra("store_id", store_id);
         if(store_class.equals("00"))
             store_class="해당사항 없음".toString();
@@ -159,6 +165,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 Log.d("addBookmark : ", "addBookmarkResponse : " + response);
                                 FavorBtn.setImageResource(R.drawable.favor_btn);
                                 num++;
+                                Toast.makeText(MapsActivity.this, "즐겨찾기 추가", Toast.LENGTH_SHORT).show();
                                 // 즐겨찾기 응답에 따른 즐겨찾기 버튼 상태 설정.. if문 사용
                             }
                         }, new Response.ErrorListener() {
@@ -192,8 +199,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 Log.d("deleteBookmark : ", "deleteBookmarkResponse : " + response);
                                 FavorBtn.setImageResource(R.drawable.favor);
                                 num = 0;
+                                Toast.makeText(MapsActivity.this, "즐겨찾기 삭제", Toast.LENGTH_SHORT).show();
                                 // 즐겨찾기 응답에 따른 즐겨찾기 버튼 상태 설정.. if문 사용
-
                             }
                         }, new Response.ErrorListener() {
                             @Override
@@ -331,5 +338,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.addMarker(new MarkerOptions().position(location).title(store_name));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 17.0f));
+    }
+
+    protected void redirectSelect_MyPage_Activity() {
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        final Intent intent = new Intent(this, Select_MyPage_Activity.class);
+        intent.putExtra("classify", classify);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(check == 0)
+        {
+            finish();
+        }
+        else {
+            redirectSelect_MyPage_Activity();
+        }
     }
 }

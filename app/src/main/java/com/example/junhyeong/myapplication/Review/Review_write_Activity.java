@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -104,6 +105,7 @@ public class Review_write_Activity extends Activity {
                     @Override
                     public void onResponse(String response) {
                         Log.d("reviewWriteResponse", "" + response);
+                        Toast.makeText(Review_write_Activity.this, "리뷰 작성 완료", Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
                     @Override

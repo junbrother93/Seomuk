@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -155,10 +156,11 @@ public class Review_modification_Activity extends Activity {
                     e.printStackTrace();
                 }
 
-                StringRequest reviewWriteRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
+                StringRequest reviewReWriteRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.d("reviewReWriteResponse", "" + response);
+                        Toast.makeText(Review_modification_Activity.this, "리뷰 수정 완료", Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -182,7 +184,7 @@ public class Review_modification_Activity extends Activity {
                         return params;
                     }
                 };
-                requestQueue.add(reviewWriteRequest);
+                requestQueue.add(reviewReWriteRequest);
                 redirectSelect_MyPage_Activity();
             }
         });
@@ -196,6 +198,7 @@ public class Review_modification_Activity extends Activity {
                     @Override
                     public void onResponse(String response) {
                         Log.d("reviewDeleteResponse", response.toString());
+                        Toast.makeText(Review_modification_Activity.this, "리뷰 삭제 완료", Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -213,14 +216,13 @@ public class Review_modification_Activity extends Activity {
                     }
                 };
                 requestQueue.add(reviewDeleteRequest);
-                finish();
+                redirectSelect_MyPage_Activity();
             }
         });
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 redirectSelect_MyPage_Activity();
-                finish();
             }
         });
     }

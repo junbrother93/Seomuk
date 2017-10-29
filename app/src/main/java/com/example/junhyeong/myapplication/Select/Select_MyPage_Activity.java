@@ -70,10 +70,12 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
         BMJUA = Typeface.createFromAsset(this.getAssets(), "fonts/BMJUA_ttf.ttf");
         Mypage_name = (TextView)findViewById(R.id.Mypage_Name);
         logout = (ImageView) findViewById(R.id.logout);
+
         PopLogout = new Intent(this, PopupActivity_Logout.class);
         intent = new Intent(this, MainActivity.class);
         MapsActivity = new Intent(this, MapsActivity.class);
         Mypage_name.setTypeface(BMJUA);
+
         classify = intent.getStringExtra("classify");
 
         setLayout();
@@ -127,7 +129,6 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                     s.setClassify(ArrData.get(i).optString("classify", "No Value"));
                     StoreArrayList.add(s);
                 }
-
 
                //일단 건들지 말기
                if (total_favor == 0) {
@@ -201,8 +202,10 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                                         MapsActivity.putExtra("Y", response.optJSONArray("data").optJSONObject(0).optDouble("X_CNTS", 126.8494668));
                                         MapsActivity.putExtra("classify", classify);
                                         MapsActivity.putExtra("mypage", 0);
+                                        MapsActivity.putExtra("check", 1);
                                     }
                                     startActivity(MapsActivity);
+                                    finish();
                                 }
                             }, new Response.ErrorListener() {
                                 @Override
@@ -231,7 +234,6 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
             }
         };
         requestQueue.add(checkBookmarkRequest);
-
 
         JsonObjectRequest getReviewRequest = new JsonObjectRequest(Request.Method.GET, "http://13.124.127.124:3000/review/user", new Response.Listener<JSONObject>() {
             @Override
@@ -375,7 +377,6 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                         review.setImageResource(R.drawable.mypage_review_click);
                     }
             }
-
             @Override
             public void onPageSelected(int position) {
                 if(position==0)
@@ -394,14 +395,11 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                         warn.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
 
             }
         });
-
-
     }
 
     @Override

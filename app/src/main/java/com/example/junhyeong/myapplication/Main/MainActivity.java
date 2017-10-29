@@ -294,6 +294,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                     intent.putExtra("store_id", arrayList.get((int) id).getCTF_CODE());
                     intent.putExtra("mypage", Login);
                     intent.putExtra("classify", classify);
+                    intent.putExtra("check", 0);
                     setResult(RESULT_OK, intent);
                     startActivity(intent);
                 }
@@ -413,6 +414,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
                         intent.putExtra("store_id", arrayList2.get((int) id).getCRTFC_UPSO_MGT_SNO());
                         intent.putExtra("mypage", Login);
                         intent.putExtra("classify", classify);
+                        intent.putExtra("check", 0);
                         setResult(RESULT_OK, intent);
                         startActivity(intent);
                     }

@@ -94,6 +94,7 @@ public class Review_Activity extends Activity {
                 ArrayList<String> ArrImage = new ArrayList<String>();
                 ArrayList<String> ArrCreated = new ArrayList<String>();
                 ArrayList<Integer> ArrScore = new ArrayList<Integer>();
+                ArrayList<Integer> ArrUser_Id = new ArrayList<Integer>();
 
                 // 리스트뷰랑 어댑터..
                 listview = (IndexableListView2) findViewById(R.id.listview_review);
@@ -112,6 +113,7 @@ public class Review_Activity extends Activity {
                     ArrImage.add(ArrData.get(i).optString("image", "No Value"));
                     ArrCreated.add(ArrData.get(i).optString("created", "No Value"));
                     ArrScore.add(ArrData.get(i).optInt("score", 0));
+                    ArrUser_Id.add(ArrData.get(i).optInt("UserId", 0));
 
                     Store4 s = new Store4();
 
@@ -121,7 +123,7 @@ public class Review_Activity extends Activity {
                     s.setImage(ArrData.get(i).optString("image", "No Value"));
                     s.setCreated(ArrData.get(i).optString("created", "No Value"));
                     s.setScore(ArrData.get(i).optInt("score", 0));
-
+                    s.setUserId(ArrData.get(i).optInt("UserId", 0));
                     arrayList.add(s);
 
                 }
@@ -171,6 +173,7 @@ public class Review_Activity extends Activity {
                             intent.putExtra("review_body", arrayList.get((int) id).getText());
                             intent.putExtra("review_created", arrayList.get((int) id).getCreated());
                             intent.putExtra("review_score", arrayList.get((int) id).getScore());
+                            intent.putExtra("review_UserId", arrayList.get((int) id).getUserId());
                             startActivity(intent);
                         }
                     });

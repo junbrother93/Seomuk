@@ -73,18 +73,7 @@ public class LoginActivity extends Activity {
 
         Log.d("Token", "CurrentAccessToken : " + AccessToken.getCurrentAccessToken());
 
-        /*
-        if(Session.getCurrentSession().isClosed()==false)
-        {
-            Toast.makeText(getApplicationContext(), "카카오톡으로 로그인이 되어있음", Toast.LENGTH_LONG).show();
-            redirectSignupActivity();
-        }
-        else
-        {
-            // 페이스북 로그인 되어있을때....
-        }
-        */
-
+        LoginManager.getInstance().logOut();
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
