@@ -46,7 +46,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
     private IndexableListView listview;
     private int Login;
     private Intent Popup_Location, Popup_Menu, Popup_Login, Popup_Explain, Activity_MyPage, Activity_review, Activity_favor;
-    private Typeface Tmon;
+    private Typeface BMJUA;
     private String menu, local, url, classify;
     private int total;
 
@@ -56,7 +56,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         setContentView(R.layout.activity_main);
 
         Warn = (ImageView) findViewById(R.id.warn);
-        Tmon = Typeface.createFromAsset(this.getAssets(), "fonts/TmonMonsori.ttf.ttf");
+        BMJUA = Typeface.createFromAsset(this.getAssets(), "fonts/BMJUA_ttf.ttf");
 
         mQueue = PodVolleyRequestQueue.getInstance(this.getApplicationContext()).getRequestQueue();
 
@@ -72,7 +72,7 @@ public class MainActivity extends Activity implements Response.Listener<JSONObje
         BtnInfo = (ImageView) findViewById(R.id.info);
 
         Text = (TextView) findViewById(R.id.Text); // 글씨바뀌는건 위의 mButton 버튼
-        Text.setTypeface(Tmon);
+        Text.setTypeface(BMJUA);
 
         Intent intent = getIntent();
 

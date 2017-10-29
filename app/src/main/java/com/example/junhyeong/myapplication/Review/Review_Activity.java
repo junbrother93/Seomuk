@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -37,6 +38,9 @@ public class Review_Activity extends Activity {
     private Intent intent, Review_Write, Popup_login;
     private int store_id, unlogin_value;
     private String classify, image;
+    private int sum;
+    private float convert;
+    private TextView Avg;
     private ArrayList<Store4> arrayList;
     private IndexableListView2 listview;
     private int total;
@@ -52,11 +56,13 @@ public class Review_Activity extends Activity {
         classify = intent.getStringExtra("classify");
         image = intent.getStringExtra("store_grade");
 
-
+        sum=0;
+        convert=0;
         ReviewBtn2 = (ImageView)findViewById(R.id.ReviewBtn2);
         Warn = (ImageView)findViewById(R.id.warn_review);
-        Review_Write = new Intent(this,Review_write_Activity.class);
+        Avg = (TextView)findViewById(R.id.Average);
 
+        Review_Write = new Intent(this,Review_write_Activity.class);
         Popup_login = new Intent(this, PopupActivity_Login.class);
 
         Review_Write.putExtra("store_id", store_id);
@@ -119,6 +125,15 @@ public class Review_Activity extends Activity {
                     arrayList.add(s);
 
                 }
+                if(total!=0) {
+                    for (int i = 0; i <= total - 1; i++) {
+                        sum += arrayList.get(i).getScore();
+                    }
+                    convert = (((float) sum) / ((float) total));
+                    Avg.setText(String.format("%.1f", convert));
+                }
+                else
+                    Avg.setText("0.0 ");
                 if (total == 0) {
                     Warn.setVisibility(View.VISIBLE);
                     listview.setVisibility(View.GONE);

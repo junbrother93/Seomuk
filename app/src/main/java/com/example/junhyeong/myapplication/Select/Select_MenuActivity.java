@@ -3,11 +3,13 @@ package com.example.junhyeong.myapplication.Select;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.junhyeong.myapplication.Main.MainActivity;
 import com.example.junhyeong.myapplication.R;
@@ -20,7 +22,10 @@ public class Select_MenuActivity extends Activity implements View.OnClickListene
     ImageView iv;
     Intent location, Main, intent;
     String menu;
+    TextView Txt_Menu;
     int num;
+    private Typeface BMJUA;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +33,9 @@ public class Select_MenuActivity extends Activity implements View.OnClickListene
         setContentView(R.layout.activity_menu);
         location = new Intent(this, Select_LocationActivity.class);//지역선택창
         Main = new Intent(this, MainActivity.class);//지역선택창
+        BMJUA = Typeface.createFromAsset(this.getAssets(), "fonts/BMJUA_ttf.ttf");
+        Txt_Menu = (TextView)findViewById(R.id.Txt_Menu);
+        Txt_Menu.setTypeface(BMJUA);
     }
 
     @Override

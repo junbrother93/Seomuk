@@ -3,6 +3,7 @@ package com.example.junhyeong.myapplication.Select;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -51,25 +53,29 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
     private ImageView warn;
     private ImageView favor, review, logout;
     private Intent PopLogout, intent, MapsActivity;
-    int num_favor, num_review, total, store_id;
+    int num_favor, num_review, total,total_favor,total_review, store_id;
     private String classify;
     private ViewPager mPager;
+    private TextView Mypage_name;
+    private Typeface BMJUA;
 
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
         num_favor = 0;
         num_review = 0;
        // warn = (ImageView) findViewById(R.id.warn2);
-        favor = (ImageView) findViewById(R.id.Favorite);
-        review = (ImageView) findViewById(R.id.Review);
+
+        BMJUA = Typeface.createFromAsset(this.getAssets(), "fonts/BMJUA_ttf.ttf");
+        Mypage_name = (TextView)findViewById(R.id.Mypage_Name);
         logout = (ImageView) findViewById(R.id.logout);
         PopLogout = new Intent(this, PopupActivity_Logout.class);
         intent = new Intent(this, MainActivity.class);
         MapsActivity = new Intent(this, MapsActivity.class);
+        Mypage_name.setTypeface(BMJUA);
         classify = intent.getStringExtra("classify");
 
-
+        setLayout();
         mPager = (ViewPager) findViewById(R.id.pager_mypage);
         mPager.setAdapter(new PagerAdapterClass(getApplicationContext()));
         logout.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +92,8 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("checkBookmark", response.toString());
-                total = response.optInt("total");
+                //total = response.optInt("total");
+                total= response.optInt("total");
                 StoreArrayList = new ArrayList<Store3>();
 
                 final ArrayList<JSONObject> ArrData = new ArrayList<JSONObject>();
@@ -121,8 +128,8 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                 }
 
 
-               /*일단 건들지 말기
-               if (total == 0) {
+               //일단 건들지 말기
+               /*if (total == 0) {
                     warn.setVisibility(View.VISIBLE);
                     listview.setVisibility(View.GONE);
                 } else {
@@ -207,7 +214,7 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                         }
                     });
                 }
-            //}
+           // }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -251,7 +258,7 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                 listview.setAdapter(adapter);
                 listview.setFastScrollEnabled(true);
 
-                total = response.optInt("total", 0);    // 총 갯수
+                total= response.optInt("total", 0);    // 총 갯수
 
                 for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
@@ -287,7 +294,7 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                 // 정렬
                 Collections.sort(ReviewArrayList);
                 // 정렬 한 것 어댑터에 추가
-              /*  if (total == 0) {
+               /* if (total== 0) {
                     warn.setVisibility(View.VISIBLE);
                     listview.setVisibility(View.GONE);
                 } else {
@@ -336,7 +343,7 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                         }
                     });
                 }
-           // }
+          //  }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -354,15 +361,47 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
         };
         requestQueue.add(getReviewRequest);
 
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    if(position==0)
+                    {
+                        Mypage_name.setText("즐겨찾기");
+                        favor.setImageResource(R.drawable.star_click);
+                        review.setImageResource(R.drawable.mypage_review);
+                    }
+                    else if(position==1)
+                    {
+                        Mypage_name.setText("리뷰");
+                        favor.setImageResource(R.drawable.star);
+                        review.setImageResource(R.drawable.mypage_review_click);
+                    }
+
+
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.Review:
-                setCurrentInflateItem(0);
-                break;
             case R.id.Favorite:
+               setCurrentInflateItem(0);
+                break;
+            case R.id.Review:
                 setCurrentInflateItem(1);
                 break;
         }
@@ -371,11 +410,14 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
     private void setCurrentInflateItem(int type) {
         if (type == 0) {
             mPager.setCurrentItem(0);
-        } else
+        } else if(type == 1)
             mPager.setCurrentItem(1);
     }
 
     private void setLayout() {
+
+        favor = (ImageView) findViewById(R.id.Favorite);
+        review = (ImageView) findViewById(R.id.Review);
 
         favor.setOnClickListener(this);
         review.setOnClickListener(this);
@@ -387,12 +429,16 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.Favorite:
+
                     favor.setImageResource(R.drawable.star_click);
                     review.setImageResource(R.drawable.mypage_review);
+                    mPager.setCurrentItem(0);
                     break;
                 case R.id.Review:
+
                     favor.setImageResource(R.drawable.star);
                     review.setImageResource(R.drawable.mypage_review_click);
+                    mPager.setCurrentItem(1);
                     break;
             }
         }
@@ -419,20 +465,18 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
         @Override
         public Object instantiateItem(View pager, int position) {
             View v = null;
-
             if(position==0){
                 v = mInflater.inflate(R.layout.inflate_favor, null);
-                review.setOnClickListener(mPagerListener);
-            }
-            else {
-                v = mInflater.inflate(R.layout.inflate_review, null);
                 favor.setOnClickListener(mPagerListener);
+            }
+            else if(position==1){
+                v = mInflater.inflate(R.layout.inflate_review, null);
+                review.setOnClickListener(mPagerListener);
             }
             ((ViewPager) pager).addView(v, 0);
 
             return v;
         }
-
 
         @Override
         public void destroyItem(View pager, int position, Object view) {

@@ -2,10 +2,11 @@ package com.example.junhyeong.myapplication.Select;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.junhyeong.myapplication.Main.MainActivity;
 import com.example.junhyeong.myapplication.R;
@@ -19,6 +20,8 @@ public class Select_LocationActivity extends Activity implements View.OnClickLis
     String menu, local, url;
     int num;
     Intent Main, intent;
+    TextView Txt_Loc;
+    private Typeface BMJUA;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +30,9 @@ public class Select_LocationActivity extends Activity implements View.OnClickLis
         intent = getIntent();
         menu = intent.getStringExtra("menu");
         num = intent.getIntExtra("mypage", 0);
+        BMJUA = Typeface.createFromAsset(this.getAssets(), "fonts/BMJUA_ttf.ttf");
+        Txt_Loc = (TextView)findViewById(R.id.Txt_Loc);
+        Txt_Loc.setTypeface(BMJUA);
     }
 
     public void onClick(View v) {

@@ -31,8 +31,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,7 +39,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private double x, y;
     private String store_name, image;
-    private Typeface BMJUA;
+    private Typeface BMHANNA;
     private Typeface BMDOHYEON;
     private static final int MY_LOCATION_REQUEST_CODE = 1;
     private ImageView TelBtn, ReviewBtn, Nomap, FavorBtn;
@@ -57,7 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent intent = getIntent();
         final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         num = 0;
-        BMJUA = Typeface.createFromAsset(this.getAssets(), "fonts/BMJUA_ttf.ttf");
+        BMHANNA = Typeface.createFromAsset(this.getAssets(), "fonts/BMHANNA_11yrs_ttf.ttf");
         BMDOHYEON = Typeface.createFromAsset(this.getAssets(), "fonts/BMDOHYEON_ttf.ttf");
 
         review = new Intent(this, Review_Activity.class);
@@ -120,7 +118,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         final TextView tvStore_name, tvStore_address, tvStore_grade, title, tvStore_class;
         title = (TextView) findViewById(R.id.textView9);
-        title.setTypeface(BMDOHYEON);
+        title.setTypeface(BMHANNA);
 
         TelBtn = (ImageView) findViewById(R.id.TelBtn);
         TelBtn.setOnClickListener(new View.OnClickListener() {
