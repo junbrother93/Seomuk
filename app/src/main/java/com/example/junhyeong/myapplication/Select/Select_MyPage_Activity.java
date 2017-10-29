@@ -50,10 +50,10 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
     private IndexableListView2 listview;
     private ArrayList<Review> ReviewArrayList;
     private ArrayList<Store3> StoreArrayList;
-    private ImageView warn;
+    private ImageView warn,warn_favor,warn_review;
     private ImageView favor, review, logout;
     private Intent PopLogout, intent, MapsActivity;
-    int num_favor, num_review, total,total_favor,total_review, store_id;
+    int num_favor, num_review,total_favor,total_review,store_id;
     private String classify;
     private ViewPager mPager;
     private TextView Mypage_name;
@@ -64,7 +64,8 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
         setContentView(R.layout.activity_mypage);
         num_favor = 0;
         num_review = 0;
-       // warn = (ImageView) findViewById(R.id.warn2);
+        warn = (ImageView) findViewById(R.id.warn2);
+
 
         BMJUA = Typeface.createFromAsset(this.getAssets(), "fonts/BMJUA_ttf.ttf");
         Mypage_name = (TextView)findViewById(R.id.Mypage_Name);
@@ -92,8 +93,8 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("checkBookmark", response.toString());
-                //total = response.optInt("total");
-                total= response.optInt("total");
+                total_favor = response.optInt("total",0);
+
                 StoreArrayList = new ArrayList<Store3>();
 
                 final ArrayList<JSONObject> ArrData = new ArrayList<JSONObject>();
@@ -108,7 +109,7 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                 listview.setAdapter(adapter);
                 listview.setFastScrollEnabled(true);
 
-                for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
+                for (int i = 0; i <= total_favor - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
                     // 아이템 불러와..
                     ArrData.add(response.optJSONArray("data").optJSONObject(i));
@@ -129,13 +130,12 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
 
 
                //일단 건들지 말기
-               /*if (total == 0) {
-                    warn.setVisibility(View.VISIBLE);
+               if (total_favor == 0) {
                     listview.setVisibility(View.GONE);
                 } else {
-                    warn.setVisibility(View.INVISIBLE);
-                    listview.setVisibility(View.VISIBLE);*/
-                    for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
+                    warn.setVisibility(View.GONE);
+                    listview.setVisibility(View.VISIBLE);
+                    for (int i = 0; i <= total_favor - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                     {
 
                          if (StoreArrayList.get(i).getImage().toString().equals("저염실천음식점".toString()) || StoreArrayList.get(i).getImage().toString().equals("저염참여음식점".toString()))
@@ -214,7 +214,7 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                         }
                     });
                 }
-           // }
+           }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -258,9 +258,9 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                 listview.setAdapter(adapter);
                 listview.setFastScrollEnabled(true);
 
-                total= response.optInt("total", 0);    // 총 갯수
+                total_review= response.optInt("total", 0);    // 총 갯수
 
-                for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
+                for (int i = 0; i <= total_review - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                 {
 
                     ArrReviewData.add(response.optJSONArray("data").optJSONObject(i));
@@ -294,13 +294,11 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                 // 정렬
                 Collections.sort(ReviewArrayList);
                 // 정렬 한 것 어댑터에 추가
-               /* if (total== 0) {
-                    warn.setVisibility(View.VISIBLE);
+                if (total_review== 0) {
                     listview.setVisibility(View.GONE);
                 } else {
-                    warn.setVisibility(View.INVISIBLE);
-                    listview.setVisibility(View.VISIBLE);*/
-                    for (int i = 0; i <= total - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
+                    listview.setVisibility(View.VISIBLE);
+                    for (int i = 0; i <= total_review- 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                     {
                         if (ReviewArrayList.get(i).getImage().toString().equals("저염실천음식점".toString()) || ReviewArrayList.get(i).getImage().toString().equals("저염참여음식점".toString()))
                             adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b7), ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
@@ -343,7 +341,7 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                         }
                     });
                 }
-          //  }
+            }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -376,14 +374,25 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                         favor.setImageResource(R.drawable.star);
                         review.setImageResource(R.drawable.mypage_review_click);
                     }
-
-
-
             }
 
             @Override
             public void onPageSelected(int position) {
+                if(position==0)
+                {
+                    if(total_favor==0)
+                        warn.setVisibility(View.VISIBLE);
+                    else
+                        warn.setVisibility(View.GONE);
 
+                }
+                else if(position==1)
+                {
+                    if(total_review==0)
+                        warn.setVisibility(View.VISIBLE);
+                    else
+                        warn.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -429,13 +438,11 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.Favorite:
-
                     favor.setImageResource(R.drawable.star_click);
                     review.setImageResource(R.drawable.mypage_review);
                     mPager.setCurrentItem(0);
                     break;
                 case R.id.Review:
-
                     favor.setImageResource(R.drawable.star);
                     review.setImageResource(R.drawable.mypage_review_click);
                     mPager.setCurrentItem(1);
