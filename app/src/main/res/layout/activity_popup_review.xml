@@ -97,7 +97,7 @@
             android:layout_height="261dp"
             android:layout_margin="7dp"
             android:background="@drawable/round2"
-            android:maxLength="400"
+            android:maxLength="200"
             android:hint="내용"
             android:inputType="textMultiLine"
             android:padding="10dp" />
