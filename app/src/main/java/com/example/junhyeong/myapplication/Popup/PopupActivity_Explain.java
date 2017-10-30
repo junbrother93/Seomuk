@@ -3,6 +3,7 @@ package com.example.junhyeong.myapplication.Popup;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -10,17 +11,23 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 
 import com.example.junhyeong.myapplication.R;
 
 public class PopupActivity_Explain extends Activity{
     private ViewPager mPager;
-
+    private Typeface BMJUA;
+    private TextView Txt_Menu;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
+
+        BMJUA = Typeface.createFromAsset(this.getAssets(), "fonts/BMJUA_ttf.ttf");
+        Txt_Menu = (TextView)findViewById(R.id.textView11);
+        Txt_Menu.setTypeface(BMJUA);
 
         mPager = (ViewPager)findViewById(R.id.pager);
         mPager.setAdapter(new PagerAdapterClass(getApplicationContext()));

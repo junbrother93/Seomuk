@@ -1,6 +1,7 @@
 package com.example.junhyeong.myapplication.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,17 +10,18 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.junhyeong.myapplication.Main.ListViewItem_review_mypage;
+import com.example.junhyeong.myapplication.Main.ListViewItem_review;
 import com.example.junhyeong.myapplication.R;
 
 import java.util.ArrayList;
-//리뷰_마이페이지 전용 어댑터
-public class ListViewAdapter3 extends BaseAdapter{
+//리뷰전용 어댑터
+public class ListViewAdapter4 extends BaseAdapter{
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
-    private ArrayList<ListViewItem_review_mypage> listViewItemList = new ArrayList<ListViewItem_review_mypage>() ;
+    private ArrayList<ListViewItem_review> listViewItemList = new ArrayList<ListViewItem_review>() ;
 
+    private Typeface HANNA;
     // ListViewAdapter의 생성자
-    public ListViewAdapter3() {
+    public ListViewAdapter4() {
 
 
 
@@ -40,24 +42,25 @@ public class ListViewAdapter3 extends BaseAdapter{
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.review_item_mypage, parent, false);
+            convertView = inflater.inflate(R.layout.review_item, parent, false);
         }
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
-        ImageView iconImageView = (ImageView) convertView.findViewById(R.id.review_Image_mypage) ;
-        TextView storeTextView = (TextView) convertView.findViewById(R.id.review_store_mypage);
-        TextView titleTextView = (TextView) convertView.findViewById(R.id.review_title_mypage) ;
-        TextView dateTextView = (TextView) convertView.findViewById(R.id.review_date_mypage);
+        ImageView iconImageView = (ImageView) convertView.findViewById(R.id.review_Image) ;
+        TextView bodyTextView = (TextView) convertView.findViewById(R.id.review_body);
+        TextView titleTextView = (TextView) convertView.findViewById(R.id.review_title) ;
+        TextView dateTextView = (TextView) convertView.findViewById(R.id.review_date);
 
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        ListViewItem_review_mypage listViewItem = listViewItemList.get(position);
+        ListViewItem_review listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
         iconImageView.setImageDrawable(listViewItem.getIcon());
-        storeTextView.setText(listViewItem.getStore_Name());
+        bodyTextView.setText(listViewItem.getBody());
         titleTextView.setText(listViewItem.getTitle());
         dateTextView.setText(listViewItem.getDate());
+
 
 
 
@@ -77,13 +80,14 @@ public class ListViewAdapter3 extends BaseAdapter{
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(Drawable icon, String store, String title, String date) {
-        ListViewItem_review_mypage item = new ListViewItem_review_mypage();
+    public void addItem(Drawable icon, String title, String body, String date) {
+        ListViewItem_review item = new ListViewItem_review();
 
         item.setIcon(icon);
-        item.setStore_Name(store);
+        item.setBody(body);
         item.setTitle(title);
         item.setDate(date);
+
 
         listViewItemList.add(item);
     }

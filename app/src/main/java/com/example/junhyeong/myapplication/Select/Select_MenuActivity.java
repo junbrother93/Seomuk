@@ -1,17 +1,16 @@
 package com.example.junhyeong.myapplication.Select;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.junhyeong.myapplication.Main.MainActivity;
+import com.example.junhyeong.myapplication.Popup.PopupActivity_end;
 import com.example.junhyeong.myapplication.R;
 
 /**
@@ -20,7 +19,7 @@ import com.example.junhyeong.myapplication.R;
 
 public class Select_MenuActivity extends Activity implements View.OnClickListener {
     ImageView iv;
-    Intent location, Main, intent;
+    Intent location, Main, intent,end;
     String menu;
     TextView Txt_Menu;
     int num;
@@ -32,6 +31,7 @@ public class Select_MenuActivity extends Activity implements View.OnClickListene
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_menu);
         location = new Intent(this, Select_LocationActivity.class);//지역선택창
+        end = new Intent(this, PopupActivity_end.class);
         Main = new Intent(this, MainActivity.class);//지역선택창
         BMJUA = Typeface.createFromAsset(this.getAssets(), "fonts/BMJUA_ttf.ttf");
         Txt_Menu = (TextView)findViewById(R.id.Txt_Menu);
@@ -98,19 +98,6 @@ public class Select_MenuActivity extends Activity implements View.OnClickListene
     // 종료 할건지 물어보는 다이얼로그 생성
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("종료")
-                .setMessage("종료하시겠습니까?")
-                .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        moveTaskToBack(true);
-                        finish();
-                        android.os.Process.killProcess(android.os.Process.myPid());
-                    }
-                })
-                .setNegativeButton("아니오", null)
-                .show();
+        startActivity(end);
     }
 }

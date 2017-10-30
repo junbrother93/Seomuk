@@ -56,7 +56,7 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
     int num_favor, num_review,total_favor,total_review,store_id;
     private String classify;
     private ViewPager mPager;
-    private TextView Mypage_name;
+    private TextView Mypage_name,Mypage_title;
     private Typeface BMJUA;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -69,12 +69,14 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
 
         BMJUA = Typeface.createFromAsset(this.getAssets(), "fonts/BMJUA_ttf.ttf");
         Mypage_name = (TextView)findViewById(R.id.Mypage_Name);
+        Mypage_title = (TextView)findViewById(R.id.MyPage_title);
         logout = (ImageView) findViewById(R.id.logout);
 
         PopLogout = new Intent(this, PopupActivity_Logout.class);
         intent = new Intent(this, MainActivity.class);
         MapsActivity = new Intent(this, MapsActivity.class);
         Mypage_name.setTypeface(BMJUA);
+        Mypage_title.setTypeface(BMJUA);
 
         classify = intent.getStringExtra("classify");
 
@@ -131,12 +133,6 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                 }
 
                //일단 건들지 말기
-               if (total_favor == 0) {
-                    warn.setVisibility(View.VISIBLE);
-                    listview.setVisibility(View.GONE);
-                } else {
-                    warn.setVisibility(View.INVISIBLE);
-                    listview.setVisibility(View.VISIBLE);
                     for (int i = 0; i <= total_favor - 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                     {
 
@@ -215,7 +211,7 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                             requestQueue.add(reviewStoreRequest);
                         }
                     });
-                }
+
            }
         }, new Response.ErrorListener() {
             @Override
@@ -295,29 +291,25 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                 // 정렬
                 Collections.sort(ReviewArrayList);
                 // 정렬 한 것 어댑터에 추가
-                if (total_review== 0) {
-                    listview.setVisibility(View.GONE);
-                } else {
-                    warn.setVisibility(View.INVISIBLE);
-                    listview.setVisibility(View.VISIBLE);
                     for (int i = 0; i <= total_review- 1; i++) // index 값이라서 총 갯수에서 1을 빼줌
                     {
+
                         if (ReviewArrayList.get(i).getImage().toString().equals("저염실천음식점".toString()) || ReviewArrayList.get(i).getImage().toString().equals("저염참여음식점".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b7),ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
+                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b7),"업소 명 : "+ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
                         else if (ReviewArrayList.get(i).getImage().toString().equals("먹을만큼적당히".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b2),ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
+                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b2),"업소 명 : "+ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
                         else if (ReviewArrayList.get(i).getImage().toString().equals("건강음식점".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b1),ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
+                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b1),"업소 명 : "+ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
                         else if (ReviewArrayList.get(i).getImage().toString().equals("위생등급제".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b5),ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
+                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b5),"업소 명 : "+ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
                         else if (ReviewArrayList.get(i).getImage().toString().equals("자랑스러운 한국음식점".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b6),ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
+                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b6),"업소 명 : "+ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
                         else if (ReviewArrayList.get(i).getImage().toString().equals("원산지표시 우수음식점".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b4),ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
+                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b4),"업소 명 : "+ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
                         else if (ReviewArrayList.get(i).getImage().toString().equals("채식메뉴음식점".toString()) || ReviewArrayList.get(i).getImage().toString().equals("채식전문음식점".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b8),ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
+                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b8),"업소 명 : "+ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
                         else
-                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b3),ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
+                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b3),"업소 명 : "+ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
 
 
                     }
@@ -341,7 +333,7 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                         }
                     });
                 }
-            }
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -377,21 +369,6 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
             }
             @Override
             public void onPageSelected(int position) {
-                if(position==0)
-                {
-                    if(total_favor==0)
-                        warn.setVisibility(View.VISIBLE);
-                    else if(total_favor!=0)
-                        warn.setVisibility(View.GONE);
-
-                }
-                else if(position==1)
-                {
-                    if(total_review==0)
-                        warn.setVisibility(View.VISIBLE);
-                    else if(total_review!=0)
-                        warn.setVisibility(View.GONE);
-                }
             }
             @Override
             public void onPageScrollStateChanged(int state) {
@@ -468,8 +445,6 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
         public Object instantiateItem(View pager, int position) {
             View v = null;
             if(position==0){
-                if(total_favor==0)
-                    warn.setVisibility(View.VISIBLE);
                 v = mInflater.inflate(R.layout.inflate_favor, null);
                 favor.setOnClickListener(mPagerListener);
             }

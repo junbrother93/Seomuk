@@ -19,7 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.junhyeong.myapplication.Adapter.ListViewAdapter3;
+import com.example.junhyeong.myapplication.Adapter.ListViewAdapter4;
 import com.example.junhyeong.myapplication.Data.Store4;
 import com.example.junhyeong.myapplication.Popup.PopupActivity_Login;
 import com.example.junhyeong.myapplication.R;
@@ -109,7 +109,7 @@ public class Review_Activity extends Activity {
 
                 // 리스트뷰랑 어댑터..
                 listview = (IndexableListView2) findViewById(R.id.listview_review);
-                ListViewAdapter3 adapter = new ListViewAdapter3();
+                ListViewAdapter4 adapter = new ListViewAdapter4();
                 listview.setAdapter(adapter);
                 listview.setFastScrollEnabled(true);
 
@@ -160,21 +160,21 @@ public class Review_Activity extends Activity {
                     {
 
                         if (arrayList.get(i).getImage().toString().equals("저염실천음식점".toString()) || arrayList.get(i).getImage().toString().equals("저염참여음식점".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b7),arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
+                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b7),"제목 : "+arrayList.get(i).getTitle(),"내용 : "+arrayList.get(i).getText(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
                         else if (arrayList.get(i).getImage().toString().equals("먹을만큼적당히".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b2),arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
+                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b2),"제목 : "+arrayList.get(i).getTitle(),"내용 : "+arrayList.get(i).getText(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
                         else if (arrayList.get(i).getImage().toString().equals("건강음식점".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b1),arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
+                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b1),"제목 : "+arrayList.get(i).getTitle(),"내용 : "+arrayList.get(i).getText(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
                         else if (arrayList.get(i).getImage().toString().equals("위생등급제".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b5),arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
+                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b5),"제목 : "+arrayList.get(i).getTitle(),"내용 : "+arrayList.get(i).getText(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
                         else if (arrayList.get(i).getImage().toString().equals("자랑스러운 한국음식점".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b6),arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
+                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b6),"제목 : "+arrayList.get(i).getTitle(),"내용 : "+arrayList.get(i).getText(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
                         else if (arrayList.get(i).getImage().toString().equals("원산지표시 우수음식점".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b4),arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
+                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b4),"제목 : "+arrayList.get(i).getTitle(),"내용 : "+arrayList.get(i).getText(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
                         else if (arrayList.get(i).getImage().toString().equals("채식메뉴음식점".toString()) || arrayList.get(i).getImage().toString().equals("채식전문음식점".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b8),arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
+                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b8),"제목 : "+arrayList.get(i).getTitle(),"내용 : "+arrayList.get(i).getText(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
                        else
-                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b3),arrayList.get(i).getTitle(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
+                            adapter.addItem(ContextCompat.getDrawable(Review_Activity.this, R.drawable.b3),"제목 : "+arrayList.get(i).getTitle(),"내용 : "+arrayList.get(i).getText(), "최종 수정일 : " + arrayList.get(i).getCreated().substring(0, 10));
                     }
 
                     listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

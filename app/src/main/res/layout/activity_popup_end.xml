@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="로그아웃 하시겠습니까?"
+            android:text="종료 하시겠습니까?"
             android:layout_marginBottom="20dp"
             android:textSize="10pt"
             android:textStyle="bold"
@@ -35,7 +35,7 @@
             android:layout_marginBottom="14dp"
             >
             <ImageView
-                android:id="@+id/pop_logout"
+                android:id="@+id/pop_end"
                 android:layout_width="110dp"
                 android:layout_height="38dp"
                 android:layout_marginRight="20dp"
@@ -43,12 +43,12 @@
                 android:src="@drawable/ok"/>
 
             <ImageView
-                android:id="@+id/pop_logout_cancel"
+                android:id="@+id/pop_end_cancel"
                 android:layout_width="110dp"
                 android:layout_height="38dp"
                 android:onClick="onClick"
                 android:src="@drawable/cancel"/>
-                />
+            />
 
         </LinearLayout>
     </LinearLayout>

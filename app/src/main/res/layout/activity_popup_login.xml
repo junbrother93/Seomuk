@@ -38,6 +38,7 @@
                 android:layout_width="110dp"
                 android:layout_height="38dp"
                 android:layout_marginRight="20dp"
+                android:onClick="onClick"
                 android:src="@drawable/ok"
 />
 
@@ -45,6 +46,7 @@
                 android:id="@+id/pop_login_cancel"
                 android:layout_width="110dp"
                 android:layout_height="38dp"
+                android:onClick="onClick"
                 android:src="@drawable/cancel"/>
 
         </LinearLayout>

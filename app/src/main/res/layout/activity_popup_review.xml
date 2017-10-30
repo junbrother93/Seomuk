@@ -86,6 +86,7 @@
             android:layout_weight="1"
             android:layout_margin="7dp"
             android:paddingLeft="10dp"
+            android:maxLength="20"
             android:background="@drawable/round2"
             android:inputType="textPersonName"
             android:hint="제목"/>
@@ -96,9 +97,9 @@
             android:layout_height="261dp"
             android:layout_margin="7dp"
             android:background="@drawable/round2"
-            android:ems="10"
+            android:maxLength="400"
             android:hint="내용"
-            android:inputType="textPersonName"
+            android:inputType="textMultiLine"
             android:paddingLeft="10dp" />
     </LinearLayout>
 

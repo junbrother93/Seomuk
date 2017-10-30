@@ -80,6 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_weight="1"
+                android:maxLength="20"
                 android:hint="제목"
                 android:layout_margin="7dp"
                 android:paddingLeft="10dp"
@@ -92,9 +93,10 @@
                 android:layout_height="261dp"
                 android:layout_margin="7dp"
                 android:background="@drawable/round2"
-                android:ems="10"
                 android:hint="내용"
-                android:inputType="textPersonName"
+                android:maxLength="400"
+                android:scrollHorizontally="true"
+                android:inputType="textMultiLine"
                 android:paddingLeft="10dp" />
         </LinearLayout>
 
