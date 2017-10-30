@@ -100,7 +100,7 @@
             android:maxLength="400"
             android:hint="내용"
             android:inputType="textMultiLine"
-            android:paddingLeft="10dp" />
+            android:padding="10dp" />
     </LinearLayout>
 
     <FrameLayout
