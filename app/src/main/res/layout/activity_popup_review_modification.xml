@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="25dp"
-                android:text="후기 남기기"
+                android:text="리뷰 남기기"
                 android:textAlignment="center"
                 android:textColor="#ffffff"
                 android:textSize="7pt"

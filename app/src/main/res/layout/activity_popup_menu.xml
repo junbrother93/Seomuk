@@ -6,8 +6,7 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     android:padding="10dp"
-
-    >
+    android:background="@drawable/round2">
 
             <ImageView
                 android:id="@+id/pop1_1"

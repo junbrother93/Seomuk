@@ -14,7 +14,7 @@ import com.example.junhyeong.myapplication.Main.ListViewItem_review;
 import com.example.junhyeong.myapplication.R;
 
 import java.util.ArrayList;
-
+//리뷰전용 어댑터
 public class ListViewAdapter3 extends BaseAdapter{
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     private ArrayList<ListViewItem_review> listViewItemList = new ArrayList<ListViewItem_review>() ;
@@ -78,12 +78,13 @@ public class ListViewAdapter3 extends BaseAdapter{
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(Drawable icon, String title, String date) {
+    public void addItem(Drawable icon,String title, String date) {
         ListViewItem_review item = new ListViewItem_review();
 
         item.setIcon(icon);
         item.setTitle(title);
         item.setDate(date);
+
 
         listViewItemList.add(item);
     }
