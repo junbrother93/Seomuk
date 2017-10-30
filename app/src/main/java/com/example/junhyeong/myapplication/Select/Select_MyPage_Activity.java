@@ -295,21 +295,21 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                     {
 
                         if (ReviewArrayList.get(i).getImage().toString().equals("저염실천음식점".toString()) || ReviewArrayList.get(i).getImage().toString().equals("저염참여음식점".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b7),"업소 명 : "+ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
+                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b7),ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
                         else if (ReviewArrayList.get(i).getImage().toString().equals("먹을만큼적당히".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b2),"업소 명 : "+ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
+                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b2),ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
                         else if (ReviewArrayList.get(i).getImage().toString().equals("건강음식점".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b1),"업소 명 : "+ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
+                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b1),ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
                         else if (ReviewArrayList.get(i).getImage().toString().equals("위생등급제".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b5),"업소 명 : "+ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
+                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b5),ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
                         else if (ReviewArrayList.get(i).getImage().toString().equals("자랑스러운 한국음식점".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b6),"업소 명 : "+ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
+                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b6),ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
                         else if (ReviewArrayList.get(i).getImage().toString().equals("원산지표시 우수음식점".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b4),"업소 명 : "+ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
+                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b4),ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
                         else if (ReviewArrayList.get(i).getImage().toString().equals("채식메뉴음식점".toString()) || ReviewArrayList.get(i).getImage().toString().equals("채식전문음식점".toString()))
-                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b8),"업소 명 : "+ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
+                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b8),ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
                         else
-                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b3),"업소 명 : "+ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
+                            adapter.addItem(ContextCompat.getDrawable(Select_MyPage_Activity.this, R.drawable.b3),ReviewArrayList.get(i).getStore_name(),"제목 : "+ReviewArrayList.get(i).getTitle(),"최종 수정일 : "+ReviewArrayList.get(i).getCreated().substring(0,10));
 
 
                     }
