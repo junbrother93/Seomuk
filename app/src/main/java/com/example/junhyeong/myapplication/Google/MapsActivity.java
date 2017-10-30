@@ -101,10 +101,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             store_class=" 해당사항 없음".toString();
 
         store_call = intent.getStringExtra("store_call"); //전화번호아이콘 만들어지면 사용
-        if (store_call.equals("") || store_call.equals(null)) {
+        if (store_call.equals("") || store_call.equals(" ")||store_call.equals(null)) {
             store_call = "정보를 제공하지 않습니다".toString();
         }
+
         store_call = store_call.replaceAll("\\p{Z}", "");
+
         if (store_call.substring(0, 2).equals("02") || store_call.substring(0, 3).equals("010") || store_call.substring(0, 3).equals("016") || store_call.substring(0, 3).equals("019")) {
         } else {
 
@@ -116,7 +118,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 store_call = store_call.replaceAll("0002", "02");
             } else
                 store_call = "02".toString() + store_call;
-
         }
 
         x = intent.getDoubleExtra("X", 0.0);

@@ -96,42 +96,52 @@ public class Review_write_Activity extends Activity {
                 strReviewTitle = ReviewTitle.getText().toString();
                 strReviewBody = ReviewBody.getText().toString();
 
-                if (strReviewTitle.equals("") || strReviewBody.equals("")) {
-
+                if (strReviewTitle.replaceAll(" ", "").equals("") && strReviewBody.replaceAll(" ", "").equals("")) {
+                    Toast.makeText(this, "제목과 내용을 입력해주세요", Toast.LENGTH_SHORT).show();
+                    break;
                 }
+                else if(strReviewTitle.replaceAll(" ", "").equals("") && !strReviewBody.replaceAll(" ", "").equals("")) {
+                    Toast.makeText(this, "제목을 입력해주세요", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                else if(!strReviewTitle.replaceAll(" ", "").equals("") && strReviewBody.replaceAll(" ", "").equals("")) {
+                    Toast.makeText(this, "내용을 입력해주세요", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                else if(!strReviewTitle.replaceAll(" ", "").equals("") && !strReviewBody.replaceAll(" ", "").equals("")) {
+                    RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                    StringRequest reviewWriteRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.d("reviewWriteResponse", "" + response);
+                            Toast.makeText(Review_write_Activity.this, "리뷰 작성 완료", Toast.LENGTH_SHORT).show();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("reviewWriteError", error.toString());
+                        }
+                    }) {
+                        @Override
+                        protected Map<String, String> getParams() {
+                            GlobalApplication GUserID = (GlobalApplication) getApplication();
+                            Map<String, String> params = new HashMap<>();
+                            params.put("title", strReviewTitle);
+                            params.put("text", strReviewBody);
+                            params.put("classify", classify);
+                            params.put("user_id", String.valueOf(GUserID.getGlobalUserID()));
+                            params.put("store_id", String.valueOf(store_id));
+                            params.put("score", String.valueOf(score));
+                            params.put("image", image);
+                            Log.e("body", "body" + params);
 
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                StringRequest reviewWriteRequest = new StringRequest(Request.Method.POST, "http://13.124.127.124:3000/review", new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("reviewWriteResponse", "" + response);
-                        Toast.makeText(Review_write_Activity.this, "리뷰 작성 완료", Toast.LENGTH_SHORT).show();
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("reviewWriteError", error.toString());
-                    }
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-                        GlobalApplication GUserID = (GlobalApplication) getApplication();
-                        Map<String, String> params = new HashMap<>();
-                        params.put("title", strReviewTitle);
-                        params.put("text", strReviewBody);
-                        params.put("classify", classify);
-                        params.put("user_id", String.valueOf(GUserID.getGlobalUserID()));
-                        params.put("store_id", String.valueOf(store_id));
-                        params.put("score", String.valueOf(score));
-                        params.put("image", image);
-                        Log.e("body", "body" + params);
+                            return params;
+                        }
 
-                        return params;
-                    }
-
-                };
-                requestQueue.add(reviewWriteRequest);
-                redirectReview_Activity();
+                    };
+                    requestQueue.add(reviewWriteRequest);
+                    redirectReview_Activity();
+                }
                 break;
             case R.id.NoBtn:
                 redirectReview_Activity();
