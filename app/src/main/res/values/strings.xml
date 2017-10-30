@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">서울 먹거리</string>
+    <string name="app_name">서울 안심 먹거리</string>
     <string name="facebook_app_id">1935416913373284</string>
     <string name="fb_login_protocol_scheme">fb1935416913373284</string>
     <string name="action_settings">Setting</string>
