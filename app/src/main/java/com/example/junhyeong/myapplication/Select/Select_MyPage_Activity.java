@@ -184,6 +184,7 @@ public class Select_MyPage_Activity extends Activity implements View.OnClickList
                                         MapsActivity.putExtra("Y", response.optJSONArray("data").optJSONObject(0).optDouble("CTF_Y", 126.8494668));
                                         MapsActivity.putExtra("classify", classify);
                                         MapsActivity.putExtra("mypage", 0);
+                                        MapsActivity.putExtra("check", 1);
                                     }
 
                                     else if(classify.equals("auth"))
