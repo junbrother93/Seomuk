@@ -22,11 +22,11 @@
             android:layout_height="30dp"
             android:layout_gravity="left"
             android:textColor="#000000"
-            android:paddingTop="7dp"
+            android:paddingTop="12dp"
             android:text="업소 명"
             android:ellipsize="end"
             android:singleLine = "true"
-            android:textSize="8pt" />
+            android:textSize="7pt" />
 
         <TextView
             android:id="@+id/review_title_mypage"
@@ -34,6 +34,7 @@
             android:layout_height="20dp"
             android:layout_gravity="left"
             android:textColor="#000000"
+            android:paddingTop="5dp"
             android:text="제목"
             android:ellipsize="end"
             android:singleLine = "true"

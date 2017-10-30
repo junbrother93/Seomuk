@@ -54,8 +54,8 @@
 
             <ImageView
                 android:id="@+id/logout"
-                android:layout_width="35dp"
-                android:layout_height="match_parent"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginRight="3dp"
                 android:layout_alignParentRight="true"
                 android:onClick="onClick"
