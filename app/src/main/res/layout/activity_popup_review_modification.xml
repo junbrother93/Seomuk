@@ -29,10 +29,11 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:background="#333333"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/Value2"
@@ -43,7 +44,7 @@
                 android:text=" 1.0 "
                 android:textAlignment="center"
                 android:textSize="10pt"
-                android:textColor="#232323"
+                android:textColor="#FFFFFF"
                 android:textStyle="bold" />
 
             <TextView
@@ -53,7 +54,7 @@
                 android:textStyle="bold"
                 android:textSize="10pt"
                 android:paddingTop="15dp"
-                android:textColor="#232323"
+                android:textColor="#FFFFFF"
                 android:textAlignment="center"
                 android:text="/ 5.0 " />
 

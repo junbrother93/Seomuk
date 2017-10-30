@@ -98,7 +98,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             store_class = store_class.replaceAll("03"," Lv.3");
         }
         else
-            store_class=" 해당사항 없음".toString();
+            store_class="해당사항 없음".toString();
 
         store_call = intent.getStringExtra("store_call"); //전화번호아이콘 만들어지면 사용
         if (store_call.equals("") || store_call.equals(" ")||store_call.equals(null)) {

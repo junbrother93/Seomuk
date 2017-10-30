@@ -1,6 +1,7 @@
 package com.example.junhyeong.myapplication.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 public class ListViewAdapter3 extends BaseAdapter{
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     private ArrayList<ListViewItem_review_mypage> listViewItemList = new ArrayList<ListViewItem_review_mypage>() ;
-
+    private Typeface Tmon;
     // ListViewAdapter의 생성자
     public ListViewAdapter3() {
 
@@ -48,6 +49,8 @@ public class ListViewAdapter3 extends BaseAdapter{
         TextView storeTextView = (TextView) convertView.findViewById(R.id.review_store_mypage);
         TextView titleTextView = (TextView) convertView.findViewById(R.id.review_title_mypage) ;
         TextView dateTextView = (TextView) convertView.findViewById(R.id.review_date_mypage);
+        Tmon = Typeface.createFromAsset(context.getAssets(), "fonts/TmonTium.ttf");
+        storeTextView.setTypeface(Tmon);
 
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득

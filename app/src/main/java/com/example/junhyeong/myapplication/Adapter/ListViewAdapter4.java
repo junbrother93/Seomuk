@@ -19,7 +19,7 @@ public class ListViewAdapter4 extends BaseAdapter{
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     private ArrayList<ListViewItem_review> listViewItemList = new ArrayList<ListViewItem_review>() ;
 
-    private Typeface HANNA;
+    private Typeface Tmon;
     // ListViewAdapter의 생성자
     public ListViewAdapter4() {
 
@@ -50,7 +50,8 @@ public class ListViewAdapter4 extends BaseAdapter{
         TextView bodyTextView = (TextView) convertView.findViewById(R.id.review_body);
         TextView titleTextView = (TextView) convertView.findViewById(R.id.review_title) ;
         TextView dateTextView = (TextView) convertView.findViewById(R.id.review_date);
-
+        Tmon = Typeface.createFromAsset(context.getAssets(), "fonts/TmonTium.ttf");
+        titleTextView.setTypeface(Tmon);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         ListViewItem_review listViewItem = listViewItemList.get(position);
