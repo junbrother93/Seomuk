@@ -125,7 +125,7 @@ public class Review_Activity extends Activity {
                     ArrCreated.add(ArrData.get(i).optString("created", "No Value"));
                     ArrScore.add(ArrData.get(i).optInt("score", 0));
                     ArrUser_Id.add(ArrData.get(i).optInt("UserId", 0));
-
+                    ArrStoreName.add(ArrData.get(i).optString("storename", "No Value"));
                     Store4 s = new Store4();
 
                     s.setArrData(response.optJSONArray("data").optJSONObject(i));
@@ -135,6 +135,8 @@ public class Review_Activity extends Activity {
                     s.setCreated(ArrData.get(i).optString("created", "No Value"));
                     s.setScore(ArrData.get(i).optInt("score", 0));
                     s.setUserId(ArrData.get(i).optInt("UserId", 0));
+                    s.setStoreName(ArrData.get(i).optString("storename", "No Value"));
+
                     arrayList.add(s);
 
                 }

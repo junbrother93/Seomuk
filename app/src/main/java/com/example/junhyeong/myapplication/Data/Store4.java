@@ -10,10 +10,10 @@ import org.json.JSONObject;
 
 public class Store4 {
     JSONObject ArrData;
-    String Title, Text, Image, Created;
+    String Title, Text, Image, Created, StoreName;
     int Score, UserId;
 
-    public void setData(JSONObject Data, String Title, String Text, String Image, String Created, int Score, int User_Id) {
+    public void setData(JSONObject Data, String Title, String Text, String Image, String Created, int Score, int User_Id, String Store_Name) {
         setArrData(Data);
         setTitle(Title);
         setText(Text);
@@ -21,6 +21,7 @@ public class Store4 {
         setCreated(Created);
         setScore(Score);
         setUserId(User_Id);
+        setStoreName(Store_Name);
     }
 
     public void setArrData(JSONObject Data) {
@@ -32,6 +33,7 @@ public class Store4 {
     public void setCreated(String created) {Created = created;}
     public void setScore(int score) {Score = score;}
     public void setUserId(int user_id) {UserId = user_id;}
+    public void setStoreName(String store_name) {StoreName = store_name;}
 
     public Store4 getData4() {
         return this;
@@ -45,6 +47,7 @@ public class Store4 {
     public String getCreated() { return Created;}
     public int getScore() { return Score;}
     public int getUserId() { return UserId;}
+    public String getStoreName() { return StoreName; }
 
     public int compareTo(Store4 store)
     {
