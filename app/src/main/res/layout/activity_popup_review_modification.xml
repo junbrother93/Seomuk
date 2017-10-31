@@ -10,16 +10,16 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:background="#787878"
-            android:layout_weight="0.2"
+
             >
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="25dp"
+                android:paddingTop="10dp"
                 android:text="리뷰 수정/삭제"
                 android:textAlignment="center"
                 android:textColor="#ffffff"
@@ -28,10 +28,10 @@
 
             <ImageView
                 android:id="@+id/move"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="right"
-                android:paddingTop="25dp"
+                android:paddingTop="10dp"
                 android:layout_marginRight="5dp"
                 android:onClick="onClick"
                 android:src="@drawable/mypage_move" />

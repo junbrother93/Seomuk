@@ -12,15 +12,15 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:background="#787878"
-        android:layout_weight="0.2">
+>
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="25dp"
+            android:paddingTop="10dp"
             android:textColor="#ffffff"
             android:textStyle="bold"
             android:textAlignment="center"
@@ -117,7 +117,7 @@
             android:layout_width="110dp"
             android:layout_height="38dp"
             android:layout_gravity="center"
-            android:layout_marginRight="60dp"
+            android:layout_marginRight="80dp"
             android:text="확인"
             android:onClick="onClick">
 
@@ -129,7 +129,7 @@
             android:layout_width="110dp"
             android:layout_height="38dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="60dp"
+            android:layout_marginLeft="80dp"
             android:text="취소"
             android:onClick="onClick"/>
 
