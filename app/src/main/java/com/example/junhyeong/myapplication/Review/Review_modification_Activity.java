@@ -33,7 +33,7 @@ import java.util.Map;
 public class Review_modification_Activity extends Activity {
 
     EditText ReviewTitle, ReviewBody;
-    ImageView btnModification, btnDelete, btnClose;
+    ImageView btnModification, btnDelete, btnClose,btnMove;
     Intent intent, ActMypage;
     String title, body, classify, created, image;
     int index, user_id, width, height, score, store_id;
@@ -72,6 +72,7 @@ public class Review_modification_Activity extends Activity {
         btnClose = (ImageView) findViewById(R.id.btnClose);
         rating = (RatingBar) findViewById(R.id.ratingBar2);
         Value = (TextView) findViewById(R.id.Value2);
+        btnMove = (ImageView)findViewById(R.id.move);
 
 
         // 받아온 데이터로 내용 수정
@@ -225,7 +226,16 @@ public class Review_modification_Activity extends Activity {
                 redirectSelect_MyPage_Activity();
             }
         });
+        //여기 상세페이지로 이동하게
+        btnMove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
     }
+
+
 
     protected void redirectSelect_MyPage_Activity() {
         try {

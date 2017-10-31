@@ -79,15 +79,13 @@
 
             </LinearLayout>
 
-
             <ImageView
                 android:id="@+id/unlogin"
                 android:background="@drawable/unlogin"
                 android:layout_width="300dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:textStyle="bold"
-                android:text="비회원으로 접속" />
+ />
         </LinearLayout>
 
     </FrameLayout>

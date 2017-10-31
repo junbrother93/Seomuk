@@ -25,6 +25,16 @@
                 android:textColor="#ffffff"
                 android:textSize="7pt"
                 android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/move"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="right"
+                android:paddingTop="25dp"
+                android:layout_marginRight="5dp"
+                android:onClick="onClick"
+                android:src="@drawable/mypage_move" />
         </FrameLayout>
 
 
