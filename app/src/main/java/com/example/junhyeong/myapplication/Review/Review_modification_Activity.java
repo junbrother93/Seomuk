@@ -17,11 +17,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.junhyeong.myapplication.GlobalApplication.GlobalApplication;
+import com.example.junhyeong.myapplication.Google.MapsActivity;
 import com.example.junhyeong.myapplication.R;
 import com.example.junhyeong.myapplication.Select.Select_MyPage_Activity;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,8 +37,8 @@ import java.util.Map;
 public class Review_modification_Activity extends Activity {
 
     EditText ReviewTitle, ReviewBody;
-    ImageView btnModification, btnDelete, btnClose,btnMove;
-    Intent intent, ActMypage;
+    ImageView btnModification, btnDelete, btnClose, btnMove;
+    Intent intent, ActMypage, MapsActivity;
     String title, body, classify, created, image;
     int index, user_id, width, height, score, store_id;
     RatingBar rating;
@@ -46,6 +50,7 @@ public class Review_modification_Activity extends Activity {
         setContentView(R.layout.activity_popup_review_modification);
         intent = getIntent();
         ActMypage = new Intent(this, Select_MyPage_Activity.class);
+        MapsActivity = new Intent(this, MapsActivity.class);
         title = intent.getStringExtra("review_title");
         body = intent.getStringExtra("review_body");
         created = intent.getStringExtra("review_created");
@@ -230,12 +235,58 @@ public class Review_modification_Activity extends Activity {
         btnMove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                if (classify.equals("safe")) {
+                    classify = "food";
+                }
+                String url = "http://13.124.127.124:3000/" + classify + "/" + store_id;
+                JsonObjectRequest reviewStoreRequest = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("reviewResponse", "" + response);
+                        if (classify.equals("food"))
+                        {
+                            classify = "safe";
+                            MapsActivity.putExtra("store_id", response.optJSONArray("data").optJSONObject(0).optInt("CTF_CODE", 0));
+                            MapsActivity.putExtra("store_name", response.optJSONArray("data").optJSONObject(0).optString("CTF_NAME", "No Value"));
+                            MapsActivity.putExtra("store_grade", response.optJSONArray("data").optJSONObject(0).optString("CTF_TYPE_NAME", "No Value"));
+                            MapsActivity.putExtra("store_call", response.optJSONArray("data").optJSONObject(0).optString("CTF_TEL", "No Value"));
+                            MapsActivity.putExtra("CRTFC_CLASS", response.optJSONArray("data").optJSONObject(0).optString("CRTFC_CLASS", "No Value"));
+                            MapsActivity.putExtra("X", response.optJSONArray("data").optJSONObject(0).optDouble("CTF_X", 37.5652894));
+                            MapsActivity.putExtra("Y", response.optJSONArray("data").optJSONObject(0).optDouble("CTF_Y", 126.8494668));
+                            MapsActivity.putExtra("classify", classify);
+                            MapsActivity.putExtra("mypage", 0);
+                            MapsActivity.putExtra("check", 1);
+                        }
+
+                        else if(classify.equals("auth"))
+                        {
+                            MapsActivity.putExtra("store_id", response.optJSONArray("data").optJSONObject(0).optInt("CRTFC_UPSO_MGT_SNO", 0));
+                            MapsActivity.putExtra("store_name", response.optJSONArray("data").optJSONObject(0).optString("UPSO_NM", "No Value"));
+                            MapsActivity.putExtra("store_grade", response.optJSONArray("data").optJSONObject(0).optString("CRTFC_GBN_NM", "No Value"));
+                            MapsActivity.putExtra("store_call", response.optJSONArray("data").optJSONObject(0).optString("TEL_NO", "No Value"));
+                            MapsActivity.putExtra("CRTFC_CLASS", response.optJSONArray("data").optJSONObject(0).optString("CRTFC_CLASS", "No Value"));
+                            MapsActivity.putExtra("X", response.optJSONArray("data").optJSONObject(0).optDouble("Y_DNTS", 37.5652894));
+                            MapsActivity.putExtra("Y", response.optJSONArray("data").optJSONObject(0).optDouble("X_CNTS", 126.8494668));
+                            MapsActivity.putExtra("classify", classify);
+                            MapsActivity.putExtra("mypage", 0);
+                            MapsActivity.putExtra("check", 1);
+                        }
+
+                        startActivity(MapsActivity);
+                        finish();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("reviewError", "" + error);
+                    }
+                });
+                requestQueue.add(reviewStoreRequest);
             }
         });
     }
-
-
 
     protected void redirectSelect_MyPage_Activity() {
         try {
