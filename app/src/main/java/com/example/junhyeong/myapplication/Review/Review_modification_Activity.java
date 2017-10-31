@@ -230,7 +230,7 @@ public class Review_modification_Activity extends Activity {
         btnMove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
             }
         });
     }

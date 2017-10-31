@@ -44,9 +44,9 @@ import java.util.Map;
 public class LoginActivity extends Activity {
 
     private SessionCallback callback;      //콜백 선언 for kakao
-    CallbackManager callbackManager;       //콜백 선언 for facebook
-    ImageView unlogin;
-    ImageView copyright;
+    private CallbackManager callbackManager;       //콜백 선언 for facebook
+    private ImageView unlogin;
+    private ImageView copyright;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

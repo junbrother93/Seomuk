@@ -81,11 +81,11 @@
 
             <ImageView
                 android:id="@+id/unlogin"
-                android:background="@drawable/unlogin"
+                android:src="@drawable/unlogin"
                 android:layout_width="300dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
- />
+                 />
         </LinearLayout>
 
     </FrameLayout>
